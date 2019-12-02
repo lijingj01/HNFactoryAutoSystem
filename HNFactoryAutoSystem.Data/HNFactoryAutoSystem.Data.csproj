@@ -71,5 +71,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HNFactoryAutoSystem.SysHelper\HNFactoryAutoSystem.SysHelper.csproj">
+      <Project>{0ae518fd-83a9-4525-9645-991c25eec7de}</Project>
+      <Name>HNFactoryAutoSystem.SysHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
