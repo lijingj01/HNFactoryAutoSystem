@@ -1,0 +1,19 @@
+{
+  "msg": "成功",
+  "code": "0000",
+  "data": {
+    "token": "",
+    "factorys": [
+      {
+        "factoryId": "工厂编号",
+        "factoryName": "工厂名称",
+        "processes": [
+          {
+            "processId": "工艺流程编号",
+            "processName": "工艺流程名称"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "msg": "成功",
+  "code": "0000",
+  "data": {
+    "factoryId": "工厂编号",
+    "factoryName": "工厂名称",
+    "processId": "工艺流程编号",
+    "processName": "工艺流程名称",
+    "devices": [
+      {
+        "deviceId": "设备编号",
+        "deviceName": "设备名称",
+        "Parameters": [
+          {
+            "parameterId": "参数编号",
+            "parameterName": "参数名称",
+            "parameterType": "参数类型（重量/温度/PH值/浊度等）",
+            "parameterValue": "参数数值"
+          }
+        ]
+      }
+    ]
+  }
+}
