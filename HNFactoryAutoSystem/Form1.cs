@@ -1,25 +1,39 @@
-﻿using HNFactoryAutoSystem.Test;
+﻿using HNFactoryAutoSystem.Business;
+using HNFactoryAutoSystem.Data;
+using HNFactoryAutoSystem.Data.ProcessData;
+using HNFactoryAutoSystem.Test;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.ServiceModel;
-using System.ServiceModel.Description;
 using System.ServiceModel.Web;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HNFactoryAutoSystem
 {
     public partial class Form1 : Form
     {
-        WebServiceHost host;
+        private WebServiceHost host;
         public Form1()
         {
             InitializeComponent();
+            LoadDBList();
+        }
+
+        private void LoadDBList()
+        {
+            //测试加载数据库信息
+            //DataHelper dataHelper = new DataHelper();
+            //string strProcessId = "HPIO-2019-3000";
+            ////TeExProcessCollection infos = dataHelper.GetTeExProcesses(strProcessId);
+
+            //TeExProcess exProcess = dataHelper.GetTeExProcess(strProcessId, 1);
+
+            //StringBuilder strText = new StringBuilder();
+            //foreach (ProcessStep info in exProcess.Steps)
+            //{
+            //    strText.AppendLine(info.StepTitle);
+            //}
+            //textBox1.Text = strText.ToString();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -131,6 +145,36 @@ namespace HNFactoryAutoSystem
         private void timer1_Tick(object sender, EventArgs e)
         {
             label2.Text = DateTime.Now.ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ProcessBusiness processBusiness = new ProcessBusiness();
+
+                ProcessBusiness.DeviceAction deviceAction = ProcessDeviceAction;
+
+                string strAssemblyLineId = "G01-PL-01";
+                string strCreateUser = "Test";
+
+                processBusiness.StartProcess(strAssemblyLineId, strCreateUser, deviceAction);
+
+                MessageBox.Show("流程完成！");
+            }
+            catch(Exception ex)
+            {
+                textBox1.Text = ex.Message;
+            }
+        }
+
+        private bool ProcessDeviceAction(string strDeviceId
+                , string strSonserId
+                , SysHelper.Enums.SenserStatusType senserStatusType
+                , SysHelper.Enums.DeviceParameterType parameterType
+                , decimal deSetValue)
+        {
+            return true;
         }
     }
 }

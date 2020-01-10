@@ -37,6 +37,7 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -52,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="appString.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +62,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ServerMainForm.Designer.cs">
+      <DependentUpon>ServerMainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Test\IPersonInfoQuery.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -73,6 +81,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ServerMainForm.resx">
+      <DependentUpon>ServerMainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Dome\json1.json" />
     <None Include="Dome\UserLoginReturn.json" />
     <None Include="packages.config" />
@@ -88,6 +99,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HNFactoryAutoSystem.Business\HNFactoryAutoSystem.Business.csproj">
+      <Project>{79e31422-5184-468b-8e1c-ab6ab111c6c4}</Project>
+      <Name>HNFactoryAutoSystem.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HNFactoryAutoSystem.Data\HNFactoryAutoSystem.Data.csproj">
+      <Project>{2dab3be9-c81a-469a-892e-f5510ae2b8eb}</Project>
+      <Name>HNFactoryAutoSystem.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HNFactoryAutoSystem.SysHelper\HNFactoryAutoSystem.SysHelper.csproj">
+      <Project>{0ae518fd-83a9-4525-9645-991c25eec7de}</Project>
+      <Name>HNFactoryAutoSystem.SysHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

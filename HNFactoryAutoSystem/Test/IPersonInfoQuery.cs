@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HNFactoryAutoSystem.Test
 {
     [ServiceContract(Name = "PersonInfoQueryServices")]
-    interface IPersonInfoQuery
+    internal interface IPersonInfoQuery
     {
         /// <summary>
         /// 说明：GET请求
