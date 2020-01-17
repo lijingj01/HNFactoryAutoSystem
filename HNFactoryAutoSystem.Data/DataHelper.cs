@@ -76,12 +76,12 @@ namespace HNFactoryAutoSystem.Data
         /// </summary>
         /// <param name="strFactoryId"></param>
         /// <returns></returns>
-        public AssemblyLineInfoCollection GetAssemblyLineInfos(string strFactoryId)
+        public AssemblyLineInfoCollection GetAssemblyLineInfoCollection(string strFactoryId)
         {
             try
             {
                 AssemblyLineInfoCollection infos = new AssemblyLineInfoCollection();
-                string strSQL = "select *from f_assemblylineinfo where FactoryId=?FactoryId";
+                string strSQL = "select *from v_assemblylineinfo where FactoryId=?FactoryId";
                 List<MySqlParameter> sqlParameters = new List<MySqlParameter>
                 {
                     new MySqlParameter("?FactoryId", strFactoryId)
@@ -104,12 +104,12 @@ namespace HNFactoryAutoSystem.Data
         /// <param name="strFactoryId"></param>
         /// <param name="strProcessId"></param>
         /// <returns></returns>
-        public AssemblyLineInfoCollection GetAssemblyLineInfos(string strFactoryId, string strProcessId)
+        public AssemblyLineInfoCollection GetAssemblyLineInfoCollection(string strFactoryId, string strProcessId)
         {
             try
             {
                 AssemblyLineInfoCollection infos = new AssemblyLineInfoCollection();
-                string strSQL = "select *from f_assemblylineinfo where FactoryId=?FactoryId and ProcessId=?ProcessId";
+                string strSQL = "select *from v_assemblylineinfo where FactoryId=?FactoryId and ProcessId=?ProcessId";
                 List<MySqlParameter> sqlParameters = new List<MySqlParameter>
                 {
                     new MySqlParameter("?FactoryId", strFactoryId),
@@ -211,11 +211,42 @@ namespace HNFactoryAutoSystem.Data
                 };
                 SensorInfo info = new SensorInfo();
 
-                CreateDataList<SensorInfo>(infos, strSQL, sqlParameters, info, null);
+                Dictionary<string, Type> dEnum = new Dictionary<string, Type>();
+                dEnum.Add("ParType", typeof(SysHelper.Enums.DeviceParameterType));
+
+
+                CreateDataList<SensorInfo>(infos, strSQL, sqlParameters, info, dEnum);
 
                 return infos;
             }
             catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 获取传感器信息
+        /// </summary>
+        /// <param name="strSensorId">传感器编号</param>
+        /// <returns></returns>
+        public SensorInfo GetSensorInfo(string strSensorId)
+        {
+            try
+            {
+                DataModels.HnfactoryautodbDB dataContext = new DataModels.HnfactoryautodbDB();
+                DataModels.FSensorinfo data = dataContext.FSensorinfoes.SingleOrDefault(c => c.SensorId == strSensorId);
+                if (data != null)
+                {
+                    SensorInfo info = new SensorInfo(data);
+                    return info;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }catch(Exception ex)
             {
                 throw ex;
             }

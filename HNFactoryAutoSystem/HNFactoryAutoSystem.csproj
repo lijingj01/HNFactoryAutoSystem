@@ -54,6 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="appString.cs" />
+    <Compile Include="AssemblyLineStatusForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssemblyLineStatusForm.Designer.cs">
+      <DependentUpon>AssemblyLineStatusForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +75,9 @@
       <DependentUpon>ServerMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Test\IPersonInfoQuery.cs" />
+    <EmbeddedResource Include="AssemblyLineStatusForm.resx">
+      <DependentUpon>AssemblyLineStatusForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

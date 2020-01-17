@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -29,6 +31,26 @@ namespace HNFactoryAutoSystem.Data
                 }
             }
         }
+
+        #region 处理方法
+        /// <summary>
+        /// 将对象转换成Json字符串
+        /// </summary>
+        /// <returns></returns>
+        public string ToJsonString()
+        {
+            string strJson = string.Empty;
+            try
+            {
+                IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+                //这里使用自定义日期格式，如果不使用的话，默认是ISO8601格式  'HH':'mm':'ss"     
+                timeConverter.DateTimeFormat = "yyyy'-'MM'-'dd HH':'mm':'ss";
+                strJson = JsonConvert.SerializeObject(this, Formatting.Indented, timeConverter);
+            }
+            catch (Exception ex) { }
+            return strJson;
+        }
+        #endregion
     }
     #endregion
 
@@ -97,8 +119,26 @@ namespace HNFactoryAutoSystem.Data
         public string Parameter2 { get; set; }
         #endregion
 
+        #region 扩展属性
+        /// <summary>
+        /// 工艺主流程说明
+        /// </summary>
+        public string ProcessTitle { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ProductsType { get; set; }
+
+        /// <summary>
+        /// 生产线生产状态（未生产，生产中）
+        /// </summary>
+        public string AssemblyLineStatus { get; set; }
+        #endregion
+
         #region 构造函数
-        public AssemblyLineInfo() { }
+        public AssemblyLineInfo() {
+            AssemblyLineStatus = "未生产";
+        }
 
         internal AssemblyLineInfo(DataModels.FAssemblylineinfo data) : this()
         {
@@ -109,6 +149,19 @@ namespace HNFactoryAutoSystem.Data
             this.FactoryId = data.FactoryId;
             this.Parameter1 = data.Parameter1;
             this.Parameter2 = data.Parameter2;
+        }
+
+        internal AssemblyLineInfo(DataModels.VAssemblylineinfo data) : this()
+        {
+            this.Id = data.Id;
+            this.AssemblyLineId = data.AssemblyLineId;
+            this.AssemblyLineTitle = data.AssemblyLineTitle;
+            this.ProcessId = data.ProcessId;
+            this.FactoryId = data.FactoryId;
+            this.Parameter1 = data.Parameter1;
+            this.Parameter2 = data.Parameter2;
+            this.ProcessTitle = data.ProcessTitle;
+            this.ProductsType = data.ProductsType;
         }
         #endregion
     }
@@ -204,35 +257,40 @@ namespace HNFactoryAutoSystem.Data
         /// <summary>
         /// 数字输入信号
         /// </summary>
-        public int IO_DI { get; set; }
+        public int? IO_DI { get; set; }
         /// <summary>
         /// 数字输出信号
         /// </summary>
-        public int IO_DO { get; set; }
+        public int? IO_DO { get; set; }
         /// <summary>
         /// 模拟输入
         /// </summary>
-        public int IO_AI { get; set; }
+        public int? IO_AI { get; set; }
         /// <summary>
         /// 模拟输出
         /// </summary>
-        public int IO_AO { get; set; }
+        public int? IO_AO { get; set; }
         /// <summary>
         /// Modbus输出
         /// </summary>
-        public int IO_Modbus { get; set; }
+        public int? IO_Modbus { get; set; }
         /// <summary>
         /// 最小参数
         /// </summary>
-        public decimal MinEU { get; set; }
+        public decimal? MinEU { get; set; }
         /// <summary>
         /// 最大参数
         /// </summary>
-        public decimal MaxEU { get; set; }
+        public decimal? MaxEU { get; set; }
         /// <summary>
         /// 单位
         /// </summary>
         public string Units { get; set; }
+
+        /// <summary>
+        /// 参数类型
+        /// </summary>
+        public SysHelper.Enums.DeviceParameterType ParType { get; set; }
         /// <summary>
         /// 说明
         /// </summary>
@@ -251,10 +309,48 @@ namespace HNFactoryAutoSystem.Data
         public string DeviceId { get; set; }
 
         public string ToDeviceId { get; set; }
+
+        /// <summary>
+        /// 传感器在PLC里面的地址编码
+        /// </summary>
+        public string PLC_Address { get; set; }
+        /// <summary>
+        /// 传感器在PLC里面的数值所占位置长度
+        /// </summary>
+        public int ValueLength { get; set; }
         #endregion
 
         #region 构造函数
+        public SensorInfo()
+        {
 
+        }
+
+        internal SensorInfo(DataModels.FSensorinfo data) : this()
+        {
+            this.Id = data.Sid;
+            this.SensorId = data.SensorId;
+            this.SensorName = data.SensorName;
+            this.Power = data.Power;
+            this.Voltage = data.Voltage;
+            this.StarterType = data.StarterType;
+            this.IO_DI = data.IoDi;
+            this.IO_DO = data.IoDo;
+            this.IO_AI = data.IoAi;
+            this.IO_AO = data.IoAo;
+            this.IO_Modbus = data.IoModbus;
+            this.MinEU = data.MinEU;
+            this.MaxEU = data.MaxEu;
+            this.Units = data.Units;
+            this.ParType = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.DeviceParameterType>(data.ParType);
+            this.SComment = data.SComment;
+            this.SensorStatus = data.SensorStatus;
+            this.PLC_Id = data.PlcId;
+            this.DeviceId = data.DeviceId;
+            this.ToDeviceId = data.ToDeviceId;
+            this.PLC_Address = data.PlcAddress;
+            this.ValueLength = data.ValueLength;
+        }
         #endregion
     }
 
@@ -289,6 +385,10 @@ namespace HNFactoryAutoSystem.Data
         /// </summary>
         public DateTime? Created { get; set; }
         /// <summary>
+        /// 是否是当前最新状态
+        /// </summary>
+        public bool IsCurrent { get; set; }
+        /// <summary>
         /// 设备当前状态
         /// </summary>
         public SysHelper.Enums.DeviceActionType DeviceStatus { get; set; }
@@ -297,6 +397,15 @@ namespace HNFactoryAutoSystem.Data
         /// 采集来源传感器编号
         /// </summary>
         public string SensorId { get; set; }
+
+        /// <summary>
+        /// 数值对应的状态类型
+        /// </summary>
+        public string ValueType { get; set; }
+        /// <summary>
+        /// 传感器当前状态值
+        /// </summary>
+        public int SensorStatusValue { get; set; }
         /// <summary>
         /// 传感器当前状态
         /// </summary>
@@ -316,6 +425,29 @@ namespace HNFactoryAutoSystem.Data
         public decimal? ParValue { get; set; }
         #endregion
 
+        #region 扩展的视图属性
+        /// <summary>
+        /// 设备名称
+        /// </summary>
+        public string DeviceName { get; set; }
+        /// <summary>
+        /// 传感器名称
+        /// </summary>
+        public string SensorName { get; set; }
+        /// <summary>
+        /// 生产线唯一编号
+        /// </summary>
+        public string AssemblyLineId { get; set; }
+        /// <summary>
+        /// 生产线名称
+        /// </summary>
+        public string AssemblyLineTitle { get; set; }
+        /// <summary>
+        /// 工艺主流程说明
+        /// </summary>
+        public string ProcessTitle { get; set; }
+        #endregion
+
         #region 构造函数
         public DeviceProduceLog()
         {
@@ -328,12 +460,37 @@ namespace HNFactoryAutoSystem.Data
             this.DeviceProduceLogId = data.DeviceProduceLogId;
             this.DeviceId = data.DeviceId;
             this.Created = data.Created;
+            this.IsCurrent = Convert.ToBoolean(data.IsCurrent);
             this.DeviceStatus = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.DeviceActionType>(data.DeviceStatus);
             this.SensorId = data.SensorId;
+            this.ValueType = data.ValueType;
+            this.SensorStatusValue = data.SensorStatusValue;
             this.SensorStatus = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.SenserStatusType>(data.SensorStatus);
             this.ParType = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.DeviceParameterType>(data.ParType);
             this.ParUnit = data.ParUnit;
             this.ParValue = data.ParValue;
+        }
+
+        internal DeviceProduceLog(DataModels.VDeviceproducelog data)
+        {
+            this.Id = data.Id;
+            this.DeviceProduceLogId = data.DeviceProduceLogId;
+            this.DeviceId = data.DeviceId;
+            this.Created = data.Created;
+            this.IsCurrent = Convert.ToBoolean(data.IsCurrent);
+            this.DeviceStatus = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.DeviceActionType>(data.DeviceStatus);
+            this.SensorId = data.SensorId;
+            this.ValueType = data.ValueType;
+            this.SensorStatusValue = data.SensorStatusValue;
+            this.SensorStatus = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.SenserStatusType>(data.SensorStatus);
+            this.ParType = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.DeviceParameterType>(data.ParType);
+            this.ParUnit = data.ParUnit;
+            this.ParValue = data.ParValue;
+            this.DeviceName = data.DeviceName;
+            this.SensorName = data.SensorName;
+            this.AssemblyLineId = data.AssemblyLineId;
+            this.AssemblyLineTitle = data.AssemblyLineTitle;
+            this.ProcessTitle = data.ProcessTitle;
         }
         #endregion
 
@@ -346,10 +503,13 @@ namespace HNFactoryAutoSystem.Data
             data.DeviceProduceLogId = this.DeviceProduceLogId;
             data.DeviceId = this.DeviceId;
             data.Created = this.Created;
-            data.DeviceStatus = this.DeviceStatus.ToString();
+            data.IsCurrent = Convert.ToSByte(this.IsCurrent);
+            data.DeviceStatus = Enum.GetName(this.DeviceStatus.GetType(), this.DeviceStatus);
             data.SensorId = this.SensorId;
-            data.SensorStatus = this.SensorStatus.ToString();
-            data.ParType = this.ParType.ToString();
+            data.ValueType = this.ValueType;
+            data.SensorStatusValue = this.SensorStatusValue;
+            data.SensorStatus = Enum.GetName(this.SensorStatus.GetType(), this.SensorStatus); 
+            data.ParType = Enum.GetName(this.ParType.GetType(), this.ParType); 
             data.ParUnit = this.ParUnit;
             data.ParValue = this.ParValue;
 
@@ -447,6 +607,92 @@ namespace HNFactoryAutoSystem.Data
 
     #endregion
 
+    #region 用来接收传感器日志数据的对象
+
+    /// <summary>
+    /// 传感器日志对象
+    /// </summary>
+    public class SensorData : EntityBase
+    {
+        #region 属性
+        /// <summary>
+        /// 工厂编号
+        /// </summary>
+        public string FactoryId { get; set; }
+        /// <summary>
+        /// 所在PLC机柜编号
+        /// </summary>
+        public string PLCId { get; set; }
+        /// <summary>
+        /// 传感器在PLC机柜里面的地址编码
+        /// </summary>
+        public string PLCAddress { get; set; }
+        /// <summary>
+        /// 传感器控制器编号
+        /// </summary>
+        public string SensorId { get; set; }
+        /// <summary>
+        /// 数值对应的状态类型
+        /// </summary>
+        public string ValueType { get; set; }
+        /// <summary>
+        /// 传感器的数值
+        /// </summary>
+        public decimal SensorValue { get; set; }
+        /// <summary>
+        /// 读取传感器的时间
+        /// </summary>
+        public DateTime ReceiveTime { get; set; }
+        #endregion
+    }
+    /// <summary>
+    /// 传感器日志对象集合
+    /// </summary>
+    public class SensorDataCollection : ListBase<SensorData>
+    {
+
+    }
+
+    #endregion
+
+    #region 特殊未录入的传感器日志
+
+    public class NewSensorLog : EntityBase
+    {
+        #region 属性
+        /// <summary>
+        /// 采集来源传感器编号
+        /// </summary>
+        public string SensorId { get; set; }
+        /// <summary>
+        /// 是否是当前最新状态
+        /// </summary>
+        public bool IsCurrent { get; set; }
+
+        /// <summary>
+        /// 数值对应的状态类型
+        /// </summary>
+        public string ValueType { get; set; }
+        /// <summary>
+        /// 传感器当前状态值
+        /// </summary>
+        public int SensorStatusValue { get; set; }
+        /// <summary>
+        /// 传感器当前状态
+        /// </summary>
+        public SysHelper.Enums.SenserStatusType SensorStatus { get; set; }
+        /// <summary>
+        /// 浮点数值类参数值(重量，温度，搅拌速度,PH值)
+        /// </summary>
+        public decimal? ParValue { get; set; }
+        /// <summary>
+        /// 记录时间
+        /// </summary>
+        public DateTime? Created { get; set; }
+        #endregion
+    }
+
+    #endregion
 
     #region 未启用
 

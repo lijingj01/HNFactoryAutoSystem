@@ -1,4 +1,5 @@
 ﻿using HNFactoryAutoSystem.Data;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +19,8 @@ namespace HNFactoryAutoSystem
     {
 
         private static byte[] result = new byte[1024];
-        private static int myProt = Convert.ToInt32(appString.GetAppsettingStr("StockPort"));   //端口
+        private string SocketIP = appString.GetAppsettingStr("SocketIP");
+        private int SocketProt = Convert.ToInt32(appString.GetAppsettingStr("SocketPort"));   //端口
         static Socket serverSocket;
 
         /// <summary>
@@ -34,15 +36,77 @@ namespace HNFactoryAutoSystem
         public ServerMainForm()
         {
             InitializeComponent();
+
+            LoadIPInfo();
+            LoadAssemblyLineList();
         }
+
+        private void LoadIPInfo()
+        {
+            try
+            {
+                //加载本机的IP和设定好的端口
+                //System.Net.IPHostEntry myEntry = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+                //SocketIP = myEntry.AddressList[0].ToString();
+
+                txt_IP.Text = SocketIP;
+                txt_Port.Text = SocketProt.ToString();
+            }
+            catch(Exception ex)
+            {
+                
+            }
+        }
+
+        private void LoadAssemblyLineList()
+        {
+            try
+            {
+                string strFactoryId = "G01";
+                DataHelper dataHelper = new DataHelper();
+                AssemblyLineInfoCollection assemblyLines = dataHelper.GetAssemblyLineInfoCollection(strFactoryId);
+
+                //写入列表
+                foreach(AssemblyLineInfo assembly in assemblyLines)
+                {
+                    int index = this.dvAssLine.Rows.Add();
+
+                    this.dvAssLine.Rows[index].Cells[0].Value = assembly.AssemblyLineId;
+                    this.dvAssLine.Rows[index].Cells[1].Value = assembly.FactoryId;
+                    this.dvAssLine.Rows[index].Cells[2].Value = assembly.ProcessId;
+                    this.dvAssLine.Rows[index].Cells[3].Value = assembly.ProcessTitle;
+                    this.dvAssLine.Rows[index].Cells[4].Value = assembly.AssemblyLineTitle;
+
+                    //DataGridViewButtonColumn buttons = new DataGridViewButtonColumn();
+                    //{
+                    //    buttons.HeaderText = "Sales";
+                    //    buttons.Text = "Sales";
+                    //    buttons.UseColumnTextForButtonValue = true;
+                    //    buttons.AutoSizeMode =
+                    //        DataGridViewAutoSizeColumnMode.AllCells;
+                    //    buttons.FlatStyle = FlatStyle.Standard;
+                    //    buttons.CellTemplate.Style.BackColor = Color.Honeydew;
+                    //    buttons.DisplayIndex = 0;
+                    //}
+
+                    //this.dvAssLine.Rows[index].Cells[6] = 
+                }
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
 
         private void btnStartPLCServer_Click(object sender, EventArgs e)
         {
             try
             {
-                IPAddress ip = IPAddress.Parse(appString.GetAppsettingStr("StockIP"));
+                IPAddress ip = IPAddress.Parse(SocketIP);
                 serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                serverSocket.Bind(new IPEndPoint(ip, myProt));  //绑定IP地址：端口           
+                serverSocket.Bind(new IPEndPoint(ip, SocketProt));  //绑定IP地址：端口           
                 serverSocket.Listen(10);    //设定最多10个排队连接请求            
                 txt_Log.AppendText(string.Format("{1:yyyyMMdd HH:mm:ss}启动监听{0}成功 \r \n", serverSocket.LocalEndPoint.ToString(), DateTime.Now));
                 //通过Clientsoket发送数据            
@@ -112,11 +176,31 @@ namespace HNFactoryAutoSystem
                     //string strInfo = string.Format("接收客户端{0}消息{1}", myClientSocket.RemoteEndPoint.ToString(), Encoding.ASCII.GetString(result, 0, receiveNumber));
                     ////MessageBox.Show(strInfo);
                     DataLogHelper logHelper = new DataLogHelper();
+                    Business.DeviceBusiness deviceBusiness = new Business.DeviceBusiness();
                     foreach (string strText in strTexts)
                     {
                         if (!string.IsNullOrEmpty(strText))
                         {
-                            logHelper.StockLog(strText, receiveNumber);
+                            logHelper.SocketLog(strText, receiveNumber);
+
+                            #region 对接收到的传感器日志数据进行转换操作
+                            try
+                            {
+                                SensorDataCollection datas = JsonConvert.DeserializeObject<SensorDataCollection>(strText);
+                                //将传感器读取的数据写入生产日志表
+                                foreach(SensorData data in datas)
+                                {
+                                    //判断值类型来提取传感器的状态信息
+                                    string strDeviceStatus = "P";
+                                    string strSensorId = data.SensorId;
+                                    string strSensorValueType = data.ValueType;
+                                    decimal deParValue = data.SensorValue;
+
+                                    deviceBusiness.AddDeviceProduceLog(strDeviceStatus, strSensorId, strSensorValueType, deParValue);
+                                }
+                            }
+                            catch { }
+                            #endregion
                         }
                     }
                 }
@@ -199,7 +283,43 @@ namespace HNFactoryAutoSystem
         private void button1_Click(object sender, EventArgs e)
         {
             string strText = "这是服务器发来的信息！";
-            SendMessage(strText);
+            //SendMessage(strText);
+            string strSensorId = "V0916";
+            DataHelper dataHelper = new DataHelper();
+            SensorInfo sensor = dataHelper.GetSensorInfo(strSensorId);
+
+        }
+
+        private void dvAssLine_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                DataGridViewRow row = this.dvAssLine.Rows[e.RowIndex];
+
+                string strTitle = row.Cells[4].Value.ToString();
+                string strProTitle = row.Cells[3].Value.ToString();
+
+                DialogResult result = MessageBox.Show("是否要启动【"+ strTitle +"】生产【"+ strProTitle + "】？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Cancel)
+                {
+
+                    return;
+                }
+                else
+                {
+                    //先显示设备状态
+                    string strAssLine = row.Cells["AssemblyLineId"].Value.ToString();
+                    AssemblyLineStatusForm statusForm = new AssemblyLineStatusForm(strAssLine);
+                    statusForm.Show();
+                }
+
+                //MessageBox.Show(row.Cells[0].Value.ToString());
+
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
     }
 }

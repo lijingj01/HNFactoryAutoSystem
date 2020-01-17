@@ -38,8 +38,9 @@
 
 	NamespaceName = "DataModels";
 
-	LoadMySqlMetadata("WinMySqlServer", "hnfactoryautodb", "root", "myP@ssw0rd");
+//	LoadMySqlMetadata("WinMySqlServer", "hnfactoryautodb", "root", "myP@ssw0rd");
 //	LoadMySqlMetadata(string connectionString);
+	LoadMySqlMetadata("HN-FactoryDB", "hnfactoryautodb", "appdba", "App1qaz!QAZ");
 
 	GenerateModel();
 #>

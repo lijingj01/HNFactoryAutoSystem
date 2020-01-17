@@ -281,13 +281,80 @@ namespace HNFactoryAutoSystem.Data
                 {
                     using (DataModels.HnfactoryautodbDB dataContext = new DataModels.HnfactoryautodbDB())
                     {
-
                         //日志流水编号{设备编号}-{年月日时分秒}
                         string strNewLogCode = string.Format("{0}-{1:yyMMddHHmmss}", log.DeviceId, DateTime.Now);
                         log.DeviceProduceLogId = strNewLogCode;
 
-                        DataModels.LDeviceproducelog data = log.ToData();
-                        dataContext.Insert<DataModels.LDeviceproducelog>(data);
+                        //DataModels.LDeviceproducelog data = log.ToData();
+                        //dataContext.Insert<DataModels.LDeviceproducelog>(data);
+
+                        #region 调用存储过程方式来添加日志
+                        string strProName = "proc_AddDeviceProduceLog";
+                        List<MySqlParameter> sqlParameters = new List<MySqlParameter>
+                        {
+                            new MySqlParameter("?mDeviceProduceLogId", log.DeviceProduceLogId)
+                            ,new MySqlParameter("?mDeviceId", log.DeviceId)
+                            ,new MySqlParameter("?mCreated", log.Created)
+                            ,new MySqlParameter("?mDeviceStatus", Enum.GetName(log.DeviceStatus.GetType(), log.DeviceStatus) )
+                            ,new MySqlParameter("?mSensorId", log.SensorId)
+                            ,new MySqlParameter("?mValueType", log.ValueType)
+                            ,new MySqlParameter("?mSensorStatusValue", log.SensorStatusValue)
+                            ,new MySqlParameter("?mSensorStatus", Enum.GetName(log.SensorStatus.GetType(), log.SensorStatus))
+                            ,new MySqlParameter("?mParType", log.ParType)
+                            ,new MySqlParameter("?mParUnit", log.ParUnit)
+                            ,new MySqlParameter("?mParValue", log.ParValue)
+
+                        };
+
+                        MySqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, strProName, sqlParameters.ToArray());
+                        #endregion
+
+
+                        isAdd = true;
+                    }
+                }
+
+                return isAdd;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 添加新传感器状态日志记录
+        /// </summary>
+        /// <param name="log"></param>
+        /// <returns></returns>
+        public bool AddNewSensorLog(NewSensorLog log)
+        {
+            try
+            {
+                bool isAdd = false;
+
+                if (log != null)
+                {
+                    using (DataModels.HnfactoryautodbDB dataContext = new DataModels.HnfactoryautodbDB())
+                    {
+
+                        #region 调用存储过程方式来添加日志
+                        string strProName = "proc_AddSensorLog";
+                        List<MySqlParameter> sqlParameters = new List<MySqlParameter>
+                        {
+                            new MySqlParameter("?mCreated", log.Created)
+                            ,new MySqlParameter("?mSensorId", log.SensorId)
+                            ,new MySqlParameter("?mValueType", log.ValueType)
+                            ,new MySqlParameter("?mSensorStatusValue", log.SensorStatusValue)
+                            ,new MySqlParameter("?mSensorStatus", Enum.GetName(log.SensorStatus.GetType(), log.SensorStatus))
+                            ,new MySqlParameter("?mParValue", log.ParValue)
+
+                        };
+
+                        MySqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, strProName, sqlParameters.ToArray());
+                        #endregion
+
+
                         isAdd = true;
                     }
                 }
@@ -408,6 +475,37 @@ namespace HNFactoryAutoSystem.Data
             }
         }
 
+        /// <summary>
+        /// 获取生产线所有设备传感器当前状态
+        /// </summary>
+        /// <param name="strAssemblyLineId">生产线编号</param>
+        /// <returns></returns>
+        public DeviceProduceLogCollection GetDeviceProduceLogCollection(string strAssemblyLineId)
+        {
+            try
+            {
+                DeviceProduceLogCollection items = new DeviceProduceLogCollection();
+                using (DataModels.HnfactoryautodbDB dataContext = new DataModels.HnfactoryautodbDB())
+                {
+                    var datas = (from c in dataContext.VDeviceproducelogs
+                                 where c.AssemblyLineId == strAssemblyLineId
+                                 select c
+                                 ).ToList();
+                    foreach(DataModels.VDeviceproducelog data in datas)
+                    {
+                        DeviceProduceLog item = new DeviceProduceLog(data);
+                        items.Add(item);
+                    }
+                }
+
+                return items;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion
 
 
@@ -415,7 +513,7 @@ namespace HNFactoryAutoSystem.Data
 
         #region 测试方法
 
-        public void StockLog(string strLogText,int iTextLength)
+        public void SocketLog(string strLogText,int iTextLength)
         {
             string strSQL = @"INSERT INTO tmp_stocktest(LogTime,LogText,LogLength)VALUES(?LogTime,?LogText,?LogLength)";
             List<MySqlParameter> sqlParameters = new List<MySqlParameter>

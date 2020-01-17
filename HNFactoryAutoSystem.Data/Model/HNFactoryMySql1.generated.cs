@@ -8,16 +8,20 @@
 #pragma warning disable 1591
 
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 using LinqToDB;
+using LinqToDB.Common;
+using LinqToDB.Data;
 using LinqToDB.Mapping;
 
 namespace DataModels
 {
 	/// <summary>
 	/// Database       : hnfactoryautodb
-	/// Data Source    : WinMySqlServer
+	/// Data Source    : HN-FactoryDB
 	/// Server Version : 8.0.18
 	/// </summary>
 	public partial class HnfactoryautodbDB : LinqToDB.Data.DataConnection
@@ -46,6 +50,7 @@ namespace DataModels
 		/// 设备生产日志参数表
 		/// </summary>
 		public ITable<LDeviceproducelogpar>  LDeviceproducelogpars  { get { return this.GetTable<LDeviceproducelogpar>(); } }
+		public ITable<LDviceproducelog>      LDviceproducelogs      { get { return this.GetTable<LDviceproducelog>(); } }
 		/// <summary>
 		/// 工艺子流程执行日志表
 		/// </summary>
@@ -66,10 +71,20 @@ namespace DataModels
 		public ITable<PExprocessstep>        PExprocesssteps        { get { return this.GetTable<PExprocessstep>(); } }
 		public ITable<PExprocesssteppar>     PExprocesssteppars     { get { return this.GetTable<PExprocesssteppar>(); } }
 		public ITable<PMainprocess>          PMainprocesses         { get { return this.GetTable<PMainprocess>(); } }
+		public ITable<TmpSensorlog>          TmpSensorlogs          { get { return this.GetTable<TmpSensorlog>(); } }
+		public ITable<TmpStocktest>          TmpStocktests          { get { return this.GetTable<TmpStocktest>(); } }
+		/// <summary>
+		/// View 'hnfactoryautodb.v_assemblylinedevices' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them
+		/// </summary>
+		public ITable<VAssemblylinedevice>   VAssemblylinedevices   { get { return this.GetTable<VAssemblylinedevice>(); } }
 		/// <summary>
 		/// VIEW
 		/// </summary>
-		public ITable<VAssemblylinedevice>   VAssemblylinedevices   { get { return this.GetTable<VAssemblylinedevice>(); } }
+		public ITable<VAssemblylineinfo>     VAssemblylineinfoes    { get { return this.GetTable<VAssemblylineinfo>(); } }
+		/// <summary>
+		/// VIEW
+		/// </summary>
+		public ITable<VDeviceproducelog>     VDeviceproducelogs     { get { return this.GetTable<VDeviceproducelog>(); } }
 
 		public HnfactoryautodbDB()
 		{
@@ -138,6 +153,7 @@ namespace DataModels
 		[Column(),        Nullable          ] public string DeviceStatus    { get; set; } // varchar(5)
 		[Column(),        Nullable          ] public string Parameter1      { get; set; } // varchar(100)
 		[Column(),        Nullable          ] public string Parameter2      { get; set; } // varchar(100)
+		[Column(),        Nullable          ] public string AssemblyLineId  { get; set; } // varchar(255)
 	}
 
 	[Table("f_factoryinfo")]
@@ -154,28 +170,37 @@ namespace DataModels
 	[Table("f_sensorinfo")]
 	public partial class FSensorinfo
 	{
-		[Column("sid"),       PrimaryKey,  Identity] public int      Sid          { get; set; } // int(11)
-		[Column(),            NotNull              ] public string   SensorId     { get; set; } // varchar(100)
-		[Column(),               Nullable          ] public string   SensorName   { get; set; } // varchar(200)
-		[Column(),               Nullable          ] public string   Power        { get; set; } // varchar(30)
-		[Column(),               Nullable          ] public string   Voltage      { get; set; } // varchar(30)
-		[Column(),               Nullable          ] public string   StarterType  { get; set; } // varchar(30)
-		[Column("IO_DI"),        Nullable          ] public int?     IoDi         { get; set; } // int(11)
-		[Column("IO_DO"),        Nullable          ] public int?     IoDo         { get; set; } // int(11)
-		[Column("IO_AI"),        Nullable          ] public int?     IoAi         { get; set; } // int(11)
-		[Column("IO_AO"),        Nullable          ] public int?     IoAo         { get; set; } // int(11)
-		[Column("IO_Modbus"),    Nullable          ] public int?     IoModbus     { get; set; } // int(11)
-		[Column(),               Nullable          ] public decimal? MinEU        { get; set; } // decimal(10,0)
-		[Column(),               Nullable          ] public decimal? MaxEu        { get; set; } // decimal(10,0)
-		[Column(),               Nullable          ] public string   Units        { get; set; } // varchar(30)
-		[Column(),               Nullable          ] public string   SComment     { get; set; } // varchar(200)
-		[Column(),            NotNull              ] public int      SensorStatus { get; set; } // int(11)
-		[Column("PLC_Id"),       Nullable          ] public string   PlcId        { get; set; } // varchar(100)
-		[Column(),               Nullable          ] public string   DeviceId     { get; set; } // varchar(100)
+		[Column("sid"),         PrimaryKey,  Identity] public int      Sid          { get; set; } // int(11)
+		[Column(),              NotNull              ] public string   SensorId     { get; set; } // varchar(100)
+		[Column(),                 Nullable          ] public string   SensorName   { get; set; } // varchar(200)
+		[Column(),                 Nullable          ] public string   Power        { get; set; } // varchar(30)
+		[Column(),                 Nullable          ] public string   Voltage      { get; set; } // varchar(30)
+		[Column(),                 Nullable          ] public string   StarterType  { get; set; } // varchar(30)
+		[Column("IO_DI"),          Nullable          ] public int?     IoDi         { get; set; } // int(11)
+		[Column("IO_DO"),          Nullable          ] public int?     IoDo         { get; set; } // int(11)
+		[Column("IO_AI"),          Nullable          ] public int?     IoAi         { get; set; } // int(11)
+		[Column("IO_AO"),          Nullable          ] public int?     IoAo         { get; set; } // int(11)
+		[Column("IO_Modbus"),      Nullable          ] public int?     IoModbus     { get; set; } // int(11)
+		[Column(),                 Nullable          ] public decimal? MinEU        { get; set; } // decimal(10,0)
+		[Column(),                 Nullable          ] public decimal? MaxEu        { get; set; } // decimal(10,0)
+		[Column(),                 Nullable          ] public string   Units        { get; set; } // varchar(30)
+		[Column(),                 Nullable          ] public string   ParType      { get; set; } // varchar(5)
+		[Column(),                 Nullable          ] public string   SComment     { get; set; } // varchar(200)
+		[Column(),              NotNull              ] public int      SensorStatus { get; set; } // int(11)
+		[Column("PLC_Id"),         Nullable          ] public string   PlcId        { get; set; } // varchar(100)
+		[Column(),                 Nullable          ] public string   DeviceId     { get; set; } // varchar(100)
 		/// <summary>
 		/// 连接到的设备编号
 		/// </summary>
-		[Column(),               Nullable          ] public string   ToDeviceId   { get; set; } // varchar(100)
+		[Column(),                 Nullable          ] public string   ToDeviceId   { get; set; } // varchar(100)
+		/// <summary>
+		/// 传感器在PLC机柜里面的地址编码
+		/// </summary>
+		[Column("PLC_Address"),    Nullable          ] public string   PlcAddress   { get; set; } // varchar(30)
+		/// <summary>
+		/// 传感器数值在PLC里面的长度（默认2）
+		/// </summary>
+		[Column(),              NotNull              ] public int      ValueLength  { get; set; } // int(11)
 	}
 
 	/// <summary>
@@ -249,21 +274,30 @@ namespace DataModels
 		/// </summary>
 		[Column(),        Nullable          ] public DateTime? Created            { get; set; } // datetime(6)
 		/// <summary>
+		/// 是否是当前最新状态
+		/// </summary>
+		[Column(),        Nullable          ] public sbyte?    IsCurrent          { get; set; } // tinyint(4)
+		/// <summary>
 		/// 设备当前状态
 		/// </summary>
-		[Column(),        Nullable          ] public string    DeviceStatus       { get; set; } // varchar(5)
+		[Column(),        Nullable          ] public string    DeviceStatus       { get; set; } // varchar(10)
 		/// <summary>
 		/// 采集来源传感器编号
 		/// </summary>
 		[Column(),        Nullable          ] public string    SensorId           { get; set; } // varchar(100)
 		/// <summary>
+		/// 传感器所属状态类型
+		/// </summary>
+		[Column(),        Nullable          ] public string    ValueType          { get; set; } // varchar(20)
+		[Column(),     NotNull              ] public int       SensorStatusValue  { get; set; } // int(11)
+		/// <summary>
 		/// 传感器当前状态
 		/// </summary>
-		[Column(),        Nullable          ] public string    SensorStatus       { get; set; } // varchar(5)
+		[Column(),        Nullable          ] public string    SensorStatus       { get; set; } // varchar(10)
 		/// <summary>
 		/// 参数类型
 		/// </summary>
-		[Column(),        Nullable          ] public string    ParType            { get; set; } // varchar(5)
+		[Column(),        Nullable          ] public string    ParType            { get; set; } // varchar(10)
 		/// <summary>
 		/// 参数单位
 		/// </summary>
@@ -310,6 +344,16 @@ namespace DataModels
 		/// </summary>
 		[Column(),        Nullable          ] public string    ParUnit            { get; set; } // varchar(5)
 		[Column(),        Nullable          ] public decimal?  ParValue           { get; set; } // decimal(10,0)
+		[Column(),        Nullable          ] public int?      LogId              { get; set; } // int(11)
+		[Column(),        Nullable          ] public string    DeviceId           { get; set; } // varchar(255)
+	}
+
+	[Table("l_dviceproducelog")]
+	public partial class LDviceproducelog
+	{
+		[PrimaryKey, Identity] public int       LogId    { get; set; } // int(11)
+		[Column,     Nullable] public string    DeviceId { get; set; } // varchar(255)
+		[Column,     Nullable] public DateTime? Created  { get; set; } // timestamp
 	}
 
 	/// <summary>
@@ -489,21 +533,149 @@ namespace DataModels
 		[Column(),     NotNull              ] public int     Fineness     { get; set; } // int(11)
 	}
 
+	[Table("tmp_sensorlog")]
+	public partial class TmpSensorlog
+	{
+		[Column("id"), PrimaryKey, Identity] public int       Id                { get; set; } // int(11)
+		[Column(),     Nullable            ] public string    SensorId          { get; set; } // varchar(100)
+		[Column(),     Nullable            ] public sbyte?    IsCurrent         { get; set; } // tinyint(4)
+		[Column(),     Nullable            ] public string    ValueType         { get; set; } // varchar(20)
+		[Column(),     Nullable            ] public int?      SensorStatusValue { get; set; } // int(11)
+		[Column(),     Nullable            ] public string    SensorStatus      { get; set; } // varchar(10)
+		[Column(),     Nullable            ] public decimal?  ParValue          { get; set; } // decimal(10,0)
+		[Column(),     Nullable            ] public DateTime? Created           { get; set; } // datetime
+	}
+
+	[Table("tmp_stocktest")]
+	public partial class TmpStocktest
+	{
+		[Column("id"), PrimaryKey, Identity] public int       Id        { get; set; } // int(11)
+		[Column(),     Nullable            ] public DateTime? LogTime   { get; set; } // datetime
+		[Column(),     Nullable            ] public string    LogText   { get; set; } // varchar(15000)
+		[Column(),     Nullable            ] public int?      LogLength { get; set; } // int(11)
+	}
+
 	/// <summary>
-	/// VIEW
+	/// View 'hnfactoryautodb.v_assemblylinedevices' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them
 	/// </summary>
 	[Table("v_assemblylinedevices", IsView=true)]
 	public partial class VAssemblylinedevice
 	{
-		[Column("id"), NotNull    ] public int    Id              { get; set; } // int(11)
-		[Column(),     NotNull    ] public string DeviceId        { get; set; } // varchar(100)
-		[Column(),        Nullable] public string DeviceName      { get; set; } // varchar(200)
-		[Column(),        Nullable] public string DeviceType      { get; set; } // varchar(5)
-		[Column(),        Nullable] public string ProcessDeviceId { get; set; } // varchar(100)
-		[Column(),        Nullable] public string DeviceStatus    { get; set; } // varchar(5)
-		[Column(),        Nullable] public string Parameter1      { get; set; } // varchar(100)
-		[Column(),        Nullable] public string Parameter2      { get; set; } // varchar(100)
-		[Column(),     NotNull    ] public string AssemblyLineId  { get; set; } // varchar(100)
+	}
+
+	/// <summary>
+	/// VIEW
+	/// </summary>
+	[Table("v_assemblylineinfo", IsView=true)]
+	public partial class VAssemblylineinfo
+	{
+		[Column("id"), NotNull    ] public int    Id                { get; set; } // int(11)
+		[Column(),     NotNull    ] public string AssemblyLineId    { get; set; } // varchar(100)
+		[Column(),     NotNull    ] public string ProcessId         { get; set; } // varchar(100)
+		[Column(),     NotNull    ] public string FactoryId         { get; set; } // varchar(100)
+		[Column(),        Nullable] public string AssemblyLineTitle { get; set; } // varchar(200)
+		[Column(),        Nullable] public string Parameter1        { get; set; } // varchar(100)
+		[Column(),        Nullable] public string Parameter2        { get; set; } // varchar(100)
+		[Column(),        Nullable] public string ProcessTitle      { get; set; } // varchar(200)
+		[Column(),     NotNull    ] public string ProductsType      { get; set; } // varchar(30)
+	}
+
+	/// <summary>
+	/// VIEW
+	/// </summary>
+	[Table("v_deviceproducelog", IsView=true)]
+	public partial class VDeviceproducelog
+	{
+		[Column("id"), NotNull    ] public int       Id                 { get; set; } // int(11)
+		/// <summary>
+		/// 日志流水编号{设备编号}-{年月日时分秒}
+		/// 
+		/// </summary>
+		[Column(),     NotNull    ] public string    DeviceProduceLogId { get; set; } // varchar(100)
+		/// <summary>
+		/// 设备唯一编号
+		/// </summary>
+		[Column(),     NotNull    ] public string    DeviceId           { get; set; } // varchar(100)
+		/// <summary>
+		/// 记录时间
+		/// </summary>
+		[Column(),        Nullable] public DateTime? Created            { get; set; } // datetime(6)
+		/// <summary>
+		/// 是否是当前最新状态
+		/// </summary>
+		[Column(),        Nullable] public sbyte?    IsCurrent          { get; set; } // tinyint(4)
+		/// <summary>
+		/// 设备当前状态
+		/// </summary>
+		[Column(),        Nullable] public string    DeviceStatus       { get; set; } // varchar(10)
+		/// <summary>
+		/// 采集来源传感器编号
+		/// </summary>
+		[Column(),        Nullable] public string    SensorId           { get; set; } // varchar(100)
+		/// <summary>
+		/// 传感器所属状态类型
+		/// </summary>
+		[Column(),        Nullable] public string    ValueType          { get; set; } // varchar(20)
+		[Column(),     NotNull    ] public int       SensorStatusValue  { get; set; } // int(11)
+		/// <summary>
+		/// 传感器当前状态
+		/// </summary>
+		[Column(),        Nullable] public string    SensorStatus       { get; set; } // varchar(10)
+		/// <summary>
+		/// 参数类型
+		/// </summary>
+		[Column(),        Nullable] public string    ParType            { get; set; } // varchar(10)
+		/// <summary>
+		/// 参数单位
+		/// </summary>
+		[Column(),        Nullable] public string    ParUnit            { get; set; } // varchar(5)
+		/// <summary>
+		/// 参数数值
+		/// </summary>
+		[Column(),        Nullable] public decimal?  ParValue           { get; set; } // decimal(10,0)
+		[Column(),        Nullable] public string    DeviceName         { get; set; } // varchar(200)
+		[Column(),        Nullable] public string    SensorName         { get; set; } // varchar(200)
+		[Column(),        Nullable] public string    AssemblyLineTitle  { get; set; } // varchar(200)
+		[Column(),     NotNull    ] public string    AssemblyLineId     { get; set; } // varchar(100)
+		[Column(),        Nullable] public string    ProcessTitle       { get; set; } // varchar(200)
+	}
+
+	public static partial class HnfactoryautodbDBStoredProcedures
+	{
+		#region ProcAddDeviceProduceLog
+
+		public static int ProcAddDeviceProduceLog(this HnfactoryautodbDB dataConnection, string mDeviceProduceLogId, string mDeviceId, DateTime? mCreated, string mDeviceStatus, string mSensorId, string mValueType, int? mSensorStatusValue, string mSensorStatus, string mParType, string mParUnit, decimal? mParValue)
+		{
+			return dataConnection.ExecuteProc("`proc_AddDeviceProduceLog`",
+				new DataParameter("mDeviceProduceLogId", mDeviceProduceLogId, DataType.VarChar),
+				new DataParameter("mDeviceId",           mDeviceId,           DataType.VarChar),
+				new DataParameter("mCreated",            mCreated,            DataType.DateTime),
+				new DataParameter("mDeviceStatus",       mDeviceStatus,       DataType.VarChar),
+				new DataParameter("mSensorId",           mSensorId,           DataType.VarChar),
+				new DataParameter("mValueType",          mValueType,          DataType.VarChar),
+				new DataParameter("mSensorStatusValue",  mSensorStatusValue,  DataType.Int32),
+				new DataParameter("mSensorStatus",       mSensorStatus,       DataType.VarChar),
+				new DataParameter("mParType",            mParType,            DataType.VarChar),
+				new DataParameter("mParUnit",            mParUnit,            DataType.VarChar),
+				new DataParameter("mParValue",           mParValue,           DataType.Decimal));
+		}
+
+		#endregion
+
+		#region ProcAddSensorLog
+
+		public static int ProcAddSensorLog(this HnfactoryautodbDB dataConnection, DateTime? mCreated, string mSensorId, string mValueType, int? mSensorStatusValue, string mSensorStatus, decimal? mParValue)
+		{
+			return dataConnection.ExecuteProc("`proc_AddSensorLog`",
+				new DataParameter("mCreated",           mCreated,           DataType.DateTime),
+				new DataParameter("mSensorId",          mSensorId,          DataType.VarChar),
+				new DataParameter("mValueType",         mValueType,         DataType.VarChar),
+				new DataParameter("mSensorStatusValue", mSensorStatusValue, DataType.Int32),
+				new DataParameter("mSensorStatus",      mSensorStatus,      DataType.VarChar),
+				new DataParameter("mParValue",          mParValue,          DataType.Decimal));
+		}
+
+		#endregion
 	}
 
 	public static partial class TableExtensions
@@ -562,6 +734,12 @@ namespace DataModels
 				t.Id == Id);
 		}
 
+		public static LDviceproducelog Find(this ITable<LDviceproducelog> table, int LogId)
+		{
+			return table.FirstOrDefault(t =>
+				t.LogId == LogId);
+		}
+
 		public static LExprocesslog Find(this ITable<LExprocesslog> table, int Id)
 		{
 			return table.FirstOrDefault(t =>
@@ -605,6 +783,18 @@ namespace DataModels
 		}
 
 		public static PMainprocess Find(this ITable<PMainprocess> table, int Id)
+		{
+			return table.FirstOrDefault(t =>
+				t.Id == Id);
+		}
+
+		public static TmpSensorlog Find(this ITable<TmpSensorlog> table, int Id)
+		{
+			return table.FirstOrDefault(t =>
+				t.Id == Id);
+		}
+
+		public static TmpStocktest Find(this ITable<TmpStocktest> table, int Id)
 		{
 			return table.FirstOrDefault(t =>
 				t.Id == Id);

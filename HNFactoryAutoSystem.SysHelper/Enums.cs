@@ -16,6 +16,124 @@ namespace HNFactoryAutoSystem.SysHelper.Enums
                 return (T)Enum.Parse(typeof(T), "None", true);
             }
         }
+
+        public static T Parse<T>(int i)
+        {
+            if (Enum.IsDefined(typeof(T), i))
+            {
+                return (T)Enum.ToObject(typeof(T), i);
+            }
+            else
+            {
+                return (T)Enum.ToObject(typeof(T), 0);
+            }
+        }
+
+        #region 特殊的枚举中文转换
+        /// <summary>
+        /// 生产设备参数类型说明
+        /// </summary>
+        /// <param name="parameterType"></param>
+        /// <returns></returns>
+        public static string GetDeviceParameterTypeString(DeviceParameterType parameterType)
+        {
+            string strReturn = string.Empty;
+            switch (parameterType)
+            {
+                case DeviceParameterType.W:
+                    strReturn = "重量";
+                    break;
+                case DeviceParameterType.T:
+                    strReturn = "温度";
+                    break;
+                case DeviceParameterType.H:
+                    strReturn = "湿度";
+                    break;
+                case DeviceParameterType.P:
+                    strReturn = "PH值";
+                    break;
+                case DeviceParameterType.R:
+                    strReturn = "搅拌转速";
+                    break;
+                case DeviceParameterType.D:
+                    strReturn = "时间";
+                    break;
+                case DeviceParameterType.Pump:
+                    strReturn = "泵";
+                    break;
+                case DeviceParameterType.Valve:
+                    strReturn = "阀门";
+                    break;
+                default:
+                    break;
+            }
+            return strReturn;
+        }
+
+        /// <summary>
+        /// 获取设备状态说明
+        /// </summary>
+        /// <param name="parameterType"></param>
+        /// <returns></returns>
+        public static string GetDeviceActionTypeString(DeviceActionType actionType)
+        {
+            string strReturn = string.Empty;
+            switch (actionType)
+            {
+                case DeviceActionType.P:
+                    strReturn = "投放";
+                    break;
+                case DeviceActionType.S:
+                    strReturn = "启动";
+                    break;
+                case DeviceActionType.M:
+                    strReturn = "搅拌";
+                    break;
+                case DeviceActionType.E:
+                    strReturn = "停止";
+                    break;
+                case DeviceActionType.H:
+                    strReturn = "加热";
+                    break;
+                default:
+                    break;
+            }
+            return strReturn;
+        }
+        /// <summary>
+        /// 获取传感器的状态类型说明
+        /// </summary>
+        /// <param name="statusType"></param>
+        /// <returns></returns>
+        public static string GetSenserStatusTypeString(SenserStatusType statusType)
+        {
+            string strReturn = string.Empty;
+            switch (statusType)
+            {
+                case SenserStatusType.Stop:
+                    strReturn = "设备停止";
+                    break;
+                case SenserStatusType.Run:
+                    strReturn = "设备运行";
+                    break;
+                case SenserStatusType.Off:
+                    strReturn = "阀门全关";
+                    break;
+                case SenserStatusType.Open:
+                    strReturn = "阀门全开";
+                    break;
+                case SenserStatusType.Middle:
+                    strReturn = "阀门中间位置";
+                    break;
+                case SenserStatusType.Fault:
+                    strReturn = "设备故障";
+                    break;
+                default:
+                    break;
+            }
+            return strReturn;
+        }
+        #endregion
     }
 
     /// <summary>
@@ -47,7 +165,15 @@ namespace HNFactoryAutoSystem.SysHelper.Enums
         /// <summary>
         /// 时间
         /// </summary>
-        D = 6
+        D = 6,
+        /// <summary>
+        /// 泵
+        /// </summary>
+        Pump = 7,
+        /// <summary>
+        /// 阀门
+        /// </summary>
+        Valve = 8
     }
     /// <summary>
     /// 生产设备的操作类型
@@ -90,29 +216,29 @@ namespace HNFactoryAutoSystem.SysHelper.Enums
         /// </summary>
         None = 0,
         /// <summary>
-        /// 运行
+        /// 设备停止
         /// </summary>
-        Run = 1,
+        Stop = 1,
         /// <summary>
-        /// 故障
+        /// 设备运行
         /// </summary>
-        Fault = 2,
+        Run = 2,
         /// <summary>
-        /// 开启
+        /// 阀门全关
         /// </summary>
-        Open = 3,
+        Off = 3,
         /// <summary>
-        /// 关闭
+        /// 阀门全开
         /// </summary>
-        Off = 4,
+        Open = 4,
         /// <summary>
-        /// 启动
+        /// 阀门中间位置
         /// </summary>
-        Start = 5,
+        Middle = 5,
         /// <summary>
-        /// 停止
+        /// 设备故障
         /// </summary>
-        Stop = 6
+        Fault = 6,
     }
 
     /// <summary>
@@ -192,4 +318,74 @@ namespace HNFactoryAutoSystem.SysHelper.Enums
         /// </summary>
         WG = 10
     }
+
+
+    #region 传感器状态相关枚举
+    /// <summary>
+    /// 泵状态值
+    /// </summary>
+    public enum PumpStatusEnum
+    {
+        /// <summary>
+        /// 无动作
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// 设备停止
+        /// </summary>
+        Stop = 1,
+        /// <summary>
+        /// 设备运行
+        /// </summary>
+        Run = 2,
+        /// <summary>
+        /// 设备故障
+        /// </summary>
+        Fault = 3
+    }
+    /// <summary>
+    /// 阀门状态值
+    /// </summary>
+    public enum ValveStatusEnum
+    {
+        /// <summary>
+        /// 无动作
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// 阀门全关
+        /// </summary>
+        Off = 1,
+        /// <summary>
+        /// 阀门全开
+        /// </summary>
+        Open = 2,
+        /// <summary>
+        /// 阀门中间位置
+        /// </summary>
+        Middle = 3,
+        /// <summary>
+        /// 阀门故障
+        /// </summary>
+        Fault = 4
+    }
+    /// <summary>
+    /// 过程值状态
+    /// </summary>
+    public enum NumberValueEnum
+    {
+        /// <summary>
+        /// 无动作
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// 读取
+        /// </summary>
+        Read = 1,
+        /// <summary>
+        /// 写入
+        /// </summary>
+        Write = 2
+    }
+    #endregion
 }
