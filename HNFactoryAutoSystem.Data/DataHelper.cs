@@ -56,7 +56,7 @@ namespace HNFactoryAutoSystem.Data
             {
                 DataModels.HnfactoryautodbDB dataContext = new DataModels.HnfactoryautodbDB();
                 DataModels.FAssemblylineinfo data = dataContext.FAssemblylineinfoes.SingleOrDefault(c => c.AssemblyLineId == strAssemblyLineId);
-                if(data != null)
+                if (data != null)
                 {
                     return new AssemblyLineInfo(data);
                 }
@@ -81,15 +81,17 @@ namespace HNFactoryAutoSystem.Data
             try
             {
                 AssemblyLineInfoCollection infos = new AssemblyLineInfoCollection();
-                string strSQL = "select *from v_assemblylineinfo where FactoryId=?FactoryId";
-                List<MySqlParameter> sqlParameters = new List<MySqlParameter>
+                if (!string.IsNullOrEmpty(strFactoryId))
                 {
-                    new MySqlParameter("?FactoryId", strFactoryId)
-                };
-                AssemblyLineInfo info = new AssemblyLineInfo();
+                    string strSQL = "select *from v_assemblylineinfo where FactoryId=?FactoryId";
+                    List<MySqlParameter> sqlParameters = new List<MySqlParameter>
+                    {
+                        new MySqlParameter("?FactoryId", strFactoryId)
+                    };
+                    AssemblyLineInfo info = new AssemblyLineInfo();
 
-                CreateDataList<AssemblyLineInfo>(infos, strSQL, sqlParameters, info, null);
-
+                    CreateDataList<AssemblyLineInfo>(infos, strSQL, sqlParameters, info, null);
+                }
                 return infos;
             }
             catch (Exception ex)
@@ -130,6 +132,34 @@ namespace HNFactoryAutoSystem.Data
         #endregion
 
         #region 设备基础信息操作
+        /// <summary>
+        /// 或是生产线上设备集合（简单数据）
+        /// </summary>
+        /// <param name="strAssemblyLineId"></param>
+        /// <returns></returns>
+        public DeviceInfoCollection GetSmallAssemblyLineDevices(string strAssemblyLineId)
+        {
+            try
+            {
+                DeviceInfoCollection infos = new DeviceInfoCollection();
+                if (!string.IsNullOrEmpty(strAssemblyLineId))
+                {
+                    string strSQL = "select *from v_assemblylinedevices where AssemblyLineId=?AssemblyLineId";
+                    List<MySqlParameter> sqlParameters = new List<MySqlParameter>
+                    {
+                        new MySqlParameter("?AssemblyLineId", strAssemblyLineId)
+                    };
+                    DeviceInfo info = new DeviceInfo();
+
+                    CreateDataList<DeviceInfo>(infos, strSQL, sqlParameters, info, null);
+                }
+                return infos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         /// <summary>
         /// 获取生产线的所有设备集合
@@ -151,7 +181,7 @@ namespace HNFactoryAutoSystem.Data
                 CreateDataList<DeviceInfo>(infos, strSQL, sqlParameters, info, null);
 
                 //按设备获取对应的传感器集合
-                foreach(DeviceInfo item in infos)
+                foreach (DeviceInfo item in infos)
                 {
                     string strDeviceId = item.DeviceId;
                     SensorInfoCollection sensors = GetSensorInfos(strDeviceId);
@@ -179,7 +209,7 @@ namespace HNFactoryAutoSystem.Data
 
                 DataModels.HnfactoryautodbDB dataContext = new DataModels.HnfactoryautodbDB();
                 DataModels.FSensorinfo data = dataContext.FSensorinfoes.SingleOrDefault(c => c.SensorId == strSensorId);
-                if(data != null)
+                if (data != null)
                 {
                     strDeviceId = data.DeviceId;
                 }
@@ -204,7 +234,7 @@ namespace HNFactoryAutoSystem.Data
             try
             {
                 SensorInfoCollection infos = new SensorInfoCollection();
-                string strSQL = "select * from f_sensorinfo where DeviceId=?DeviceId";
+                string strSQL = "select * from v_sensorinfo where DeviceId=?DeviceId";
                 List<MySqlParameter> sqlParameters = new List<MySqlParameter>
                 {
                     new MySqlParameter("?DeviceId", strDeviceId)
@@ -246,12 +276,45 @@ namespace HNFactoryAutoSystem.Data
                     return null;
                 }
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
 
+        /// <summary>
+        /// 更新传感器的设备关联关系
+        /// </summary>
+        /// <param name="strSensorId">传感器编号</param>
+        /// <param name="strDeviceId">所属设备编号</param>
+        /// <param name="strToDeviceId">连接的设备编号</param>
+        /// <returns></returns>
+        public bool UpdateSensorJoinInfo(string strSensorId, string strDeviceId, string strToDeviceId)
+        {
+            try
+            {
+                bool isUpdate = false;
+                using (DataModels.HnfactoryautodbDB dataContext = new DataModels.HnfactoryautodbDB())
+                {
+                    DataModels.FSensorinfo sensor = dataContext.FSensorinfoes.SingleOrDefault(c => c.SensorId == strSensorId);
+                    if(sensor != null)
+                    {
+                        sensor.DeviceId = strDeviceId;
+                        sensor.ToDeviceId = strToDeviceId;
+
+                        dataContext.Update<DataModels.FSensorinfo>(sensor);
+                        isUpdate = true;
+                    }
+                }
+
+                return isUpdate;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
 
 
@@ -318,7 +381,7 @@ namespace HNFactoryAutoSystem.Data
         /// </summary>
         /// <param name="strProcessId"></param>
         /// <returns></returns>
-        public TeExProcessCollection GetTeExProcesses(string strProcessId)
+        public TeExProcessCollection GetTeExProcessCollection(string strProcessId)
         {
             try
             {
@@ -344,7 +407,7 @@ namespace HNFactoryAutoSystem.Data
                 //}
 
 
-                string strSQL = "select *from p_exprocess where ProcessId=?ProcessId order by processOrderId";
+                string strSQL = "select *from v_exprocess where ProcessId=?ProcessId order by processOrderId";
                 List<MySqlParameter> sqlParameters = new List<MySqlParameter>
                 {
                     new MySqlParameter("?ProcessId", strProcessId)
@@ -380,7 +443,7 @@ namespace HNFactoryAutoSystem.Data
                     new MySqlParameter("?ExProcessId", strExProcessId)
                 };
 
-                DataSet dataSet = MySqlHelper.GetDataSet(  CommandType.Text, strSQL, sqlParameters.ToArray());
+                DataSet dataSet = MySqlHelper.GetDataSet(CommandType.Text, strSQL, sqlParameters.ToArray());
                 if (dataSet.Tables.Count > 0)
                 {
                     DataTable table = dataSet.Tables[0];
@@ -395,8 +458,8 @@ namespace HNFactoryAutoSystem.Data
                         item = infos[0];
 
                         #region 提前相关的步骤集合
-                        ProcessStepCollection steps = GetProcessSteps(strExProcessId);
-                        foreach (ProcessStep step in steps)
+                        ExProcessStepCollection steps = GetExProcessSteps(strExProcessId);
+                        foreach (ExProcessStep step in steps)
                         {
                             ExProcessStepParsCollection pars = GetExProcessStepPars(step.StepId);
                             step.StepPars = pars;
@@ -421,23 +484,23 @@ namespace HNFactoryAutoSystem.Data
         /// <param name="strProcessId"></param>
         /// <param name="iOrderIndex"></param>
         /// <returns></returns>
-        public TeExProcess GetTeExProcess(string strProcessId,int iOrderIndex)
+        public TeExProcess GetTeExProcess(string strProcessId, int iOrderIndex)
         {
             try
             {
-               
+
                 DataModels.HnfactoryautodbDB dataContext = new DataModels.HnfactoryautodbDB();
                 //获取数据
                 DataModels.PExprocess data = dataContext.PExprocesses.SingleOrDefault(c => c.ProcessId == strProcessId & c.ProcessOrderId == iOrderIndex);
-                if(data != null)
+                if (data != null)
                 {
                     TeExProcess item = new TeExProcess(data);
 
                     //提取对应的子集合
                     string strExProcessId = item.ExProcessId;
 
-                    ProcessStepCollection steps = GetProcessSteps(strExProcessId);
-                    foreach (ProcessStep step in steps)
+                    ExProcessStepCollection steps = GetExProcessSteps(strExProcessId);
+                    foreach (ExProcessStep step in steps)
                     {
                         ExProcessStepParsCollection pars = GetExProcessStepPars(step.StepId);
                         step.StepPars = pars;
@@ -463,21 +526,21 @@ namespace HNFactoryAutoSystem.Data
         /// </summary>
         /// <param name="strExProcessId"></param>
         /// <returns></returns>
-        public ProcessStepCollection GetProcessSteps(string strExProcessId)
+        public ExProcessStepCollection GetExProcessSteps(string strExProcessId)
         {
             try
             {
-                ProcessStepCollection items = new ProcessStepCollection();
+                ExProcessStepCollection items = new ExProcessStepCollection();
                 using (DataModels.HnfactoryautodbDB dataContext = new DataModels.HnfactoryautodbDB())
                 {
-                    var datas = (from c in dataContext.PExprocesssteps
+                    var datas = (from c in dataContext.VExprocesssteps
                                  where c.ExProcessId == strExProcessId
                                  orderby c.OrderIndex
                                  select c
                                 ).ToList();
-                    foreach(DataModels.PExprocessstep data in datas)
+                    foreach (DataModels.VExprocessstep data in datas)
                     {
-                        ProcessStep item = new ProcessStep(data);
+                        ExProcessStep item = new ExProcessStep(data);
                         items.Add(item);
                     }
                 }
@@ -567,7 +630,7 @@ namespace HNFactoryAutoSystem.Data
         {
 
             //提取数据
-            DataSet dataSet = MySqlHelper.GetDataSet( CommandType.Text, strSQL, sqlParameters.ToArray());
+            DataSet dataSet = MySqlHelper.GetDataSet(CommandType.Text, strSQL, sqlParameters.ToArray());
             if (dataSet.Tables.Count > 0)
             {
                 DataTable table = dataSet.Tables[0];

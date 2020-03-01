@@ -74,7 +74,7 @@ namespace DataModels
 		public ITable<TmpSensorlog>          TmpSensorlogs          { get { return this.GetTable<TmpSensorlog>(); } }
 		public ITable<TmpStocktest>          TmpStocktests          { get { return this.GetTable<TmpStocktest>(); } }
 		/// <summary>
-		/// View 'hnfactoryautodb.v_assemblylinedevices' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them
+		/// VIEW
 		/// </summary>
 		public ITable<VAssemblylinedevice>   VAssemblylinedevices   { get { return this.GetTable<VAssemblylinedevice>(); } }
 		/// <summary>
@@ -85,6 +85,18 @@ namespace DataModels
 		/// VIEW
 		/// </summary>
 		public ITable<VDeviceproducelog>     VDeviceproducelogs     { get { return this.GetTable<VDeviceproducelog>(); } }
+		/// <summary>
+		/// VIEW
+		/// </summary>
+		public ITable<VExprocess>            VExprocesses           { get { return this.GetTable<VExprocess>(); } }
+		/// <summary>
+		/// VIEW
+		/// </summary>
+		public ITable<VExprocessstep>        VExprocesssteps        { get { return this.GetTable<VExprocessstep>(); } }
+		/// <summary>
+		/// VIEW
+		/// </summary>
+		public ITable<VSensorinfo>           VSensorinfoes          { get { return this.GetTable<VSensorinfo>(); } }
 
 		public HnfactoryautodbDB()
 		{
@@ -242,7 +254,7 @@ namespace DataModels
 		/// 参数单位
 		/// </summary>
 		[Column(),        Nullable          ] public string   ParUnit           { get; set; } // varchar(5)
-		[Column(),     NotNull              ] public decimal  ParValue          { get; set; } // decimal(10,0)
+		[Column(),     NotNull              ] public decimal  ParValue          { get; set; } // decimal(10,2)
 		/// <summary>
 		/// 操作目标的设备编号
 		/// </summary>
@@ -305,7 +317,7 @@ namespace DataModels
 		/// <summary>
 		/// 参数数值
 		/// </summary>
-		[Column(),        Nullable          ] public decimal?  ParValue           { get; set; } // decimal(10,0)
+		[Column(),        Nullable          ] public decimal?  ParValue           { get; set; } // decimal(10,2)
 	}
 
 	/// <summary>
@@ -371,7 +383,7 @@ namespace DataModels
 		[Column(),        Nullable          ] public DateTime? FinishTime          { get; set; } // datetime(6)
 		[Column(),        Nullable          ] public string    ProcessStatus       { get; set; } // varchar(10)
 		[Column(),        Nullable          ] public string    ProduceMaterialType { get; set; } // varchar(10)
-		[Column(),        Nullable          ] public decimal?  Production          { get; set; } // decimal(10,0)
+		[Column(),        Nullable          ] public decimal?  Production          { get; set; } // decimal(10,2)
 		[Column(),        Nullable          ] public int?      TakeTime            { get; set; } // int(11)
 	}
 
@@ -408,7 +420,7 @@ namespace DataModels
 		/// <summary>
 		/// 浮点数值类参数值(重量，温度，搅拌速度,PH值等)
 		/// </summary>
-		[Column(),        Nullable          ] public decimal?  ParValue           { get; set; } // decimal(10,0)
+		[Column(),        Nullable          ] public decimal?  ParValue           { get; set; } // decimal(10,2)
 	}
 
 	/// <summary>
@@ -450,7 +462,7 @@ namespace DataModels
 		/// <summary>
 		/// 生产的物料产量（KG）
 		/// </summary>
-		[Column(),        Nullable          ] public decimal?  Production          { get; set; } // decimal(10,0)
+		[Column(),        Nullable          ] public decimal?  Production          { get; set; } // decimal(10,2)
 		/// <summary>
 		/// 总共花费的时间（分钟单位）
 		/// </summary>
@@ -467,7 +479,7 @@ namespace DataModels
 		[Column(),     NotNull              ] public string  ProcessId      { get; set; } // varchar(100)
 		[Column(),     NotNull              ] public string  StartDeviceId  { get; set; } // varchar(100)
 		[Column(),     NotNull              ] public string  ParType        { get; set; } // varchar(10)
-		[Column(),     NotNull              ] public decimal ParValue       { get; set; } // decimal(10,0)
+		[Column(),     NotNull              ] public decimal ParValue       { get; set; } // decimal(10,2)
 		[Column(),     NotNull              ] public int     ProcessOrderId { get; set; } // int(11)
 	}
 
@@ -491,9 +503,13 @@ namespace DataModels
 		[Column(),     NotNull              ] public int      SyncStepInterval { get; set; } // int(11)
 		[Column(),        Nullable          ] public string   FinishParType    { get; set; } // varchar(10)
 		[Column(),        Nullable          ] public string   FinishParUnit    { get; set; } // varchar(10)
-		[Column(),        Nullable          ] public decimal? FinishParValue   { get; set; } // decimal(10,0)
+		[Column(),        Nullable          ] public decimal? FinishParValue   { get; set; } // decimal(10,2)
 		[Column(),     NotNull              ] public string   BeforeStepId     { get; set; } // varchar(100)
 		[Column(),        Nullable          ] public string   ResultsId        { get; set; } // varchar(100)
+		/// <summary>
+		/// 延迟进入下一步骤的时间(min)
+		/// </summary>
+		[Column(),     NotNull              ] public int      Delayed          { get; set; } // int(11)
 	}
 
 	[Table("p_exprocesssteppars")]
@@ -509,7 +525,7 @@ namespace DataModels
 		/// <summary>
 		/// 浮点数值类参数值(重量，温度，搅拌速度,PH值)
 		/// </summary>
-		[Column(),        Nullable          ] public decimal? ParValue   { get; set; } // decimal(10,0)
+		[Column(),        Nullable          ] public decimal? ParValue   { get; set; } // decimal(10,2)
 		/// <summary>
 		/// 需要的时间数（记录分钟计算）
 		/// </summary>
@@ -518,6 +534,10 @@ namespace DataModels
 		/// 参数是否是步骤完成的条件
 		/// </summary>
 		[Column(),     NotNull              ] public sbyte    IsFinish   { get; set; } // tinyint(4)
+		/// <summary>
+		/// 提前关闭设备的量
+		/// </summary>
+		[Column(),     NotNull              ] public decimal  LeadTime   { get; set; } // decimal(10,2)
 	}
 
 	[Table("p_mainprocess")]
@@ -527,8 +547,8 @@ namespace DataModels
 		[Column(),     NotNull              ] public string  ProcessId    { get; set; } // varchar(100)
 		[Column(),        Nullable          ] public string  ProcessTitle { get; set; } // varchar(200)
 		[Column(),     NotNull              ] public string  ProductsType { get; set; } // varchar(30)
-		[Column(),     NotNull              ] public decimal PurityMin    { get; set; } // decimal(10,0)
-		[Column(),     NotNull              ] public decimal PuritvMax    { get; set; } // decimal(10,0)
+		[Column(),     NotNull              ] public decimal PurityMin    { get; set; } // decimal(10,2)
+		[Column(),     NotNull              ] public decimal PuritvMax    { get; set; } // decimal(10,2)
 		[Column(),     NotNull              ] public int     ProcessYear  { get; set; } // int(11)
 		[Column(),     NotNull              ] public int     Fineness     { get; set; } // int(11)
 	}
@@ -542,7 +562,7 @@ namespace DataModels
 		[Column(),     Nullable            ] public string    ValueType         { get; set; } // varchar(20)
 		[Column(),     Nullable            ] public int?      SensorStatusValue { get; set; } // int(11)
 		[Column(),     Nullable            ] public string    SensorStatus      { get; set; } // varchar(10)
-		[Column(),     Nullable            ] public decimal?  ParValue          { get; set; } // decimal(10,0)
+		[Column(),     Nullable            ] public decimal?  ParValue          { get; set; } // decimal(10,2)
 		[Column(),     Nullable            ] public DateTime? Created           { get; set; } // datetime
 	}
 
@@ -556,11 +576,20 @@ namespace DataModels
 	}
 
 	/// <summary>
-	/// View 'hnfactoryautodb.v_assemblylinedevices' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them
+	/// VIEW
 	/// </summary>
 	[Table("v_assemblylinedevices", IsView=true)]
 	public partial class VAssemblylinedevice
 	{
+		[Column("id"), NotNull    ] public int    Id              { get; set; } // int(11)
+		[Column(),     NotNull    ] public string DeviceId        { get; set; } // varchar(100)
+		[Column(),        Nullable] public string DeviceName      { get; set; } // varchar(200)
+		[Column(),        Nullable] public string DeviceType      { get; set; } // varchar(5)
+		[Column(),        Nullable] public string ProcessDeviceId { get; set; } // varchar(100)
+		[Column(),        Nullable] public string DeviceStatus    { get; set; } // varchar(5)
+		[Column(),        Nullable] public string Parameter1      { get; set; } // varchar(100)
+		[Column(),        Nullable] public string Parameter2      { get; set; } // varchar(100)
+		[Column(),     NotNull    ] public string AssemblyLineId  { get; set; } // varchar(100)
 	}
 
 	/// <summary>
@@ -632,12 +661,114 @@ namespace DataModels
 		/// <summary>
 		/// 参数数值
 		/// </summary>
-		[Column(),        Nullable] public decimal?  ParValue           { get; set; } // decimal(10,0)
+		[Column(),        Nullable] public decimal?  ParValue           { get; set; } // decimal(10,2)
 		[Column(),        Nullable] public string    DeviceName         { get; set; } // varchar(200)
 		[Column(),        Nullable] public string    SensorName         { get; set; } // varchar(200)
 		[Column(),        Nullable] public string    AssemblyLineTitle  { get; set; } // varchar(200)
 		[Column(),     NotNull    ] public string    AssemblyLineId     { get; set; } // varchar(100)
 		[Column(),        Nullable] public string    ProcessTitle       { get; set; } // varchar(200)
+	}
+
+	/// <summary>
+	/// VIEW
+	/// </summary>
+	[Table("v_exprocess", IsView=true)]
+	public partial class VExprocess
+	{
+		[Column("id"), NotNull    ] public int     Id                { get; set; } // int(11)
+		[Column(),     NotNull    ] public string  ExProcessId       { get; set; } // varchar(100)
+		[Column(),        Nullable] public string  ExProcessTitle    { get; set; } // varchar(200)
+		[Column(),     NotNull    ] public string  SortCode          { get; set; } // varchar(5)
+		[Column(),     NotNull    ] public string  ProcessId         { get; set; } // varchar(100)
+		[Column(),     NotNull    ] public string  StartDeviceId     { get; set; } // varchar(100)
+		[Column(),     NotNull    ] public string  ParType           { get; set; } // varchar(10)
+		[Column(),     NotNull    ] public decimal ParValue          { get; set; } // decimal(10,2)
+		[Column(),     NotNull    ] public int     ProcessOrderId    { get; set; } // int(11)
+		[Column(),        Nullable] public string  ProcessDeviceName { get; set; } // varchar(100)
+		[Column(),        Nullable] public string  DeviceType        { get; set; } // varchar(10)
+		[Column(),        Nullable] public string  MaterialType      { get; set; } // varchar(10)
+		[Column(),        Nullable] public string  Parameter1        { get; set; } // varchar(45)
+		[Column(),        Nullable] public string  Parameter2        { get; set; } // varchar(45)
+		[Column(),        Nullable] public string  Parameter3        { get; set; } // varchar(45)
+	}
+
+	/// <summary>
+	/// VIEW
+	/// </summary>
+	[Table("v_exprocessstep", IsView=true)]
+	public partial class VExprocessstep
+	{
+		[Column("id"), NotNull    ] public int      Id                { get; set; } // int(11)
+		[Column(),     NotNull    ] public string   StepId            { get; set; } // varchar(100)
+		[Column(),        Nullable] public string   StepTitle         { get; set; } // varchar(200)
+		[Column(),     NotNull    ] public string   ExProcessId       { get; set; } // varchar(100)
+		[Column(),     NotNull    ] public int      OrderIndex        { get; set; } // int(11)
+		[Column(),     NotNull    ] public string   ProcessDeviceId   { get; set; } // varchar(100)
+		/// <summary>
+		/// 操作类型（排出/搅拌等）
+		/// </summary>
+		[Column(),     NotNull    ] public string   ActionType        { get; set; } // varchar(10)
+		[Column(),     NotNull    ] public sbyte    IsSync            { get; set; } // tinyint(4)
+		/// <summary>
+		/// 同步的步骤的间隔启动时间（分钟）
+		/// </summary>
+		[Column(),     NotNull    ] public int      SyncStepInterval  { get; set; } // int(11)
+		[Column(),        Nullable] public string   FinishParType     { get; set; } // varchar(10)
+		[Column(),        Nullable] public string   FinishParUnit     { get; set; } // varchar(10)
+		[Column(),        Nullable] public decimal? FinishParValue    { get; set; } // decimal(10,2)
+		[Column(),     NotNull    ] public string   BeforeStepId      { get; set; } // varchar(100)
+		[Column(),        Nullable] public string   ResultsId         { get; set; } // varchar(100)
+		/// <summary>
+		/// 延迟进入下一步骤的时间(min)
+		/// </summary>
+		[Column(),     NotNull    ] public int      Delayed           { get; set; } // int(11)
+		[Column(),        Nullable] public string   ProcessDeviceName { get; set; } // varchar(100)
+		[Column(),        Nullable] public string   DeviceType        { get; set; } // varchar(10)
+		[Column(),        Nullable] public string   MaterialType      { get; set; } // varchar(10)
+		[Column(),        Nullable] public string   Parameter1        { get; set; } // varchar(45)
+		[Column(),        Nullable] public string   Parameter2        { get; set; } // varchar(45)
+		[Column(),        Nullable] public string   Parameter3        { get; set; } // varchar(45)
+	}
+
+	/// <summary>
+	/// VIEW
+	/// </summary>
+	[Table("v_sensorinfo", IsView=true)]
+	public partial class VSensorinfo
+	{
+		[Column("sid"),         NotNull    ] public int      Sid          { get; set; } // int(11)
+		[Column(),              NotNull    ] public string   SensorId     { get; set; } // varchar(100)
+		[Column(),                 Nullable] public string   SensorName   { get; set; } // varchar(200)
+		[Column(),                 Nullable] public string   Power        { get; set; } // varchar(30)
+		[Column(),                 Nullable] public string   Voltage      { get; set; } // varchar(30)
+		[Column(),                 Nullable] public string   StarterType  { get; set; } // varchar(30)
+		[Column("IO_DI"),          Nullable] public int?     IoDi         { get; set; } // int(11)
+		[Column("IO_DO"),          Nullable] public int?     IoDo         { get; set; } // int(11)
+		[Column("IO_AI"),          Nullable] public int?     IoAi         { get; set; } // int(11)
+		[Column("IO_AO"),          Nullable] public int?     IoAo         { get; set; } // int(11)
+		[Column("IO_Modbus"),      Nullable] public int?     IoModbus     { get; set; } // int(11)
+		[Column(),                 Nullable] public decimal? MinEU        { get; set; } // decimal(10,0)
+		[Column(),                 Nullable] public decimal? MaxEu        { get; set; } // decimal(10,0)
+		[Column(),                 Nullable] public string   Units        { get; set; } // varchar(30)
+		[Column(),                 Nullable] public string   ParType      { get; set; } // varchar(5)
+		[Column(),                 Nullable] public string   SComment     { get; set; } // varchar(200)
+		[Column(),              NotNull    ] public int      SensorStatus { get; set; } // int(11)
+		[Column("PLC_Id"),         Nullable] public string   PlcId        { get; set; } // varchar(100)
+		[Column(),                 Nullable] public string   DeviceId     { get; set; } // varchar(100)
+		/// <summary>
+		/// 连接到的设备编号
+		/// </summary>
+		[Column(),                 Nullable] public string   ToDeviceId   { get; set; } // varchar(100)
+		/// <summary>
+		/// 传感器在PLC机柜里面的地址编码
+		/// </summary>
+		[Column("PLC_Address"),    Nullable] public string   PlcAddress   { get; set; } // varchar(30)
+		/// <summary>
+		/// 传感器数值在PLC里面的长度（默认2）
+		/// </summary>
+		[Column(),              NotNull    ] public int      ValueLength  { get; set; } // int(11)
+		[Column(),                 Nullable] public string   DeviceName   { get; set; } // varchar(200)
+		[Column(),                 Nullable] public string   ToDeviceName { get; set; } // varchar(200)
 	}
 
 	public static partial class HnfactoryautodbDBStoredProcedures

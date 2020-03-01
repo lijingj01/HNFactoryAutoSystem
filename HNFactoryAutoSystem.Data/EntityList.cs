@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MySqlX.XDevAPI.Common;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace HNFactoryAutoSystem.Data
 
     public class ListBase<T> : List<T> 
     {
+        public int total { get; set; }
+        public int rows { get; set; }
         /// <summary>
         /// List集合转换成对象
         /// </summary>
@@ -52,6 +55,105 @@ namespace HNFactoryAutoSystem.Data
         }
         #endregion
     }
+
+    /// <summary>
+    /// 统一json返回类
+    /// </summary>
+    public class Result<T>
+    {
+        /// <summary>
+        /// 返回码
+        /// </summary>
+        public int code { get; set; }
+        /// <summary>
+        /// 返回信息提示
+        /// </summary>
+        public string message { get; set; }
+        /// <summary>
+        /// 返回的数据
+        /// </summary>
+        public T data { get; set; }
+
+        public Result() { }
+
+        public Result(int code, string message, T data)
+        {
+            this.code = code;
+            this.message = message;
+            this.data = data;
+        }
+
+        public Result(SysHelper.Enums.ResultEnum codeenum, T data)
+        {
+            this.code = Convert.ToInt32(codeenum);
+            this.message = SysHelper.Enums.EnumHelper.GetEnumDesc<SysHelper.Enums.ResultEnum>(codeenum);
+            this.data = data;
+        }
+
+        /// <summary>
+        /// 将对象转换成Json字符串
+        /// </summary>
+        /// <returns></returns>
+        public string ToJsonString()
+        {
+            string strJson = string.Empty;
+            try
+            {
+                IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+                //这里使用自定义日期格式，如果不使用的话，默认是ISO8601格式  'HH':'mm':'ss"     
+                timeConverter.DateTimeFormat = "yyyy'-'MM'-'dd HH':'mm':'ss";
+                strJson = JsonConvert.SerializeObject(this, Formatting.Indented, timeConverter);
+            }
+            catch (Exception ex) { }
+            return strJson;
+        }
+
+
+    }
+
+    public static class ResultUtil
+    {
+        /// <summary>
+        /// 数据交互成功返回
+        /// </summary>
+        /// <param name=""></param>
+        /// <param name=""></param>
+        /// <returns></returns>
+        public static Result<T> Success<T>(T data)
+        {
+
+            return new Result<T>(SysHelper.Enums.ResultEnum.SUCCESS, data);
+        }
+
+        /// <summary>
+        /// 数据交互
+        /// </summary>
+        /// <returns></returns>
+        public static Result<T> NotFound<T>(T data)
+        {
+            return new Result<T>(SysHelper.Enums.ResultEnum.NOT_FOUND, data);
+        }
+
+        /// <summary>
+        /// 参数异常
+        /// </summary>
+        /// <returns></returns>
+        public static Result<T> ParameterError<T>(T data)
+        {
+            return new Result<T>(SysHelper.Enums.ResultEnum.PARAMETER_ERROR, data);
+        }
+        /// <summary>
+        /// 系统异常
+        /// </summary>
+        /// <returns></returns>
+        public static Result<T> SystemError<T>(T data)
+        {
+            return new Result<T>(SysHelper.Enums.ResultEnum.ERROR, data);
+        }
+
+
+    }
+
     #endregion
 
     #region 基础设置对象
@@ -210,6 +312,27 @@ namespace HNFactoryAutoSystem.Data
         /// 生产线编码
         /// </summary>
         public string AssemblyLineId { get; set; }
+
+        /// <summary>
+        /// 设备类型说明
+        /// </summary>
+        public string DeviceTypeString
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(DeviceType))
+                {
+                    SysHelper.Enums.DeviceTypeEnum typeEnum = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.DeviceTypeEnum>(DeviceType);
+                    string strInfo = SysHelper.Enums.EnumHelper.GetEnumDesc<SysHelper.Enums.DeviceTypeEnum>(typeEnum);
+                    return strInfo;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+
+        }
         #endregion
 
         #region 集合属性
@@ -320,6 +443,17 @@ namespace HNFactoryAutoSystem.Data
         public int ValueLength { get; set; }
         #endregion
 
+        #region 扩展属性
+        /// <summary>
+        /// 所属设备名称
+        /// </summary>
+        public string DeviceName { get; set; }
+        /// <summary>
+        /// 连接的设备名称
+        /// </summary>
+        public string ToDeviceName { get; set; }
+        #endregion
+
         #region 构造函数
         public SensorInfo()
         {
@@ -350,6 +484,35 @@ namespace HNFactoryAutoSystem.Data
             this.ToDeviceId = data.ToDeviceId;
             this.PLC_Address = data.PlcAddress;
             this.ValueLength = data.ValueLength;
+        }
+
+        internal SensorInfo(DataModels.VSensorinfo data) : this()
+        {
+            this.Id = data.Sid;
+            this.SensorId = data.SensorId;
+            this.SensorName = data.SensorName;
+            this.Power = data.Power;
+            this.Voltage = data.Voltage;
+            this.StarterType = data.StarterType;
+            this.IO_DI = data.IoDi;
+            this.IO_DO = data.IoDo;
+            this.IO_AI = data.IoAi;
+            this.IO_AO = data.IoAo;
+            this.IO_Modbus = data.IoModbus;
+            this.MinEU = data.MinEU;
+            this.MaxEU = data.MaxEu;
+            this.Units = data.Units;
+            this.ParType = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.DeviceParameterType>(data.ParType);
+            this.SComment = data.SComment;
+            this.SensorStatus = data.SensorStatus;
+            this.PLC_Id = data.PlcId;
+            this.DeviceId = data.DeviceId;
+            this.ToDeviceId = data.ToDeviceId;
+            this.PLC_Address = data.PlcAddress;
+            this.ValueLength = data.ValueLength;
+
+            this.DeviceName = data.DeviceName;
+            this.ToDeviceName = data.ToDeviceName;
         }
         #endregion
     }

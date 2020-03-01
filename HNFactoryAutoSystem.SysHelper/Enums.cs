@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace HNFactoryAutoSystem.SysHelper.Enums
 {
@@ -27,6 +29,26 @@ namespace HNFactoryAutoSystem.SysHelper.Enums
             {
                 return (T)Enum.ToObject(typeof(T), 0);
             }
+        }
+
+        /// <summary>    
+        /// 获取枚举项描述信息 例如GetEnumDesc(Days.Sunday)    
+        /// </summary>    
+        /// <param name="en">枚举项 如Days.Sunday</param>    
+        /// <returns></returns>    
+        public static string GetEnumDesc<T>(T en)
+        {
+            Type type = en.GetType();
+            MemberInfo[] memInfo = type.GetMember(en.ToString());
+            if (memInfo != null && memInfo.Length > 0)
+            {
+                object[] attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
+                if (attrs != null && attrs.Length > 0)
+                {
+                    return ((DescriptionAttribute)attrs[0]).Description;
+                }
+            }
+            return en.ToString();
         }
 
         #region 特殊的枚举中文转换
@@ -63,6 +85,15 @@ namespace HNFactoryAutoSystem.SysHelper.Enums
                     break;
                 case DeviceParameterType.Valve:
                     strReturn = "阀门";
+                    break;
+                case DeviceParameterType.SW:
+                    strReturn = "开关";
+                    break;
+                case DeviceParameterType.TR:
+                    strReturn = "输送";
+                    break;
+                case DeviceParameterType.Hz:
+                    strReturn = "频率";
                     break;
                 default:
                     break;
@@ -133,6 +164,53 @@ namespace HNFactoryAutoSystem.SysHelper.Enums
             }
             return strReturn;
         }
+
+        /// <summary>
+        /// 获取物料类型的说明
+        /// </summary>
+        /// <param name="materialType"></param>
+        /// <returns></returns>
+        public static string GetMaterialTypeString(MaterialTypeEnum materialType)
+        {
+            string strReturn = string.Empty;
+            switch (materialType)
+            {
+
+                case MaterialTypeEnum.Y:
+                    strReturn = "原料";
+                    break;
+                case MaterialTypeEnum.F:
+                    strReturn = "辅料";
+                    break;
+                case MaterialTypeEnum.AP:
+                    strReturn = "辅成品";
+                    break;
+                case MaterialTypeEnum.C:
+                    strReturn = "主成品";
+                    break;
+                case MaterialTypeEnum.P:
+                    strReturn = "包装材料";
+                    break;
+                case MaterialTypeEnum.Z:
+                    strReturn = "中间物料";
+                    break;
+                case MaterialTypeEnum.RE:
+                    strReturn = "渣";
+                    break;
+                case MaterialTypeEnum.WW:
+                    strReturn = "废水";
+                    break;
+                case MaterialTypeEnum.WL:
+                    strReturn = "废液";
+                    break;
+                case MaterialTypeEnum.WG:
+                    strReturn = "废气";
+                    break;
+                default:
+                    break;
+            }
+            return strReturn;
+        }
         #endregion
     }
 
@@ -173,7 +251,19 @@ namespace HNFactoryAutoSystem.SysHelper.Enums
         /// <summary>
         /// 阀门
         /// </summary>
-        Valve = 8
+        Valve = 8,
+        /// <summary>
+        /// 开关
+        /// </summary>
+        SW = 9,
+        /// <summary>
+        /// 输送
+        /// </summary>
+        TR = 10,
+        /// <summary>
+        /// 频率
+        /// </summary>
+        Hz = 11
     }
     /// <summary>
     /// 生产设备的操作类型
@@ -319,6 +409,63 @@ namespace HNFactoryAutoSystem.SysHelper.Enums
         WG = 10
     }
 
+    /// <summary>
+    /// 设备类型
+    /// </summary>
+    public enum DeviceTypeEnum
+    {
+        /// <summary>
+        /// 无类型
+        /// </summary>
+        [Description("无类型")]
+        None = 0,
+        /// <summary>
+        /// 桶
+        /// </summary>
+        [Description("桶")]
+        BA = 1,
+        /// <summary>
+        /// 沉淀池
+        /// </summary>
+        [Description("沉淀池")]
+        PP = 2,
+        /// <summary>
+        /// 釜
+        /// </summary>
+        [Description("釜")]
+        KE = 3,
+        /// <summary>
+        /// 焙烧炉
+        /// </summary>
+        [Description("焙烧炉")]
+        RF = 4,
+        /// <summary>
+        /// 氢气炉
+        /// </summary>
+        [Description("氢气炉")]
+        HF = 5,
+        /// <summary>
+        /// 真空打包
+        /// </summary>
+        [Description("真空打包")]
+        VP = 6,
+        /// <summary>
+        /// 加热
+        /// </summary>
+        [Description("加热")]
+        RE = 7,
+        /// <summary>
+        /// 净水
+        /// </summary>
+        [Description("净水")]
+        WP = 8,
+        /// <summary>
+        /// 蒸发
+        /// </summary>
+        [Description("蒸发")]
+        EV = 9
+    }
+
 
     #region 传感器状态相关枚举
     /// <summary>
@@ -386,6 +533,67 @@ namespace HNFactoryAutoSystem.SysHelper.Enums
         /// 写入
         /// </summary>
         Write = 2
+    }
+    #endregion
+
+    #region 通用返回数据枚举
+    /// <summary>
+    /// 返回值通用枚举
+    /// </summary>
+    public enum ResultEnum
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("success")]
+        SUCCESS = 0,
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("未知错误")]
+        FAILED = 1,
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("服务暂不可用")]
+        NOSERVICE = 2,
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("未知方法")]
+        UNSUPPORTEDMETHOD = 3,
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("请求参数无效")]
+        INVALIDPARAMETER = 4,
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("读取配置文件出错")]
+        READCONFIGFAILED = 5,
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("数据库连接出错")]
+        DBCONECTIONFAILED = 6,
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("notFound [数据不存在 或者 数据为空]")]
+        NOT_FOUND = -1,
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("error [未知异常]")]
+        ERROR = -2,
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("parameter error [参数异常:参数为空或者参数类型不符]")]
+        PARAMETER_ERROR = -3
+
+
     }
     #endregion
 }

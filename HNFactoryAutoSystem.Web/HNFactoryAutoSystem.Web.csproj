@@ -1,0 +1,1171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0140B354-9752-4BC3-83BB-5C4AFDE6C9A2}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HNFactoryAutoSystem.Web</RootNamespace>
+    <AssemblyName>HNFactoryAutoSystem.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44396</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.7</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery">
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.3.4.1\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.MSAjax">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.MSAjax.5.0.0\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.WebForms">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.WebForms.5.0.0\lib\net45\Microsoft.ScriptManager.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Web.Optimization.WebForms">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.WebForms.1.1.3\lib\net45\Microsoft.AspNet.Web.Optimization.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.aspx" />
+    <Content Include="assets\css\black-dashboard.css" />
+    <Content Include="assets\css\black-dashboard.min.css" />
+    <Content Include="assets\css\nucleo-icons.css" />
+    <Content Include="assets\demo\demo.css" />
+    <Content Include="assets\demo\demo.js" />
+    <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\img\12345.png" />
+    <Content Include="assets\img\anime3.png" />
+    <Content Include="assets\img\anime6.png" />
+    <Content Include="assets\img\apple-icon.png" />
+    <Content Include="assets\img\bg5.jpg" />
+    <Content Include="assets\img\default-avatar.png" />
+    <Content Include="assets\img\emilyz.jpg" />
+    <Content Include="assets\img\favicon.png" />
+    <Content Include="assets\img\header.jpg" />
+    <Content Include="assets\img\img_3115.jpg" />
+    <Content Include="assets\img\james.jpg" />
+    <Content Include="assets\img\mike.jpg" />
+    <Content Include="assets\img\now-logo.png" />
+    <Content Include="assets\js\black-dashboard.js" />
+    <Content Include="assets\js\black-dashboard.min.js" />
+    <Content Include="assets\js\core\bootstrap.min.js" />
+    <Content Include="assets\js\core\jquery.min.js" />
+    <Content Include="assets\js\core\popper.min.js" />
+    <Content Include="assets\js\plugins\bootstrap-notify.js" />
+    <Content Include="assets\js\plugins\chartjs.min.js" />
+    <Content Include="assets\js\plugins\perfect-scrollbar.jquery.min.js" />
+    <Content Include="Contact.aspx" />
+    <Content Include="FactoryDeviceManage.aspx" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="ProcessManage.aspx" />
+    <Content Include="Scripts\ace_admin_cn\assets\avatars\avatar.png" />
+    <Content Include="Scripts\ace_admin_cn\assets\avatars\avatar1.png" />
+    <Content Include="Scripts\ace_admin_cn\assets\avatars\avatar2.png" />
+    <Content Include="Scripts\ace_admin_cn\assets\avatars\avatar3.png" />
+    <Content Include="Scripts\ace_admin_cn\assets\avatars\avatar4.png" />
+    <Content Include="Scripts\ace_admin_cn\assets\avatars\avatar5.png" />
+    <Content Include="Scripts\ace_admin_cn\assets\avatars\profile-pic.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\avatars\user.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\ace-ie.min.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\ace-rtl.min.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\ace-skins.min.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\ace.min.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\bootstrap-editable.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\bootstrap-timepicker.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\bootstrap.min.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\chosen.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\colorbox.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\colorpicker.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\datepicker.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\daterangepicker.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\dropzone.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\font-awesome-ie7.min.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\font-awesome.min.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\fullcalendar.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\images\loading.gif" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\jquery-ui-1.10.3.custom.min.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\jquery-ui-1.10.3.full.min.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\jquery.gritter.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\select2.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\ui.jqgrid.css" />
+    <Content Include="Scripts\ace_admin_cn\assets\images\gallery\image-1.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\images\gallery\image-2.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\images\gallery\image-3.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\images\gallery\image-4.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\images\gallery\image-5.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\images\gallery\image-6.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\images\gallery\thumb-1.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\images\gallery\thumb-2.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\images\gallery\thumb-3.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\images\gallery\thumb-4.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\images\gallery\thumb-5.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\images\gallery\thumb-6.jpg" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\ace-elements.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\ace-extra.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\ace.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\additional-methods.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\bootbox.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\bootstrap-colorpicker.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\bootstrap-tag.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\bootstrap-wysiwyg.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\bootstrap.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\chosen.jquery.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\date-time\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\date-time\bootstrap-timepicker.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\date-time\daterangepicker.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\date-time\moment.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\dropzone.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\excanvas.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\flot\jquery.flot.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\flot\jquery.flot.pie.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\flot\jquery.flot.resize.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\fuelux\data\fuelux.tree-sampledata.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\fuelux\fuelux.spinner.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\fuelux\fuelux.tree.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\fuelux\fuelux.wizard.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\fullcalendar.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\html5shiv.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jqGrid\i18n\grid.locale-en.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jqGrid\jquery.jqGrid.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery-ui-1.10.3.full.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.autosize.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.colorbox-min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.dataTables.bootstrap.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.dataTables.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.easy-pie-chart.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.gritter.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.hotkeys.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.inputlimiter.1.3.1.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.knob.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.maskedinput.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.mobile.custom.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.nestable.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.slimscroll.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.sparkline.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.ui.touch-punch.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.validate.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\markdown\bootstrap-markdown.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\markdown\markdown.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\respond.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\select2.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\typeahead-bs2.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\x-editable\ace-editable.min.js" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\x-editable\bootstrap-editable.min.js" />
+    <Content Include="Scripts\ace_admin_cn\blank.html" />
+    <Content Include="Scripts\ace_admin_cn\buttons.html" />
+    <Content Include="Scripts\ace_admin_cn\calendar.html" />
+    <Content Include="Scripts\ace_admin_cn\dropzone.html" />
+    <Content Include="Scripts\ace_admin_cn\elements.html" />
+    <Content Include="Scripts\ace_admin_cn\error-404.html" />
+    <Content Include="Scripts\ace_admin_cn\error-500.html" />
+    <Content Include="Scripts\ace_admin_cn\faq.html" />
+    <Content Include="Scripts\ace_admin_cn\form-elements.html" />
+    <Content Include="Scripts\ace_admin_cn\form-wizard.html" />
+    <Content Include="Scripts\ace_admin_cn\gallery.html" />
+    <Content Include="Scripts\ace_admin_cn\grid.html" />
+    <Content Include="Scripts\ace_admin_cn\inbox.html" />
+    <Content Include="Scripts\ace_admin_cn\index.html" />
+    <Content Include="Scripts\ace_admin_cn\invoice.html" />
+    <Content Include="Scripts\ace_admin_cn\jqgrid.html" />
+    <Content Include="Scripts\ace_admin_cn\jquery-ui.html" />
+    <Content Include="Scripts\ace_admin_cn\login.html" />
+    <Content Include="Scripts\ace_admin_cn\nestable-list.html" />
+    <Content Include="Scripts\ace_admin_cn\pricing.html" />
+    <Content Include="Scripts\ace_admin_cn\profile.html" />
+    <Content Include="Scripts\ace_admin_cn\tables.html" />
+    <Content Include="Scripts\ace_admin_cn\timeline.html" />
+    <Content Include="Scripts\ace_admin_cn\treeview.html" />
+    <Content Include="Scripts\ace_admin_cn\typography.html" />
+    <Content Include="Scripts\ace_admin_cn\widgets.html" />
+    <Content Include="Scripts\ace_admin_cn\wysiwyg.html" />
+    <Content Include="Scripts\bootstrap-4.4.1\css\bootstrap-grid.css" />
+    <Content Include="Scripts\bootstrap-4.4.1\css\bootstrap-grid.min.css" />
+    <Content Include="Scripts\bootstrap-4.4.1\css\bootstrap-reboot.css" />
+    <Content Include="Scripts\bootstrap-4.4.1\css\bootstrap-reboot.min.css" />
+    <Content Include="Scripts\bootstrap-4.4.1\css\bootstrap.css" />
+    <Content Include="Scripts\bootstrap-4.4.1\css\bootstrap.min.css" />
+    <Content Include="Scripts\bootstrap-4.4.1\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\bootstrap-4.4.1\js\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap-4.4.1\js\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap-4.4.1\js\bootstrap.js" />
+    <Content Include="Scripts\bootstrap-4.4.1\js\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table-locale-all.js" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table-locale-all.min.js" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table-vue.esm.js" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table-vue.esm.min.js" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table-vue.js" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table-vue.min.js" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table.css" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table.js" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table.min.css" />
+    <Content Include="Scripts\bootstrap-table\bootstrap-table.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\accent-neutralise\bootstrap-table-accent-neutralise.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\accent-neutralise\bootstrap-table-accent-neutralise.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\addrbar\bootstrap-table-addrbar.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\addrbar\bootstrap-table-addrbar.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\auto-refresh\bootstrap-table-auto-refresh.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\auto-refresh\bootstrap-table-auto-refresh.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\cell-input\bootstrap-table-cell-input.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\cell-input\bootstrap-table-cell-input.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\cell-input\bootstrap-table-cell-input.min.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\cell-input\bootstrap-table-cell-input.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\cookie\bootstrap-table-cookie.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\cookie\bootstrap-table-cookie.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\copy-rows\bootstrap-table-copy-rows.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\copy-rows\bootstrap-table-copy-rows.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\defer-url\bootstrap-table-defer-url.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\defer-url\bootstrap-table-defer-url.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\editable\bootstrap-table-editable.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\editable\bootstrap-table-editable.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\export\bootstrap-table-export.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\export\bootstrap-table-export.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\filter-control\bootstrap-table-filter-control.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\filter-control\bootstrap-table-filter-control.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\filter-control\bootstrap-table-filter-control.min.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\filter-control\bootstrap-table-filter-control.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\fixed-columns\bootstrap-table-fixed-columns.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\fixed-columns\bootstrap-table-fixed-columns.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\fixed-columns\bootstrap-table-fixed-columns.min.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\fixed-columns\bootstrap-table-fixed-columns.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\group-by-v2\bootstrap-table-group-by.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\group-by-v2\bootstrap-table-group-by.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\group-by-v2\bootstrap-table-group-by.min.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\group-by-v2\bootstrap-table-group-by.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\i18n-enhance\bootstrap-table-i18n-enhance.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\i18n-enhance\bootstrap-table-i18n-enhance.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\key-events\bootstrap-table-key-events.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\key-events\bootstrap-table-key-events.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\mobile\bootstrap-table-mobile.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\mobile\bootstrap-table-mobile.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\multiple-sort\bootstrap-table-multiple-sort.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\multiple-sort\bootstrap-table-multiple-sort.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\natural-sorting\bootstrap-table-natural-sorting.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\natural-sorting\bootstrap-table-natural-sorting.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\page-jump-to\bootstrap-table-page-jump-to.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\page-jump-to\bootstrap-table-page-jump-to.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\page-jump-to\bootstrap-table-page-jump-to.min.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\page-jump-to\bootstrap-table-page-jump-to.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\pipeline\bootstrap-table-pipeline.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\pipeline\bootstrap-table-pipeline.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\print\bootstrap-table-print.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\print\bootstrap-table-print.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\reorder-columns\bootstrap-table-reorder-columns.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\reorder-columns\bootstrap-table-reorder-columns.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\reorder-rows\bootstrap-table-reorder-rows.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\reorder-rows\bootstrap-table-reorder-rows.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\reorder-rows\bootstrap-table-reorder-rows.min.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\reorder-rows\bootstrap-table-reorder-rows.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\resizable\bootstrap-table-resizable.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\resizable\bootstrap-table-resizable.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\sticky-header\bootstrap-table-sticky-header.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\sticky-header\bootstrap-table-sticky-header.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\sticky-header\bootstrap-table-sticky-header.min.css" />
+    <Content Include="Scripts\bootstrap-table\extensions\sticky-header\bootstrap-table-sticky-header.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\toolbar\bootstrap-table-toolbar.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\toolbar\bootstrap-table-toolbar.min.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\treegrid\bootstrap-table-treegrid.js" />
+    <Content Include="Scripts\bootstrap-table\extensions\treegrid\bootstrap-table-treegrid.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-af-ZA.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-af-ZA.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ar-SA.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ar-SA.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ca-ES.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ca-ES.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-cs-CZ.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-cs-CZ.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-da-DK.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-da-DK.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-de-DE.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-de-DE.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-el-GR.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-el-GR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-en-US.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-en-US.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-AR.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-AR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-CL.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-CL.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-CR.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-CR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-ES.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-ES.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-MX.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-MX.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-NI.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-NI.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-SP.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-es-SP.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-et-EE.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-et-EE.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-eu-EU.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-eu-EU.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fa-IR.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fa-IR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fi-FI.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fi-FI.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fr-BE.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fr-BE.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fr-CH.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fr-CH.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fr-FR.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fr-FR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fr-LU.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-fr-LU.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-he-IL.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-he-IL.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-hr-HR.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-hr-HR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-hu-HU.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-hu-HU.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-id-ID.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-id-ID.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-it-IT.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-it-IT.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ja-JP.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ja-JP.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ka-GE.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ka-GE.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ko-KR.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ko-KR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ms-MY.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ms-MY.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-nb-NO.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-nb-NO.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-nl-BE.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-nl-BE.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-nl-NL.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-nl-NL.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pl-PL.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pl-PL.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pt-BR.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pt-BR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pt-PT.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pt-PT.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ro-RO.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ro-RO.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ru-RU.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ru-RU.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-sk-SK.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-sk-SK.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-sr-Cyrl-RS.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-sr-Cyrl-RS.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-sr-Latn-RS.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-sr-Latn-RS.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-sv-SE.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-sv-SE.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-th-TH.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-th-TH.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-tr-TR.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-tr-TR.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-uk-UA.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-uk-UA.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ur-PK.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-ur-PK.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-uz-Latn-UZ.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-uz-Latn-UZ.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-vi-VN.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-vi-VN.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-zh-CN.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-zh-CN.min.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-zh-TW.js" />
+    <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-zh-TW.min.js" />
+    <Content Include="Scripts\bootstrap-table\themes\bulma\bootstrap-table-bulma.css" />
+    <Content Include="Scripts\bootstrap-table\themes\bulma\bootstrap-table-bulma.js" />
+    <Content Include="Scripts\bootstrap-table\themes\bulma\bootstrap-table-bulma.min.css" />
+    <Content Include="Scripts\bootstrap-table\themes\bulma\bootstrap-table-bulma.min.js" />
+    <Content Include="Scripts\bootstrap-table\themes\foundation\bootstrap-table-foundation.css" />
+    <Content Include="Scripts\bootstrap-table\themes\foundation\bootstrap-table-foundation.js" />
+    <Content Include="Scripts\bootstrap-table\themes\foundation\bootstrap-table-foundation.min.css" />
+    <Content Include="Scripts\bootstrap-table\themes\foundation\bootstrap-table-foundation.min.js" />
+    <Content Include="Scripts\bootstrap-table\themes\materialize\bootstrap-table-materialize.css" />
+    <Content Include="Scripts\bootstrap-table\themes\materialize\bootstrap-table-materialize.js" />
+    <Content Include="Scripts\bootstrap-table\themes\materialize\bootstrap-table-materialize.min.css" />
+    <Content Include="Scripts\bootstrap-table\themes\materialize\bootstrap-table-materialize.min.js" />
+    <Content Include="Scripts\bootstrap-table\themes\semantic\bootstrap-table-semantic.css" />
+    <Content Include="Scripts\bootstrap-table\themes\semantic\bootstrap-table-semantic.js" />
+    <Content Include="Scripts\bootstrap-table\themes\semantic\bootstrap-table-semantic.min.css" />
+    <Content Include="Scripts\bootstrap-table\themes\semantic\bootstrap-table-semantic.min.js" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="Dome\black-dashboard-master\assets\css\black-dashboard.css" />
+    <Content Include="Dome\black-dashboard-master\assets\css\black-dashboard.min.css" />
+    <Content Include="Dome\black-dashboard-master\assets\css\nucleo-icons.css" />
+    <Content Include="Dome\black-dashboard-master\assets\demo\demo.css" />
+    <Content Include="Dome\black-dashboard-master\assets\demo\demo.js" />
+    <Content Include="Dome\black-dashboard-master\assets\img\12345.png" />
+    <Content Include="Dome\black-dashboard-master\assets\img\anime3.png" />
+    <Content Include="Dome\black-dashboard-master\assets\img\anime6.png" />
+    <Content Include="Dome\black-dashboard-master\assets\img\apple-icon.png" />
+    <Content Include="Dome\black-dashboard-master\assets\img\bg5.jpg" />
+    <Content Include="Dome\black-dashboard-master\assets\img\default-avatar.png" />
+    <Content Include="Dome\black-dashboard-master\assets\img\emilyz.jpg" />
+    <Content Include="Dome\black-dashboard-master\assets\img\favicon.png" />
+    <Content Include="Dome\black-dashboard-master\assets\img\header.jpg" />
+    <Content Include="Dome\black-dashboard-master\assets\img\img_3115.jpg" />
+    <Content Include="Dome\black-dashboard-master\assets\img\james.jpg" />
+    <Content Include="Dome\black-dashboard-master\assets\img\mike.jpg" />
+    <Content Include="Dome\black-dashboard-master\assets\img\now-logo.png" />
+    <Content Include="Dome\black-dashboard-master\assets\js\black-dashboard.js" />
+    <Content Include="Dome\black-dashboard-master\assets\js\black-dashboard.min.js" />
+    <Content Include="Dome\black-dashboard-master\assets\js\core\bootstrap.min.js" />
+    <Content Include="Dome\black-dashboard-master\assets\js\core\jquery.min.js" />
+    <Content Include="Dome\black-dashboard-master\assets\js\core\popper.min.js" />
+    <Content Include="Dome\black-dashboard-master\assets\js\plugins\bootstrap-notify.js" />
+    <Content Include="Dome\black-dashboard-master\assets\js\plugins\chartjs.min.js" />
+    <Content Include="Dome\black-dashboard-master\assets\js\plugins\perfect-scrollbar.jquery.min.js" />
+    <Content Include="Dome\black-dashboard-master\docs\documentation.html" />
+    <Content Include="Dome\black-dashboard-master\examples\dashboard.html" />
+    <Content Include="Dome\black-dashboard-master\examples\icons.html" />
+    <Content Include="Dome\black-dashboard-master\examples\map.html" />
+    <Content Include="Dome\black-dashboard-master\examples\notifications.html" />
+    <Content Include="Dome\black-dashboard-master\examples\rtl.html" />
+    <Content Include="Dome\black-dashboard-master\examples\tables.html" />
+    <Content Include="Dome\black-dashboard-master\examples\typography.html" />
+    <Content Include="Dome\black-dashboard-master\examples\upgrade.html" />
+    <Content Include="Dome\black-dashboard-master\examples\user.html" />
+    <Content Include="Dome\black-dashboard-master\gulpfile.js" />
+    <Content Include="Dome\WebForm1.aspx" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="font\fontawesome-webfont.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Main.aspx" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\css\bootstrap-theme.css" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\css\bootstrap-theme.min.css" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\css\bootstrap.css" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\css\bootstrap.min.css" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\js\bootstrap.js" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\js\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\js\npm.js" />
+    <Content Include="Dome\black-dashboard-master\assets\css\black-dashboard.css.map" />
+    <Content Include="Dome\black-dashboard-master\assets\fonts\nucleo.eot" />
+    <Content Include="Dome\black-dashboard-master\assets\fonts\nucleo.ttf" />
+    <Content Include="Dome\black-dashboard-master\assets\fonts\nucleo.woff" />
+    <Content Include="Dome\black-dashboard-master\assets\fonts\nucleo.woff2" />
+    <Content Include="Dome\black-dashboard-master\assets\js\black-dashboard.js.map" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\bootstrap-grid.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\bootstrap-reboot.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\bootstrap.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_alert.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_badge.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_box-shadow.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_breakpoints.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_buttons.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_caret.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_deprecate.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_float.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_forms.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_gradients.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_grid.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_hover.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_image.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_list-group.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_lists.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_pagination.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_resize.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_screen-reader.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_size.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_table-row.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_text-hide.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_text-truncate.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_transition.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\mixins\_visibility.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_align.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_background.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_borders.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_clearfix.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_display.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_embed.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_flex.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_float.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_overflow.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_position.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_screenreaders.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_shadows.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_sizing.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_spacing.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_stretched-link.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_text.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\utilities\_visibility.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\vendor\_rfs.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_alert.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_badge.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_breadcrumb.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_button-group.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_buttons.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_card.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_carousel.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_close.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_code.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_custom-forms.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_dropdown.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_forms.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_functions.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_grid.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_images.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_input-group.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_jumbotron.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_list-group.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_media.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_mixins.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_modal.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_nav.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_navbar.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_pagination.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_popover.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_print.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_progress.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_reboot.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_root.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_spinners.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_tables.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_toasts.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_tooltip.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_transitions.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_type.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_utilities.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\bootstrap\_variables.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\cards\_card-chart.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\cards\_card-map.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\cards\_card-plain.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\cards\_card-task.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\cards\_card-user.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\opacity.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_alert.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_background-variant.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_badges.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_buttons.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_dropdown.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_forms.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_icon.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_inputs.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_modals.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_page-header.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_popovers.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_vendor-prefixes.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\mixins\_wizard.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\utilities\_backgrounds.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\utilities\_floating.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\utilities\_helper.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\utilities\_position.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\utilities\_shadows.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\utilities\_sizing.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\utilities\_spacing.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\utilities\_text.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\utilities\_transform.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\vendor\_plugin-animate-bootstrap-notify.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\vendor\_plugin-perfect-scrollbar.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_alerts.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_buttons.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_card.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_checkboxes-radio.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_dropdown.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_example-pages.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_fixed-plugin.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_footer.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_forms.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_functions.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_images.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_input-group.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_misc.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_mixins.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_modal.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_navbar.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_rtl.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_sidebar-and-main-panel.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_tables.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_type.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_utilities.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_variables.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\custom\_white-content.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\plugins\_plugin-perfect-scrollbar.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\_buttons.scss" />
+    <Content Include="Dome\black-dashboard-master\assets\scss\black-dashboard\_typography.scss" />
+    <Content Include="Dome\black-dashboard-master\CHANGELOG.md" />
+    <Content Include="Dome\black-dashboard-master\LICENSE.md" />
+    <Content Include="Dome\black-dashboard-master\package.json" />
+    <Content Include="Dome\black-dashboard-master\README.md" />
+    <Content Include="assets\css\black-dashboard.css.map" />
+    <Content Include="assets\fonts\nucleo.eot" />
+    <Content Include="assets\fonts\nucleo.ttf" />
+    <Content Include="assets\fonts\nucleo.woff" />
+    <Content Include="assets\fonts\nucleo.woff2" />
+    <Content Include="assets\js\black-dashboard.js.map" />
+    <Content Include="assets\scss\black-dashboard\_buttons.scss" />
+    <Content Include="assets\scss\black-dashboard\_typography.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_alert.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_badge.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_breadcrumb.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_button-group.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_buttons.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_card.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_carousel.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_close.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_code.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_custom-forms.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_dropdown.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_forms.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_functions.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_grid.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_images.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_input-group.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_jumbotron.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_list-group.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_media.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_mixins.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_modal.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_nav.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_navbar.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_pagination.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_popover.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_print.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_progress.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_reboot.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_root.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_spinners.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_tables.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_toasts.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_tooltip.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_transitions.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_type.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_utilities.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\_variables.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\bootstrap-grid.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\bootstrap-reboot.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\bootstrap.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_alert.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_badge.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_box-shadow.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_breakpoints.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_buttons.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_caret.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_deprecate.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_float.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_forms.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_gradients.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_grid.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_hover.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_image.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_list-group.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_lists.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_pagination.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_resize.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_screen-reader.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_size.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_table-row.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_text-hide.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_text-truncate.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_transition.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\mixins\_visibility.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_align.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_background.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_borders.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_clearfix.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_display.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_embed.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_flex.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_float.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_overflow.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_position.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_screenreaders.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_shadows.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_sizing.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_spacing.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_stretched-link.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_text.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\utilities\_visibility.scss" />
+    <Content Include="assets\scss\black-dashboard\bootstrap\vendor\_rfs.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_alerts.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_buttons.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_card.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_checkboxes-radio.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_dropdown.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_example-pages.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_fixed-plugin.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_footer.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_forms.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_functions.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_images.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_input-group.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_misc.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_mixins.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_modal.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_navbar.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_rtl.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_sidebar-and-main-panel.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_tables.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_type.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_utilities.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_variables.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\_white-content.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\cards\_card-chart.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\cards\_card-map.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\cards\_card-plain.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\cards\_card-task.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\cards\_card-user.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_alert.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_background-variant.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_badges.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_buttons.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_dropdown.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_forms.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_icon.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_inputs.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_modals.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_page-header.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_popovers.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_vendor-prefixes.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\_wizard.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\mixins\opacity.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\utilities\_backgrounds.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\utilities\_floating.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\utilities\_helper.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\utilities\_position.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\utilities\_shadows.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\utilities\_sizing.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\utilities\_spacing.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\utilities\_text.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\utilities\_transform.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\vendor\_plugin-animate-bootstrap-notify.scss" />
+    <Content Include="assets\scss\black-dashboard\custom\vendor\_plugin-perfect-scrollbar.scss" />
+    <Content Include="assets\scss\black-dashboard\plugins\_plugin-perfect-scrollbar.scss" />
+    <Content Include="assets\scss\black-dashboard.scss" />
+    <Content Include="Ashx\ProcessHandler.ashx" />
+    <Content Include="Scripts\bootstrap-table\fonts\nucleo.eot" />
+    <Content Include="Scripts\bootstrap-table\fonts\nucleo.ttf" />
+    <Content Include="Scripts\bootstrap-table\fonts\nucleo.woff" />
+    <Content Include="Scripts\bootstrap-table\fonts\nucleo.woff2" />
+    <Content Include="assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\fonts\FontAwesome.otf" />
+    <Content Include="font\fontawesome-webfont.eot" />
+    <Content Include="font\fontawesome-webfont.ttf" />
+    <Content Include="font\fontawesome-webfont.woff" />
+    <Content Include="font\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Ashx\FactoryHandler.ashx" />
+    <None Include="Properties\PublishProfiles\LocalSiteProfile.pubxml" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\FDMHelper.js" />
+    <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\css\bootstrap-theme.css.map" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\css\bootstrap-theme.min.css.map" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\css\bootstrap.css.map" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\css\bootstrap.min.css.map" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\bootstrap-4.4.1\css\bootstrap-grid.css.map" />
+    <Content Include="Scripts\bootstrap-4.4.1\css\bootstrap-grid.min.css.map" />
+    <Content Include="Scripts\bootstrap-4.4.1\css\bootstrap-reboot.css.map" />
+    <Content Include="Scripts\bootstrap-4.4.1\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Scripts\bootstrap-4.4.1\css\bootstrap.css.map" />
+    <Content Include="Scripts\bootstrap-4.4.1\css\bootstrap.min.css.map" />
+    <Content Include="Scripts\bootstrap-4.4.1\js\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\bootstrap-4.4.1\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap-4.4.1\js\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap-4.4.1\js\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap-4.4.1\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\bootstrap-4.4.1\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\bootstrap-4.4.1\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\bootstrap-4.4.1\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\ace_admin_cn\assets\font\fontawesome-webfont.woff" />
+    <Content Include="Scripts\ace_admin_cn\assets\js\jquery.inputlimiter.1.3.1.min.js.bak" />
+    <Content Include="Scripts\ace_admin_cn\form-elements.html.bak" />
+    <Content Include="Scripts\ace_admin_cn\assets\css\_card.css" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\JsHelper.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\PMHelper.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\WebForms\DetailsView.js" />
+    <Content Include="Scripts\WebForms\Focus.js" />
+    <Content Include="Scripts\WebForms\GridView.js" />
+    <Content Include="Scripts\WebForms\Menu.js" />
+    <Content Include="Scripts\WebForms\MenuStandards.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjax.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxApplicationServices.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxComponentModel.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxCore.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxGlobalization.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxHistory.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxNetwork.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxSerialization.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxTimer.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebForms.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebServices.js" />
+    <Content Include="Scripts\WebForms\SmartNav.js" />
+    <Content Include="Scripts\WebForms\TreeView.js" />
+    <Content Include="Scripts\WebForms\WebForms.js" />
+    <Content Include="Scripts\WebForms\WebParts.js" />
+    <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="Site.Master" />
+    <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Web.config" />
+    <Content Include="Bundle.config" />
+    <Content Include="Site.Mobile.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Ashx\FactoryHandler.ashx.cs">
+      <DependentUpon>FactoryHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Ashx\ProcessHandler.ashx.cs">
+      <DependentUpon>ProcessHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="BaseAshx.cs" />
+    <Compile Include="BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact.aspx.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact.aspx.designer.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dome\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dome\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FactoryDeviceManage.aspx.cs">
+      <DependentUpon>FactoryDeviceManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FactoryDeviceManage.aspx.designer.cs">
+      <DependentUpon>FactoryDeviceManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Main.aspx.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main.aspx.designer.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessManage.aspx.cs">
+      <DependentUpon>ProcessManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProcessManage.aspx.designer.cs">
+      <DependentUpon>ProcessManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.designer.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.designer.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HNFactoryAutoSystem.Business\HNFactoryAutoSystem.Business.csproj">
+      <Project>{79e31422-5184-468b-8e1c-ab6ab111c6c4}</Project>
+      <Name>HNFactoryAutoSystem.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HNFactoryAutoSystem.Data\HNFactoryAutoSystem.Data.csproj">
+      <Project>{2dab3be9-c81a-469a-892e-f5510ae2b8eb}</Project>
+      <Name>HNFactoryAutoSystem.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HNFactoryAutoSystem.SysHelper\HNFactoryAutoSystem.SysHelper.csproj">
+      <Project>{0ae518fd-83a9-4525-9645-991c25eec7de}</Project>
+      <Name>HNFactoryAutoSystem.SysHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50655</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44396/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -32,7 +32,7 @@ namespace HNFactoryAutoSystem.Data.ProcessData
         /// <summary>
         /// 
         /// </summary>
-        public decimal PurityMax { get; set; }
+        public decimal PuritvMax { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -57,14 +57,28 @@ namespace HNFactoryAutoSystem.Data.ProcessData
             this.ProcessTitle = data.ProcessTitle;
             this.ProductsType = data.ProductsType;
             this.PurityMin = data.PurityMin;
-            this.PurityMax = data.PuritvMax;
+            this.PuritvMax = data.PuritvMax;
             this.ProcessYear = data.ProcessYear;
             this.Fineness = data.Fineness;
         }
         #endregion
 
         #region 转换方法
+        internal DataModels.PMainprocess ToData()
+        {
+            DataModels.PMainprocess data = new DataModels.PMainprocess();
 
+            data.Id = this.Id;
+            data.ProcessId = this.ProcessId;
+            data.ProcessTitle = this.ProcessTitle;
+            data.ProductsType = this.ProductsType;
+            data.PurityMin = this.PurityMin;
+            data.PuritvMax = this.PuritvMax;
+            data.ProcessYear = this.ProcessYear;
+            data.Fineness = this.Fineness;
+
+            return data;
+        }
         #endregion
     }
 
@@ -118,17 +132,36 @@ namespace HNFactoryAutoSystem.Data.ProcessData
         public int ProcessOrderId { get; set; }
         #endregion
 
+        #region 扩展函数
+        /// <summary>
+        /// 启动流程设备名称
+        /// </summary>
+        public string StartDeviceName { get; set; }
+
+        /// <summary>
+        /// 启动条件的设备参数类型说明(中文)
+        /// </summary>
+        public string ParTypeString
+        {
+            get
+            {
+                return SysHelper.Enums.EnumHelper.GetDeviceParameterTypeString(ParType);
+            }
+        }
+        #endregion
+
         #region 集合参数
         /// <summary>
         /// 流程的步骤集合
         /// </summary>
-        public ProcessStepCollection Steps { get; set; }
+        public ExProcessStepCollection Steps { get; set; }
         #endregion
 
         #region 构造函数
         public TeExProcess()
         {
-            Steps = new ProcessStepCollection();
+            Steps = new ExProcessStepCollection();
+            ParType = SysHelper.Enums.DeviceParameterType.None;
         }
 
         internal TeExProcess(DataModels.PExprocess data) : this()
@@ -146,7 +179,22 @@ namespace HNFactoryAutoSystem.Data.ProcessData
         #endregion
 
         #region 转换方法
+        internal DataModels.PExprocess ToData()
+        {
+            DataModels.PExprocess data = new DataModels.PExprocess();
 
+            data.Id = this.Id;
+            data.ExProcessId = this.ExProcessId;
+            data.ExProcessTitle = this.ExProcessTitle;
+            data.SortCode = this.SortCode;
+            data.ProcessId = this.ProcessId;
+            data.StartDeviceId = this.StartDeviceId;
+            data.ParType = Enum.GetName(this.ParType.GetType(), this.ParType);
+            data.ParValue = this.ParValue;
+            data.ProcessOrderId = this.ProcessOrderId;
+
+            return data;
+        }
         #endregion
     }
 
@@ -191,6 +239,17 @@ namespace HNFactoryAutoSystem.Data.ProcessData
         public string Parameter3 { get; set; }
         #endregion
 
+        #region 扩展属性
+        //public string DeviceTypeString
+        //{
+        //    get
+        //    {
+        //        return SysHelper.Enums.EnumHelper.GetDeviceParameterTypeString 
+        //    }
+        //}
+
+        #endregion
+
         #region 转换方法
 
         #endregion
@@ -204,7 +263,7 @@ namespace HNFactoryAutoSystem.Data.ProcessData
     #endregion
 
     #region 工艺子流程步骤表
-    public class ProcessStep : EntityBase
+    public class ExProcessStep : EntityBase
     {
         #region 属性
         /// <summary>
@@ -259,6 +318,37 @@ namespace HNFactoryAutoSystem.Data.ProcessData
         /// 完成步骤后出现的产品编号
         /// </summary>
         public string ResultsId { get; set; }
+        /// <summary>
+        /// 延迟进入下一步骤的时间
+        /// </summary>
+        public int Delayed { get; set; }
+        #endregion
+
+        #region 扩展属性
+        /// <summary>
+        /// 启动流程设备名称
+        /// </summary>
+        public string ProcessDeviceName { get; set; }
+        /// <summary>
+        /// 设备操作状态说明
+        /// </summary>
+        public string ActionTypeString {
+            get
+            {
+                return SysHelper.Enums.EnumHelper.GetDeviceActionTypeString(ActionType);
+            }
+        }
+
+        /// <summary>
+        /// 完成步骤的设备参数类型说明(中文)
+        /// </summary>
+        public string FinishParTypeString
+        {
+            get
+            {
+                return SysHelper.Enums.EnumHelper.GetDeviceParameterTypeString(FinishParType);
+            }
+        }
         #endregion
 
         #region 扩展集合数据
@@ -269,12 +359,14 @@ namespace HNFactoryAutoSystem.Data.ProcessData
         #endregion
 
         #region 构造函数
-        public ProcessStep()
+        public ExProcessStep()
         {
             StepPars = new ExProcessStepParsCollection();
+            ActionType = SysHelper.Enums.DeviceActionType.None;
+            FinishParType = SysHelper.Enums.DeviceParameterType.None;
         }
 
-        internal ProcessStep(DataModels.PExprocessstep data)
+        internal ExProcessStep(DataModels.PExprocessstep data):this()
         {
             this.Id = data.Id;
             this.StepId = data.StepId;
@@ -290,15 +382,59 @@ namespace HNFactoryAutoSystem.Data.ProcessData
             this.FinishParValue = data.FinishParValue;
             this.BeforeStepId = data.BeforeStepId;
             this.ResultsId = data.ResultsId;
+            this.Delayed = data.Delayed;
+        }
+
+        internal ExProcessStep(DataModels.VExprocessstep data) : this()
+        {
+            this.Id = data.Id;
+            this.StepId = data.StepId;
+            this.StepTitle = data.StepTitle;
+            this.ExProcessId = data.ExProcessId;
+            this.OrderIndex = data.OrderIndex;
+            this.ProcessDeviceId = data.ProcessDeviceId;
+            this.ActionType = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.DeviceActionType>(data.ActionType);
+            this.IsSync = Convert.ToBoolean(data.IsSync);
+            this.SyncStepInterval = data.SyncStepInterval;
+            this.FinishParType = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.DeviceParameterType>(data.FinishParType);
+            this.FinishParUnit = data.FinishParUnit;
+            this.FinishParValue = data.FinishParValue;
+            this.BeforeStepId = data.BeforeStepId;
+            this.ResultsId = data.ResultsId;
+            this.Delayed = data.Delayed;
+
+            this.ProcessDeviceName = data.ProcessDeviceName;
+
         }
         #endregion
 
         #region 转换方法
+        internal DataModels.PExprocessstep ToData()
+        {
+            DataModels.PExprocessstep data = new DataModels.PExprocessstep();
 
+            data.Id = this.Id;
+            data.StepId = this.StepId;
+            data.StepTitle = this.StepTitle;
+            data.ExProcessId = this.ExProcessId;
+            data.OrderIndex = this.OrderIndex;
+            data.ProcessDeviceId = this.ProcessDeviceId;
+            data.ActionType = Enum.GetName(this.ActionType.GetType(), this.ActionType); 
+            data.IsSync = Convert.ToSByte(this.IsSync);
+            data.SyncStepInterval = this.SyncStepInterval;
+            data.FinishParType = Enum.GetName(this.FinishParType.GetType(), this.FinishParType);
+            data.FinishParUnit = this.FinishParUnit;
+            data.FinishParValue = this.FinishParValue;
+            data.BeforeStepId = this.BeforeStepId;
+            data.ResultsId = this.ResultsId;
+            data.Delayed = this.Delayed;
+
+            return data;
+        }
         #endregion
     }
 
-    public class ProcessStepCollection : ListBase<ProcessStep> { }
+    public class ExProcessStepCollection : ListBase<ExProcessStep> { }
     #endregion
 
     #region 工艺子流程步骤参数表
@@ -342,12 +478,45 @@ namespace HNFactoryAutoSystem.Data.ProcessData
         /// 参数是否是步骤完成的条件
         /// </summary>
         public bool IsFinish { get; set; }
+        /// <summary>
+        /// 提前关闭设备的量（避免管道残留）
+        /// </summary>
+        public decimal LeadTime { get; set; }
+
+        #endregion
+
+        #region 扩展属性
+        /// <summary>
+        /// 传感器名称
+        /// </summary>
+        public string SensorName { get; set; }
+        /// <summary>
+        /// 设备操作状态说明
+        /// </summary>
+        public string ActionTypeString
+        {
+            get
+            {
+                return SysHelper.Enums.EnumHelper.GetSenserStatusTypeString(ActionType);
+            }
+        }
+        /// <summary>
+        /// 参数类型说明(中文)
+        /// </summary>
+        public string ParTypeString
+        {
+            get
+            {
+                return SysHelper.Enums.EnumHelper.GetDeviceParameterTypeString(ParType);
+            }
+        }
         #endregion
 
         #region 构造函数
         public ExProcessStepPars()
         {
-
+            ActionType = SysHelper.Enums.SenserStatusType.None;
+            ParType = SysHelper.Enums.DeviceParameterType.None;
         }
         internal ExProcessStepPars(DataModels.PExprocesssteppar data) : this()
         {
@@ -361,6 +530,29 @@ namespace HNFactoryAutoSystem.Data.ProcessData
             this.ParValue = data.ParValue.Value;
             this.ParTime = data.ParTime;
             this.IsFinish = Convert.ToBoolean(data.IsFinish);
+            this.LeadTime = data.LeadTime;
+        }
+        #endregion
+
+        #region 转换方法
+
+        internal DataModels.PExprocesssteppar ToData()
+        {
+            DataModels.PExprocesssteppar data = new DataModels.PExprocesssteppar();
+
+            data.Id = this.Id;
+            data.ParId = this.ParId;
+            data.StepId = this.StepId;
+            data.SensorId = this.SensorId;
+            data.ActionType = Enum.GetName(this.ActionType.GetType(), this.ActionType); 
+            data.ParType = Enum.GetName(this.ParType.GetType(), this.ParType);   
+            data.ParUnit = this.ParUnit;
+            data.ParValue = this.ParValue;
+            data.ParTime = this.ParTime;
+            data.IsFinish = Convert.ToSByte(this.IsFinish);
+            data.LeadTime = this.LeadTime;
+
+            return data;
         }
         #endregion
     }

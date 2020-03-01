@@ -133,7 +133,7 @@ namespace HNFactoryAutoSystem.Business
                             {
                                 #region 循环启动设备
 
-                                foreach (ProcessStep step in exProcess.Steps)
+                                foreach (ExProcessStep step in exProcess.Steps)
                                 {
                                     //先找到需要操作的设备
                                     foreach (DeviceInfo device in devices)
