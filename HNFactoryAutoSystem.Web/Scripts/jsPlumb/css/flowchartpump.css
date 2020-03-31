@@ -1,0 +1,70 @@
+﻿/*干粉桶到搅拌浸出釜*/
+#flowchartSC0111 {
+	top: 22em;
+	left: 7.9em;
+}
+/*净水桶到搅拌浸出釜*/
+#flowchartPump0911 {
+	top: 30em;
+	left: 7.9em;
+}
+/*净水桶到热水桶*/
+#flowchartPump0912 {
+	top: 60em;
+	left: 7.9em;
+}
+/*净水桶到热水桶阀门*/
+#flowchartV0916 {
+	top: 60em;
+	left: 20em;
+}
+/*热水桶到搅拌浸出釜*/
+#flowchartPump0711 {
+	top: 60em;
+	left: 50em;
+}
+/*热水桶到搅拌浸出釜阀门*/
+#flowchartV0717 {
+	top: 60em;
+	left: 36em;
+}
+/*热水桶到搅拌浸出釜阀门2*/
+#flowchartV0215 {
+	top: 44em;
+	left: 50em;
+}
+/*搅拌进出釜搅拌电机*/
+#flowchartMOT0210 {
+	top: 6em;
+	left: 45.9em;
+}
+/*搅拌浸出釜到斜板沉淀池泵*/
+#flowchartPump0211 {
+	top: 50em;
+	left: 64em;
+}
+/*搅拌浸出釜到斜板沉淀池阀门*/
+#flowchartV0217 {
+	top: 38em;
+	left: 64em;
+}
+/*斜板沉淀池搅拌电机*/
+#flowchartMOT0311 {
+	top: 36em;
+	left: 85.9em;
+}
+/*浸出剂桶泵1*/
+#flowchartPump0511 {
+	top: 20em;
+	left: 76.5em;
+}
+/*浸出剂桶泵2*/
+#flowchartPump0512 {
+	top: 27em;
+	left: 76.5em;
+}
+/*浸出剂到搅拌进出釜阀门*/
+#flowchartV0214 {
+	top: 24em;
+	left: 60em;
+}

@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="AssemblyLineView.aspx" />
     <Content Include="assets\css\black-dashboard.css" />
     <Content Include="assets\css\black-dashboard.min.css" />
     <Content Include="assets\css\nucleo-icons.css" />
@@ -133,8 +134,22 @@
     <Content Include="assets\js\plugins\chartjs.min.js" />
     <Content Include="assets\js\plugins\perfect-scrollbar.jquery.min.js" />
     <Content Include="Contact.aspx" />
+    <Content Include="Dome\HtmlPage1.html" />
     <Content Include="FactoryDeviceManage.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="img\chendian.png" />
+    <Content Include="img\fenliao.png" />
+    <Content Include="img\fentong.png" />
+    <Content Include="img\hotwaterbox.png" />
+    <Content Include="img\jiaoban.png" />
+    <Content Include="img\jiaobanfull.png" />
+    <Content Include="img\liquidbox.png" />
+    <Content Include="img\mot.png" />
+    <Content Include="img\pump.png" />
+    <Content Include="img\sc.png" />
+    <Content Include="img\valve.png" />
+    <Content Include="img\waterbox.png" />
+    <Content Include="LineView.aspx" />
     <Content Include="ProcessManage.aspx" />
     <Content Include="Scripts\ace_admin_cn\assets\avatars\avatar.png" />
     <Content Include="Scripts\ace_admin_cn\assets\avatars\avatar1.png" />
@@ -854,6 +869,7 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Ashx\FactoryHandler.ashx" />
+    <Content Include="Ashx\FactoryProduceHandler.ashx" />
     <None Include="Properties\PublishProfiles\LocalSiteProfile.pubxml" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -896,7 +912,46 @@
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\flowchart\custom.css" />
+    <Content Include="Scripts\flowchart\index.html" />
+    <Content Include="Scripts\flowchart\jquery.flowchart.css" />
+    <Content Include="Scripts\flowchart\jquery.flowchart.js" />
+    <Content Include="Scripts\flowchart\jquery.flowchart.min.css" />
+    <Content Include="Scripts\flowchart\jquery.flowchart.min.js" />
+    <Content Include="Scripts\flowchart\jquery.mousewheel.min.js" />
+    <Content Include="Scripts\flowchart\jquery.panzoom.min.js" />
+    <Content Include="Scripts\flowchart\main.js" />
+    <Content Include="Scripts\flowchart\MIT-LICENSE.txt" />
+    <Content Include="Scripts\flowchart\stylesheet\github-light.css" />
+    <Content Include="Scripts\flowchart\stylesheet\print.css" />
+    <Content Include="Scripts\flowchart\stylesheet\stylesheet.css" />
     <Content Include="Scripts\JsHelper.js" />
+    <Content Include="Scripts\jsPlumb\css\external\cssgrids-min.css" />
+    <Content Include="Scripts\jsPlumb\css\external\prettify-min.css" />
+    <Content Include="Scripts\jsPlumb\css\flowchart-back.css" />
+    <Content Include="Scripts\jsPlumb\css\flowchartpump.css" />
+    <Content Include="Scripts\jsPlumb\css\flowchartwindow.css" />
+    <Content Include="Scripts\jsPlumb\css\ico-jsplumb.svg" />
+    <Content Include="Scripts\jsPlumb\css\jsplumb-doc.css" />
+    <Content Include="Scripts\jsPlumb\css\jsplumb.css" />
+    <Content Include="Scripts\jsPlumb\css\jsplumbtoolkit-defaults.css" />
+    <Content Include="Scripts\jsPlumb\css\jsplumbtoolkit-flowchart.css" />
+    <Content Include="Scripts\jsPlumb\css\jsplumbtoolkit-demo.css" />
+    <Content Include="Scripts\jsPlumb\css\main.css" />
+    <Content Include="Scripts\jsPlumb\dom.html" />
+    <Content Include="Scripts\jsPlumb\css\flowchart.css" />
+    <Content Include="Scripts\jsPlumb\flowchart-list.js" />
+    <Content Include="Scripts\jsPlumb\flowchart.js" />
+    <Content Include="Scripts\jsPlumb\jsplumb.js" />
+    <Content Include="Scripts\jsPlumb\jsplumb.min.js" />
+    <Content Include="Scripts\line\base.css" />
+    <Content Include="Scripts\line\index.html" />
+    <Content Include="Scripts\line\jquery-latest.min.js" />
+    <Content Include="Scripts\line\jquery-timing.min.js" />
+    <Content Include="Scripts\line\jquery-ui.js" />
+    <Content Include="Scripts\line\jquery.connections.js" />
+    <Content Include="Scripts\line\onLine.css" />
+    <Content Include="Scripts\line\onLine.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\PMHelper.js" />
     <Content Include="Scripts\popper-utils.js" />
@@ -1010,8 +1065,18 @@
     <Compile Include="Ashx\FactoryHandler.ashx.cs">
       <DependentUpon>FactoryHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Ashx\FactoryProduceHandler.ashx.cs">
+      <DependentUpon>FactoryProduceHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Ashx\ProcessHandler.ashx.cs">
       <DependentUpon>ProcessHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="AssemblyLineView.aspx.cs">
+      <DependentUpon>AssemblyLineView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AssemblyLineView.aspx.designer.cs">
+      <DependentUpon>AssemblyLineView.aspx</DependentUpon>
     </Compile>
     <Compile Include="BaseAshx.cs" />
     <Compile Include="BasePage.cs">
@@ -1047,6 +1112,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="LineView.aspx.cs">
+      <DependentUpon>LineView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LineView.aspx.designer.cs">
+      <DependentUpon>LineView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Main.aspx.cs">
       <DependentUpon>Main.aspx</DependentUpon>
@@ -1102,6 +1174,13 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Scripts\flowchart\flowchart.jquery.json" />
+    <Content Include="Scripts\flowchart\npm-debug.log" />
+    <Content Include="Scripts\flowchart\package.json" />
+    <Content Include="Scripts\flowchart\README.md" />
+    <Content Include="Scripts\jsPlumb\css\ico-jsplumb.eot" />
+    <Content Include="Scripts\jsPlumb\css\ico-jsplumb.ttf" />
+    <Content Include="Scripts\jsPlumb\css\ico-jsplumb.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

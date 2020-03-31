@@ -2,6 +2,7 @@
 using HNFactoryAutoSystem.Data;
 using HNFactoryAutoSystem.Data.ProcessData;
 using HNFactoryAutoSystem.Test;
+using Newtonsoft.Json;
 using System;
 using System.ServiceModel;
 using System.ServiceModel.Web;
@@ -162,7 +163,7 @@ namespace HNFactoryAutoSystem
 
                 MessageBox.Show("流程完成！");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 textBox1.Text = ex.Message;
             }
@@ -175,6 +176,41 @@ namespace HNFactoryAutoSystem
                 , decimal deSetValue)
         {
             return true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox1.Text))
+            {
+                DataLogHelper logHelper = new DataLogHelper();
+                Business.DeviceBusiness deviceBusiness = new Business.DeviceBusiness();
+                string strText = textBox1.Text;
+                int receiveNumber = strText.Length;
+                if (!string.IsNullOrEmpty(strText))
+                {
+                    logHelper.SocketLog(strText, receiveNumber);
+
+                    #region 对接收到的传感器日志数据进行转换操作
+                    try
+                    {
+                        SensorDataCollection datas = JsonConvert.DeserializeObject<SensorDataCollection>(strText);
+                        //将传感器读取的数据写入生产日志表
+                        foreach (SensorData data in datas)
+                        {
+                            //判断值类型来提取传感器的状态信息
+                            string strDeviceStatus = "P";
+                            string strSensorId = data.SensorId;
+                            string strSensorValueType = data.ValueType;
+                            decimal deParValue = data.SensorValue;
+
+                            deviceBusiness.AddDeviceProduceLog(strDeviceStatus, strSensorId, strSensorValueType, deParValue);
+                        }
+                    }
+                    catch { }
+                    #endregion
+                }
+
+            }
         }
     }
 }

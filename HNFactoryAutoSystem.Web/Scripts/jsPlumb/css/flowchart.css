@@ -1,0 +1,391 @@
+﻿.assline {
+	/* for IE10+ touch devices */
+	touch-action: none;
+}
+/*设备*/
+.flowchart-assline .window {
+	border: 0px solid #346789;
+	border-radius: 0.5em;
+	opacity: 0.8;
+	width: 150px;
+	height: 180px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	text-align: center;
+	z-index: 20;
+	position: absolute;
+	color: black;
+	font-family: helvetica, sans-serif;
+	padding: 0.5em;
+	font-size: 0.9em;
+	-webkit-transition: -webkit-box-shadow 0.15s ease-in;
+	-moz-transition: -moz-box-shadow 0.15s ease-in;
+	-o-transition: -o-box-shadow 0.15s ease-in;
+	transition: box-shadow 0.15s ease-in;
+}
+/*泵*/
+.flowchart-assline .pump {
+	border: 0px solid #346789;
+	box-shadow: 2px 2px 19px #aaa;
+	-o-box-shadow: 2px 2px 19px #aaa;
+	-webkit-box-shadow: 2px 2px 19px #aaa;
+	-moz-box-shadow: 2px 2px 19px #aaa;
+	-moz-border-radius: 0.5em;
+	border-radius: 0.5em;
+	opacity: 0.8;
+	width: 60px;
+	height: 65px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	text-align: center;
+	z-index: 20;
+	position: absolute;
+	background-color: #eeeeef;
+	color:aqua;
+	font-family: helvetica, sans-serif;
+	padding: 0.5em;
+	font-size: 0.9em;
+	-webkit-transition: -webkit-box-shadow 0.15s ease-in;
+	-moz-transition: -moz-box-shadow 0.15s ease-in;
+	-o-transition: -o-box-shadow 0.15s ease-in;
+	transition: box-shadow 0.15s ease-in;
+}
+/*螺旋输送机*/
+.flowchart-assline .sc{
+	border: 0px solid #346789;
+	box-shadow: 2px 2px 19px #aaa;
+	-o-box-shadow: 2px 2px 19px #aaa;
+	-webkit-box-shadow: 2px 2px 19px #aaa;
+	-moz-box-shadow: 2px 2px 19px #aaa;
+	-moz-border-radius: 0.5em;
+	border-radius: 0.5em;
+	opacity: 0.8;
+	width: 60px;
+	height: 65px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	text-align: center;
+	z-index: 20;
+	position: absolute;
+	background-color: #eeeeef;
+	color:chartreuse;
+	font-family: helvetica, sans-serif;
+	padding: 0.5em;
+	font-size: 0.9em;
+	-webkit-transition: -webkit-box-shadow 0.15s ease-in;
+	-moz-transition: -moz-box-shadow 0.15s ease-in;
+	-o-transition: -o-box-shadow 0.15s ease-in;
+	transition: box-shadow 0.15s ease-in;
+}
+/*阀门*/
+.flowchart-assline .valve {
+	border: 0px solid #346789;
+	box-shadow: 2px 2px 19px #aaa;
+	-o-box-shadow: 2px 2px 19px #aaa;
+	-webkit-box-shadow: 2px 2px 19px #aaa;
+	-moz-box-shadow: 2px 2px 19px #aaa;
+	-moz-border-radius: 0.5em;
+	border-radius: 0.5em;
+	opacity: 0.8;
+	width: 60px;
+	height: 65px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	text-align: center;
+	z-index: 20;
+	position: absolute;
+	background-color: #eeeeef;
+	color: blue;
+	font-family: helvetica, sans-serif;
+	padding: 0.5em;
+	font-size: 0.9em;
+	-webkit-transition: -webkit-box-shadow 0.15s ease-in;
+	-moz-transition: -moz-box-shadow 0.15s ease-in;
+	-o-transition: -o-box-shadow 0.15s ease-in;
+	transition: box-shadow 0.15s ease-in;
+}
+/*搅拌电机*/
+.flowchart-assline .mot {
+	border: 0px solid #346789;
+	box-shadow: 2px 2px 19px #aaa;
+	-o-box-shadow: 2px 2px 19px #aaa;
+	-webkit-box-shadow: 2px 2px 19px #aaa;
+	-moz-box-shadow: 2px 2px 19px #aaa;
+	-moz-border-radius: 0.5em;
+	border-radius: 0.5em;
+	opacity: 0.8;
+	width: 60px;
+	height: 95px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	text-align: center;
+	z-index: 20;
+	position: absolute;
+	background-color: #eeeeef;
+	color:  darkgoldenrod;
+	font-family: helvetica, sans-serif;
+	padding: 0.5em;
+	font-size: 0.9em;
+	-webkit-transition: -webkit-box-shadow 0.15s ease-in;
+	-moz-transition: -moz-box-shadow 0.15s ease-in;
+	-o-transition: -o-box-shadow 0.15s ease-in;
+	transition: box-shadow 0.15s ease-in;
+}
+
+/*阀门关闭*/
+.valvedivclose {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/valve.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+}
+/*阀门打开*/
+.valvedivopen {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/valve.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-color: greenyellow;
+}
+/*阀门故障*/
+.valvedivbug {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/valve.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-color:red;
+}
+/*阀门无数据*/
+.valvedivnone {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/valve.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-color:dimgray;
+}
+/*泵关闭*/
+.pumpdivstop {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/pump.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+}
+/*泵运行*/
+.pumpdivrun {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/pump.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-color: greenyellow;
+}
+/*泵故障*/
+.pumpdivbug {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/pump.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-color: red;
+}
+/*泵无数据*/
+.pumpdivnone {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/pump.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-color: dimgray;
+}
+/*搅拌电机关闭*/
+.motdivstop {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/mot.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+}
+/*搅拌电机启动*/
+.motdivrun {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/mot.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-color: greenyellow;
+}
+/*搅拌电机故障*/
+.motdivbug {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/mot.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-color: red;
+}
+/*搅拌电机无数据*/
+.motdivnone {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/mot.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-color: dimgray;
+}
+/*螺旋输送机关闭*/
+.scdivstop {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/sc.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+}
+/*螺旋输送机运行*/
+.scdivrun {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/sc.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-color: greenyellow;
+}
+/*螺旋输送机故障*/
+.scdivbug {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/sc.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-color: red;
+}
+/*螺旋输送机无数据*/
+.scdivnone {
+	width: 100%;
+	height: 35px;
+	background-image: url(../../../img/sc.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-color: dimgray;
+}
+
+.flowchart-assline .window:hover {
+	box-shadow: 2px 2px 19px #444;
+	-o-box-shadow: 2px 2px 19px #444;
+	-webkit-box-shadow: 2px 2px 19px #444;
+	-moz-box-shadow: 2px 2px 19px #444;
+	opacity: 0.6;
+}
+.flowchart-assline .pump:hover {
+	box-shadow: 2px 2px 19px #444;
+	-o-box-shadow: 2px 2px 19px #444;
+	-webkit-box-shadow: 2px 2px 19px #444;
+	-moz-box-shadow: 2px 2px 19px #444;
+	opacity: 0.6;
+}
+.flowchart-assline .sc:hover {
+	box-shadow: 2px 2px 19px #444;
+	-o-box-shadow: 2px 2px 19px #444;
+	-webkit-box-shadow: 2px 2px 19px #444;
+	-moz-box-shadow: 2px 2px 19px #444;
+	opacity: 0.6;
+}
+.flowchart-assline .valve:hover {
+	box-shadow: 2px 2px 19px #444;
+	-o-box-shadow: 2px 2px 19px #444;
+	-webkit-box-shadow: 2px 2px 19px #444;
+	-moz-box-shadow: 2px 2px 19px #444;
+	opacity: 0.6;
+}
+.flowchart-assline .mot:hover {
+	box-shadow: 2px 2px 19px #444;
+	-o-box-shadow: 2px 2px 19px #444;
+	-webkit-box-shadow: 2px 2px 19px #444;
+	-moz-box-shadow: 2px 2px 19px #444;
+	opacity: 0.6;
+}
+
+.flowchart-assline .active {
+	border: 1px dotted green;
+}
+
+.flowchart-assline .hover {
+	border: 1px dotted red;
+}
+
+.flowchart-assline .windowbox {
+	width: 100%;
+	height: 100%
+}
+
+.flowchart-assline .jtk-connector {
+	z-index: 4;
+}
+
+.flowchart-assline .jtk-endpoint, .endpointTargetLabel, .endpointSourceLabel {
+	z-index: 21;
+	cursor: pointer;
+}
+
+.flowchart-assline .aLabel {
+	background-color: white;
+	padding: 0.4em;
+	font: 12px sans-serif;
+	color: #444;
+	z-index: 21;
+	border: 1px dotted gray;
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+	.flowchart-assline .aLabel.jtk-hover {
+		background-color: #5C96BC;
+		color: white;
+		border: 1px solid white;
+	}
+
+.window.jtk-connected {
+	/*border: 1px solid green;*/
+}
+
+.jtk-drag {
+	outline: 4px solid pink !important;
+}
+
+path, .jtk-endpoint {
+	cursor: pointer;
+}
+
+.jtk-overlay {
+	background-color: transparent;
+}

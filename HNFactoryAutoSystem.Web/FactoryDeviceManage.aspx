@@ -57,6 +57,7 @@
     <script src="Scripts/ace_admin_cn/assets/js/flot/jquery.flot.resize.min.js"></script>
     <script src="Scripts/ace_admin_cn/assets/js/bootbox.min.js"></script>
     <script src="Scripts/ace_admin_cn/assets/js/chosen.jquery.min.js"></script>
+
     <script src="Scripts/JsHelper.js"></script>
     <script src="Scripts/FDMHelper.js"></script>
 
@@ -76,7 +77,7 @@
 
                 $(".chosen-select").chosen();
                 //设置弹出框里面下拉框控件宽度，样式有冲突
-                $(".chosen-container").css("width", "400px"); 
+                $(".chosen-container").css("width", "400px");
 
                 $('.widget-box a').click(function () {
                     var code = $(this).data('code');
@@ -90,6 +91,8 @@
                     //加载生产线
                     //alert(code);
                     LoadLineList(code);
+
+                    LoadFactoryDevices(code);
                 });
 
                 $("#btn_editStep").click(function () {
@@ -110,10 +113,25 @@
 
                         $('#myModal').modal();
                     } else {
-                        $("#messageInfo").text("请先选择传感器！");
-                        $("#messageModal").modal();
+
+                        showMsg("请先选择传感器!", function () { });
                     }
-                   
+
+                });
+
+                $("#btn_editdevice").click(function () {
+                    //判断是否选择了设备
+                    var device = $("#tb_devicelist").bootstrapTable('getSelections');//获取选中行的数据
+                    if (device.length > 0) {
+                        $("#txt_deviceid").val(device[0].DeviceId);
+                        $("#txt_devicename").val(device[0].DeviceName);
+
+                        $('#deviceModal').modal();
+                    } else {
+
+                        showMsg("请先选择设备!", function () { });
+                    }
+
                 });
 
                 //提交传感器关联参数
@@ -125,13 +143,41 @@
                     ChangeSensor(sensorid, sDeviceId, sToDeviceId);
 
                 });
+                //更新设备信息
+                $("#btn_devicesubmit").click(function () {
+                    var deviceId = $("#txt_deviceid").val();
+                    var deviceName = $("#txt_devicename").val();
+
+                    ChangeDevice(deviceId, deviceName);
+
+                });
 
                 ModelSetCenter("myModal");
-                ModelSetCenter("messageModal");
+                ModelSetCenter("deviceModal");
+                ModelSetCenter("com-alert");
 
             });
         });
 
+        function ChangeDevice(deviceId, deviceName) {
+            $.ajax({
+                url: '<%= ResolveUrl("~/Ashx/FactoryHandler.ashx") %>',
+                dataType: "json",
+                type: "POST",
+                data: {
+                    Action: "ChangeDeviceInfo",
+                    DeviceId: deviceId,
+                    DeviceName: deviceName
+                },
+                success: function (result) {
+                    if (result.code == 0) {
+                        showMsg("设备信息更新成功!", function () { RefreshDeviceList(); });
+                    } else {
+                        showMsg(result.message, function () { });
+                    }
+                }
+            });
+        }
 
         function ChangeSensor(sensorid, deviceid, todeviceid) {
 
@@ -148,19 +194,22 @@
                 },
                 success: function (result) {
                     if (result.code == 0) {
-                        $("#messageInfo").text("传感器信息更新成功！");
-                        RefreshSensorList();
+                        //$("#messageInfo").text("传感器信息更新成功！");
+
+
+                        showMsg("传感器信息更新成功!", function () { RefreshSensorList(); });
                     } else {
-                        $("#messageInfo").text(result.message);
+                        //$("#messageInfo").text(result.message);
+
+                        showMsg(result.message, function () { });
                     }
-                    $("#messageModal").modal();
+                    //$("#messageModal").modal();
                 }
             });
         }
 
 
   </script>
-
 </head>
 <body>
     <form id="form1" runat="server">
@@ -556,6 +605,9 @@
                                                 <button id="btn_join" type="button" class="btn btn-app btn-success btn-xs" title="关联设备到生产线">
                                                     <span class="icon-check" aria-hidden="true"></span>关联
                                                 </button>
+                                                <button id="btn_editdevice" type="button" class="btn btn-app btn-primary btn-xs" data-toggle="modal" data-target="#deviceModal" title="编辑设备信息">
+                                                    <span class="icon-edit" aria-hidden="true"></span>编辑
+                                                </button>
                                                 <button id="btn_delete" type="button" class="btn btn-app btn-grey btn-xs" title="移除生产线设备">
                                                     <span class="icon-check-empty" aria-hidden="true"></span>移除
                                                 </button>
@@ -598,7 +650,7 @@
 
                         </div>
 
-                        
+
 
                     </div>
                     <!-- /.page-content -->
@@ -800,23 +852,70 @@
             </div>
         </div>
 
-        <!--模态框组件-->
-<div class="modal fade" id="messageModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-                <div class="modal-header">
-                    <h3>提示信息</h3>
-                </div>
-                <div class="modal-body">
-                    <h4 class="modal-title" style="color:red" id="messageInfo">错误信息</h4>
+        <div class="modal fade" id="deviceModal" tabindex="-1" role="dialog" aria-labelledby="deviceModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="deviceModalLabel">设备基础信息编辑</h4>
+                    </div>
+                    <div class="modal-body">
 
+                        <div class="form-group">
+                            <label for="txt_deviceid">设备编号</label>
+                            <input type="text" name="txt_deviceid" class="form-control" id="txt_deviceid" readonly="readonly" placeholder="设备编号" />
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_devicename">设备名称</label>
+                            <input type="text" name="txt_devicename" class="form-control" id="txt_devicename" placeholder="设备名称" />
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="icon-remove" aria-hidden="true"></span>关闭</button>
+                        <button type="button" id="btn_devicesubmit" class="btn btn-primary" data-dismiss="modal"><span class="icon-save" aria-hidden="true"></span>保存</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-info" data-dismiss="modal">关闭</button>
-                </div>
+            </div>
         </div>
-    </div>
-</div>
+
+        <!--模态框组件-->
+        <%--        <div class="modal fade" id="messageModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>提示信息</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4 class="modal-title" style="color: red" id="messageInfo">错误信息</h4>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-info" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>--%>
+
+        <div id="com-alert" class="modal" style="z-index: 9999; display: none;">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h5 class="modal-title"><i class="fa fa-exclamation-circle"></i>[Title]</h5>
+                    </div>
+                    <div class="modal-body small">
+                        <p>[Message]</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>
+                        <button type="button" class="btn btn-default cancel" data-dismiss="modal">[BtnCancel]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </form>
 </body>

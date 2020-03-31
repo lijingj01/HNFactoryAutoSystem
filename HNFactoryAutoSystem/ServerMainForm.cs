@@ -282,11 +282,14 @@ namespace HNFactoryAutoSystem
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string strText = "这是服务器发来的信息！";
-            //SendMessage(strText);
-            string strSensorId = "V0916";
-            DataHelper dataHelper = new DataHelper();
-            SensorInfo sensor = dataHelper.GetSensorInfo(strSensorId);
+            //string strText = "这是服务器发来的信息！";
+            ////SendMessage(strText);
+            //string strSensorId = "V0916";
+            //DataHelper dataHelper = new DataHelper();
+            //SensorInfo sensor = dataHelper.GetSensorInfo(strSensorId);
+
+            Form1 form1 = new Form1();
+            form1.Show();
 
         }
 

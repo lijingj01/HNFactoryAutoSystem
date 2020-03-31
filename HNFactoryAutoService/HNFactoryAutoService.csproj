@@ -35,6 +35,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -45,12 +48,27 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IService1.cs" />
+    <Compile Include="IPlcDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service1.cs" />
+    <Compile Include="PlcDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HNFactoryAutoSystem.Business\HNFactoryAutoSystem.Business.csproj">
+      <Project>{79e31422-5184-468b-8e1c-ab6ab111c6c4}</Project>
+      <Name>HNFactoryAutoSystem.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HNFactoryAutoSystem.Data\HNFactoryAutoSystem.Data.csproj">
+      <Project>{2dab3be9-c81a-469a-892e-f5510ae2b8eb}</Project>
+      <Name>HNFactoryAutoSystem.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HNFactoryAutoSystem.SysHelper\HNFactoryAutoSystem.SysHelper.csproj">
+      <Project>{0ae518fd-83a9-4525-9645-991c25eec7de}</Project>
+      <Name>HNFactoryAutoSystem.SysHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

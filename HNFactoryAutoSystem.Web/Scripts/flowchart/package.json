@@ -1,0 +1,43 @@
+{
+  "name": "jquery.flowchart",
+  "description": "JQuery UI plugin that allows you to draw a flow chart.",
+  "version": "1.1.0",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/sdrdis/jquery.flowchart/blob/master/MIT-LICENSE.txt"
+    }
+  ],
+  "title": "Flowchart",
+  "keywords": [
+    "flowchart",
+    "flow",
+    "chart",
+    "graph",
+    "ui",
+    "jquery-plugin",
+    "ecosystem:jquery"
+  ],
+  "author": "Sébastien Drouyer (http://sebastien.drouyer.com)",
+  "maintainers": [
+    "Sébastien Drouyer (http://sebastien.drouyer.com)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdrdis/jquery.flowchart.git"
+  },
+  "homepage": "http://sebastien.drouyer.com/jquery.flowchart-demo/",
+  "docs": "https://github.com/sdrdis/jquery.flowchart/",
+  "bugs": {
+    "url": "https://github.com/sdrdis/jquery.flowchart/issues"
+  },
+  "dependencies": {
+    "jquery": ">=1.10",
+    "jquery-ui": ">=1.11"
+  },
+  "main": "jquery.flowchart.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC"
+}

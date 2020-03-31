@@ -28,26 +28,33 @@ function LoadDeviceList(pcode) {
         success: function (json) {
             $("#tb_devicelist").bootstrapTable('load', json);
 
-            LoadDeviceSelect(json);
+            //刷新传感器列表
+            LoadSensorList("");
+            //LoadDeviceSelect(json);
         }
     });
 
 }
 
 function LoadSensorList(pcode) {
-    $.ajax({
-        type: "post",
-        url: ashxUrl,
-        data: {
-            DeviceId: pcode,
-            Action: "GetDeviceSensors"
-        },
-        dataType: "json",
-        success: function (json) {
-            $("#tb_sensorlist").bootstrapTable('load', json);
-        }
-    });
+    if (pcode != "") {
+        $.ajax({
+            type: "post",
+            url: ashxUrl,
+            data: {
+                DeviceId: pcode,
+                Action: "GetDeviceSensors"
+            },
+            dataType: "json",
+            success: function (json) {
+                $("#tb_sensorlist").bootstrapTable('load', json);
+            }
+        });
+    } else {
+        $("#tb_sensorlist").bootstrapTable('removeAll');
+    }
 }
+
 
 function RefreshSensorList() {
     //获取选择的设备
@@ -59,7 +66,42 @@ function RefreshSensorList() {
     }
 }
 
-//加载生产线上的设备集合来获取相应的列表
+function RefreshDeviceList() {
+    //获取选择的设备
+    var lines = $("#tb_linelist").bootstrapTable('getSelections');//获取选中行的数据
+    if (lines.length > 0) {
+        var line = lines[0];
+        var lineid = line.AssemblyLineId;
+        LoadDeviceList(lineid);
+
+    }
+}
+
+/**
+ * 加载工厂所有设备列表
+ * @param {any} pcode   工厂编号
+ */
+function LoadFactoryDevices(pcode) {
+    $.ajax({
+        type: "post",
+        url: ashxUrl,
+        data: {
+            FactoryId: pcode,
+            Action: "GetFactoryDevices"
+        },
+        dataType: "json",
+        success: function (json) {
+            LoadDeviceSelect(json);
+        }
+    });
+
+}
+
+
+/**
+ * 加载生产线上的设备集合来获取相应的列表
+ * @param {any} datas   数据集合
+ */
 function LoadDeviceSelect(datas) {
     var selectId = "sel-Device";
     CreateDeviceSelect(selectId, datas);

@@ -1,0 +1,44 @@
+﻿/*新界面设备位置*/
+
+/*干粉桶*/
+#flowchartWindow1 {
+	top: 2em;
+	left: 2em;
+}
+/*搅拌浸出釜*/
+#flowchartWindow2 {
+	top: 20em;
+	left: 40em;
+}
+/*斜板沉淀池*/
+#flowchartWindow3 {
+	top: 50em;
+	left: 80em;
+}
+/*浸出液存储罐*/
+#flowchartWindow4 {
+	top: 50em;
+	left: 105em;
+}
+
+/*浸出剂桶1*/
+#flowchartWindow5_1 {
+	top: 2em;
+	left: 80em;
+}
+/*浸出剂桶2*/
+#flowchartWindow5_2 {
+	top: 2em;
+	left: 105em;
+}
+
+/*净水桶*/
+#flowchartWindow9 {
+	top: 40em;
+	left: 2em;
+}
+/*热水桶*/
+#flowchartWindow7 {
+	top: 40em;
+	left: 30em;
+}

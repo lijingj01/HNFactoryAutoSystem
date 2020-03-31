@@ -590,6 +590,7 @@ namespace DataModels
 		[Column(),        Nullable] public string Parameter1      { get; set; } // varchar(100)
 		[Column(),        Nullable] public string Parameter2      { get; set; } // varchar(100)
 		[Column(),     NotNull    ] public string AssemblyLineId  { get; set; } // varchar(100)
+		[Column(),     NotNull    ] public string FactoryId       { get; set; } // varchar(100)
 	}
 
 	/// <summary>

@@ -312,6 +312,10 @@ namespace HNFactoryAutoSystem.Data
         /// 生产线编码
         /// </summary>
         public string AssemblyLineId { get; set; }
+        /// <summary>
+        /// 所在工厂编码
+        /// </summary>
+        public string FactoryId { get; set; }
 
         /// <summary>
         /// 设备类型说明
@@ -609,6 +613,10 @@ namespace HNFactoryAutoSystem.Data
         /// 工艺主流程说明
         /// </summary>
         public string ProcessTitle { get; set; }
+        #endregion
+
+        #region 扩展参数显示
+
         #endregion
 
         #region 构造函数

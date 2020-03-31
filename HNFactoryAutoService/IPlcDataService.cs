@@ -7,7 +7,7 @@ namespace HNFactoryAutoService
 {
     // 注意: 使用“重构”菜单上的“重命名”命令，可以同时更改代码和配置文件中的接口名“IService1”。
     [ServiceContract]
-    public interface IService1
+    public interface IPlcDataService
     {
         [OperationContract]
         string GetData(int value);
@@ -23,14 +23,22 @@ namespace HNFactoryAutoService
         UriTemplate = "GetStudentById/Id={Id}")]
         Student GetStudentById(string Id);
 
-
-
         [OperationContract]
         [WebInvoke(Method = "GET",
            RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json,
            UriTemplate = "GetStudentList")]
         IList<Student> GetStudentList();
+
+        #region 针对PLC数据的写入接口
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json,
+        UriTemplate = "RequestPlcDataToDB/strJsonText={strJsonText}")]
+        void RequestPlcDataToDB(string strJsonText);
+        #endregion
+
     }
 
     // 使用下面示例中说明的数据约定将复合类型添加到服务操作。

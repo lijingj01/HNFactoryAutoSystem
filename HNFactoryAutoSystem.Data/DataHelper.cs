@@ -133,7 +133,7 @@ namespace HNFactoryAutoSystem.Data
 
         #region 设备基础信息操作
         /// <summary>
-        /// 或是生产线上设备集合（简单数据）
+        /// 获取生产线上设备集合（简单数据）
         /// </summary>
         /// <param name="strAssemblyLineId"></param>
         /// <returns></returns>
@@ -148,6 +148,35 @@ namespace HNFactoryAutoSystem.Data
                     List<MySqlParameter> sqlParameters = new List<MySqlParameter>
                     {
                         new MySqlParameter("?AssemblyLineId", strAssemblyLineId)
+                    };
+                    DeviceInfo info = new DeviceInfo();
+
+                    CreateDataList<DeviceInfo>(infos, strSQL, sqlParameters, info, null);
+                }
+                return infos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 获取工厂所有生产线上设备集合（简单数据）
+        /// </summary>
+        /// <param name="strAssemblyLineId"></param>
+        /// <returns></returns>
+        public DeviceInfoCollection GetSmallFactoryDevices(string strFactoryId)
+        {
+            try
+            {
+                DeviceInfoCollection infos = new DeviceInfoCollection();
+                if (!string.IsNullOrEmpty(strFactoryId))
+                {
+                    string strSQL = "select *from v_assemblylinedevices where FactoryId=?FactoryId";
+                    List<MySqlParameter> sqlParameters = new List<MySqlParameter>
+                    {
+                        new MySqlParameter("?FactoryId", strFactoryId)
                     };
                     DeviceInfo info = new DeviceInfo();
 
@@ -196,6 +225,8 @@ namespace HNFactoryAutoSystem.Data
             }
         }
 
+
+
         /// <summary>
         /// 通过传感器得到对应的设备编号
         /// </summary>
@@ -219,6 +250,37 @@ namespace HNFactoryAutoSystem.Data
             catch
             {
                 throw;
+            }
+        }
+
+        /// <summary>
+        /// 更新设备信息
+        /// </summary>
+        /// <param name="device">设备内容</param>
+        /// <returns></returns>
+        public bool UpdateDeviceInfo(DeviceInfo device)
+        {
+            try
+            {
+                bool isUpdate = false;
+                using (DataModels.HnfactoryautodbDB dataContext = new DataModels.HnfactoryautodbDB())
+                {
+
+                    DataModels.FDeviceinfo deviceinfo = dataContext.FDeviceinfoes.SingleOrDefault(c => c.DeviceId == device.DeviceId);
+                    if(deviceinfo != null)
+                    {
+                        deviceinfo.DeviceName = device.DeviceName;
+
+                        dataContext.Update<DataModels.FDeviceinfo>(deviceinfo);
+                        isUpdate = true;
+                    }
+                }
+
+                return isUpdate;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         #endregion
@@ -298,7 +360,7 @@ namespace HNFactoryAutoSystem.Data
                 using (DataModels.HnfactoryautodbDB dataContext = new DataModels.HnfactoryautodbDB())
                 {
                     DataModels.FSensorinfo sensor = dataContext.FSensorinfoes.SingleOrDefault(c => c.SensorId == strSensorId);
-                    if(sensor != null)
+                    if (sensor != null)
                     {
                         sensor.DeviceId = strDeviceId;
                         sensor.ToDeviceId = strToDeviceId;

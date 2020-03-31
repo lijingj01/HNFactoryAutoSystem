@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>  
+<html>  
+<head>  
+<meta charset="UTF-8">  
+<title>Text</title>  
+<script type="text/javascript">  
+ window.onload = function(){
+  
+  arrow2("myCanvas",0,0,0,0,300,100)
+  arrow2("myCanvas",0,0,200,200,150,150)
+  arrow2("myCanvas",0,0,20,200,150,150)
+  arrow2("myCanvas",0,0,100,0,50,100)
+  arrow2("myCanvas",0,0,0,100,300,100)
+}
+function arrow2(canId,ox,oy,x1,y1,x2,y2)
+{
+//参数说明 canvas的 id ，原点坐标  第一个端点的坐标，第二个端点的坐标
+  var sta = new Array(x1,y1);
+  var end = new Array(x2,y2);
+ 
+  var canvas = document.getElementById(canId);
+  if(canvas == null)return false;
+  var ctx = canvas.getContext('2d');
+  //画线 
+  ctx.beginPath(); 
+  ctx.translate(ox,oy,0); //坐标源点 
+  ctx.moveTo(sta[0],sta[1]); 
+  ctx.lineTo(end[0],end[1]); 
+  ctx.fill();
+  ctx.stroke(); 
+  ctx.save();
+ 
+ 
+   
+  //画箭头 
+  ctx.translate(end[0],end[1]);
+  //我的箭头本垂直向下，算出直线偏离Y的角，然后旋转 ,rotate是顺时针旋转的，所以加个负号
+  var ang=(end[0]-sta[0])/(end[1]-sta[1]);
+  ang=Math.atan(ang);
+  if(end[1]-sta[1] >= 0){
+	ctx.rotate(-ang);
+  }else{
+	ctx.rotate(Math.PI-ang);//加个180度，反过来
+  } 
+  ctx.lineTo(-5,-10); 
+  ctx.lineTo(0,-5); 
+  ctx.lineTo(5,-10); 
+  ctx.lineTo(0,0); 
+  ctx.fill(); //箭头是个封闭图形
+  ctx.restore();   //恢复到堆的上一个状态，其实这里没什么用。
+  ctx.closePath(); 
+}
+</script>  
+<style type="text/css">  
+    canvas{border:#ccc solid 1px;}  
+</style>  
+</head>  
+<body>  
+	 <canvas id="myCanvas" width="500" height="300"></canvas>  
+</body>  
+</html> 
+————————————————
+版权声明：本文为CSDN博主「kongjiea」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/kongjiea/article/details/23600009

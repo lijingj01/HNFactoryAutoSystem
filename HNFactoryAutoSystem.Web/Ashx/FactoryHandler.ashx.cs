@@ -34,11 +34,52 @@ namespace HNFactoryAutoSystem.Web.Ashx
                     //更新传感器的关联信息
                     strReturnJson = ChangeSensorJoin(context);
                     break;
+                case "ChangeDeviceInfo":
+                    //更新设备信息
+                    strReturnJson = ChangeDeviceInfo(context);
+                    break;
+                case "GetFactoryDevices":
+                    //获取工厂所有设备集合
+                    strReturnJson = GetFactoryDevices(context);
+                    break;
                 default: break;
             }
 
 
             context.Response.Write(strReturnJson);
+        }
+
+        private string GetFactoryDevices(HttpContext context)
+        {
+            string strJson = string.Empty;
+            string strFactoryId = context.Request.Params["FactoryId"];
+            Data.DataHelper dataHelper = new Data.DataHelper();
+            Data.DeviceInfoCollection items = dataHelper.GetSmallFactoryDevices(strFactoryId);
+            strJson = items.ToJsonString();
+
+            return strJson;
+        }
+
+        private string ChangeDeviceInfo(HttpContext context)
+        {
+            string strDeviceId = context.Request.Params["DeviceId"];
+            string strDeviceName = context.Request.Params["DeviceName"];
+
+            Data.DeviceInfo device = new Data.DeviceInfo() { DeviceId = strDeviceId, DeviceName = strDeviceName };
+
+            Data.DataHelper dataHelper = new Data.DataHelper();
+
+            Data.Result<Data.DeviceInfo> result;
+            bool isUpdate = dataHelper.UpdateDeviceInfo(device);
+            if (isUpdate)
+            {
+                result = Data.ResultUtil.Success<Data.DeviceInfo>(device);
+            }
+            else
+            {
+                result = Data.ResultUtil.SystemError<Data.DeviceInfo>(device);
+            }
+            return result.ToJsonString();
         }
 
         private string ChangeSensorJoin(HttpContext context)
