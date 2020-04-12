@@ -517,6 +517,50 @@ namespace HNFactoryAutoSystem.SysHelper.Enums
         Fault = 4
     }
     /// <summary>
+    /// 搅拌电机状态值
+    /// </summary>
+    public enum MotorStatusEnum
+    {
+        /// <summary>
+        /// 无动作
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// 设备停止
+        /// </summary>
+        Stop = 1,
+        /// <summary>
+        /// 设备运行
+        /// </summary>
+        Run = 2,
+        /// <summary>
+        /// 设备故障
+        /// </summary>
+        Fault = 3
+    }
+    /// <summary>
+    /// 螺旋输送机状态值
+    /// </summary>
+    public enum ScrewStatusEnum
+    {
+        /// <summary>
+        /// 无动作
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// 设备停止
+        /// </summary>
+        Stop = 1,
+        /// <summary>
+        /// 设备运行
+        /// </summary>
+        Run = 2,
+        /// <summary>
+        /// 设备故障
+        /// </summary>
+        Fault = 3
+    }
+    /// <summary>
     /// 过程值状态
     /// </summary>
     public enum NumberValueEnum

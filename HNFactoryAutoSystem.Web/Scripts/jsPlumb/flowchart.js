@@ -1,13 +1,37 @@
 ﻿var instance;
 
+//左上连接口
+var TL = "TopLeft";
+//上中连接口
+var TC = "TopCenter";
+//右上连接口
+var TR = "TopRight";
+//左中连接口
+var LM = "LeftMiddle";
+//右中连接口
+var RM = "RightMiddle";
+//左下连接口
+var BL = "BottomLeft";
+//下中连接口
+var BC = "BottomCenter";
+//右下连接口
+var BR = "BottomRight";
+
 //设备启动后连线的样式
-var derviceSelectConnectorStyle = {
-        strokeWidth: 4,
-        stroke: "blue",
-        outlineWidth: 5,
-        outlineStroke: "white"
-    }
+
 jsPlumb.ready(function () {
+
+    //,
+    //["Label", {
+    //    location: 0.5,
+    //    id: "label",
+    //    cssClass: "aLabel",
+    //    events: {
+    //        tap: function () {
+    //            //alert("hey");
+    //        }
+    //    }
+    //}]
 
     instance = window.jsp = jsPlumb.getInstance({
         // default drag options
@@ -22,37 +46,43 @@ jsPlumb.ready(function () {
                 length: 11,
                 id: "ARROW",
                 events: {
-                    click: function () { alert("you clicked on the arrow overlay"); }
-                }
-            }],
-            ["Label", {
-                location: 0.1,
-                id: "label",
-                cssClass: "aLabel",
-                events: {
-                    tap: function () { alert("hey"); }
+                    click: function () {
+                        //alert("you clicked on the arrow overlay");
+                    }
                 }
             }]
         ],
         Container: "canvas"
     });
 
+    //var basicType = {
+    //    connector: "StateMachine",
+    //    paintStyle: { stroke: "red", strokeWidth: 4 },
+    //    hoverPaintStyle: { stroke: "blue" },
+    //    overlays: [
+    //        "Arrow"
+    //    ]
+    //};
     var basicType = {
-        connector: "StateMachine",
-        paintStyle: { stroke: "red", strokeWidth: 4 },
-        hoverPaintStyle: { stroke: "blue" },
-        overlays: [
-            "Arrow"
-        ]
+        strokeWidth: 2,
+        stroke: "#61B7CF",
+        outlineWidth: 2,
+        outlineStroke: "white"
     };
+    var derviceSelectConnectorStyle = {
+        strokeWidth: 4,
+        stroke: "green",
+        outlineWidth: 5,
+        outlineStroke: "white"
+    }
 
     //instance.registerConnectionType("derviceSelect", derviceSelectConnectorStyle);
     instance.registerConnectionTypes({
         "basic": {
-            paintStyle: { stroke: "#61B7CF", strokeWidth: 2 }
+            paintStyle: basicType
         },
         "derviceSelect": {
-            paintStyle: { stroke: "red", strokeWidth: 5 }
+            paintStyle: derviceSelectConnectorStyle
         }
     });
 
@@ -81,11 +111,12 @@ jsPlumb.ready(function () {
             paintStyle: {
                 stroke: "#7AB02C",
                 fill: "transparent",
-                radius: 5,
+                radius: 3,
                 strokeWidth: 1
             },
             isSource: true,
-            connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],
+            connector: ["Flowchart", { stub: [15, 20], gap: 0, cornerRadius: 3, alwaysRespectStubs: true }],
+            //connector: ["Straight", { stub: [15, 20], gap: 0, cornerRadius: 3, alwaysRespectStubs: true }],
             connectorStyle: connectorPaintStyle,
             hoverPaintStyle: endpointHoverStyle,
             connectorHoverStyle: connectorHoverStyle,
@@ -102,7 +133,7 @@ jsPlumb.ready(function () {
         // the definition of target endpoints (will appear when the user drags a connection)
         targetEndpoint = {
             endpoint: "Dot",
-            paintStyle: { fill: "#7AB02C", radius: 5 },
+            paintStyle: { fill: "#7AB02C", radius: 3 },
             hoverPaintStyle: endpointHoverStyle,
             maxConnections: -1,
             dropOptions: { hoverClass: "hover", activeClass: "active" },
@@ -148,6 +179,8 @@ jsPlumb.ready(function () {
 
         // make all the window divs draggable
         instance.draggable(jsPlumb.getSelector(".flowchart-assline .window"), { grid: [20, 20] });
+        instance.draggable(jsPlumb.getSelector(".flowchart-assline .pump"), { grid: [20, 20] });
+        instance.draggable(jsPlumb.getSelector(".flowchart-assline .valve"), { grid: [20, 20] });
         // THIS DEMO ONLY USES getSelector FOR CONVENIENCE. Use your library's appropriate selector
         // method, or document.querySelectorAll:
         jsPlumb.draggable(document.querySelectorAll(".window"), { grid: [20, 20] });
@@ -158,10 +191,6 @@ jsPlumb.ready(function () {
         OneLinkDeviceConnect(instance);
         TwoLinkDeviceConnect(instance);
         ThreeLinkDeviceConnect(instance);
-        //instance.connect({ uuids: ["Window5_1BottomCenter", "Window2TopRight"] });
-        //instance.connect({ uuids: ["Window2BottomRight", "Window3LeftMiddle"] });
-        //instance.connect({ uuids: ["Window3RightMiddle", "Window4LeftMiddle"] });
-
 
         //
         // listen for clicks on connections, and offer to delete connections on click.
@@ -201,7 +230,7 @@ function OneLinkDeviceConnect(instance) {
     LoadConnect(instance, "Pump0911", "RightMiddle", "Window2", "LeftMiddle");
     //净水桶到泵到阀门到热水桶
     LoadConnect(instance, "Window9", "BottomCenter", "Pump0912", "TopCenter");
-    LoadConnect(instance, "Pump0912", "RightMiddle", "V0916", "LeftMiddle");
+    LoadConnect(instance, "Pump0912", TR, "V0916", LM);
     LoadConnect(instance, "V0916", "RightMiddle", "Window7", "LeftMiddle");
     //热水桶到阀门到泵到阀门到搅拌浸出釜
     LoadConnect(instance, "Window7", "BottomCenter", "V0717", "TopCenter");
@@ -249,23 +278,60 @@ function TwoLinkDeviceConnect(instance) {
     LoadConnect(instance, "MOT1010", "BottomCenter", "Window10", "TopCenter");
     //氨水桶到泵到阀门到搅拌反应釜
     LoadConnect(instance, "Window11_1", "BottomCenter", "Pump1111", "TopCenter");
-    LoadConnect(instance, "Pump1111", "BottomCenter", "V1014", "TopCenter");
+    LoadConnect(instance, "Pump1111", "LeftMiddle", "V1014", "TopCenter");
     LoadConnect(instance, "V1014", "BottomCenter", "Window10", "TopRight");
     //搅拌反应釜到阀门到泵到斜板沉淀池
     LoadConnect(instance, "Window10", "BottomCenter", "V1016", "TopCenter");
-    LoadConnect(instance, "V1016", "RightMiddle", "Pump1011", "LeftMiddle");
+    LoadConnect(instance, "V1016", "RightMiddle", "Pump1011", "BottomCenter");
     LoadConnect(instance, "Pump1011", "TopCenter", "Window15", "LeftMiddle");
     //搅拌电机到斜板沉淀池
     LoadConnect(instance, "MOT1511", "BottomCenter", "Window15", "TopCenter");
     //斜板沉淀池到净化液储存罐
-    LoadConnect(instance, "Window15", "RightMiddle", "Window16", "TopCenter");
+    LoadConnect(instance, "Window15", "RightMiddle", "Window16", "TopRight");
 }
 /**
  * 对第三环节的设备进行连接
  * @param {jsPlumb.getInstance} instance 环节连接器
  */
 function ThreeLinkDeviceConnect(instance) {
+    //净水桶到阀门到泵到配料反应釜
+    LoadConnect(instance, "Pump0912", "BottomCenter", "V0917", "TopCenter");
+    LoadConnect(instance, "V0917", "RightMiddle", "Window19", "TopLeft");
+    //18-1/2/3粉料桶到配料反应釜
+    LoadConnect(instance, "Window18-1", "TopCenter", "Window19", "LeftMiddle");
+    LoadConnect(instance, "Window18-2", "TopCenter", "Window19", "LeftMiddle");
+    LoadConnect(instance, "Window18-3", "TopCenter", "Window19", "LeftMiddle");
+    //搅拌电机到配料反应釜
+    LoadConnect(instance, "MOT1910", "BottomCenter", "Window19", "TopCenter");
+    //配料反应釜到阀门到泵到溶液储存桶
+    LoadConnect(instance, "Window19", "BottomCenter", "V1917", "BottomCenter");
+    LoadConnect(instance, "V1917", "TopCenter", "Pump1911", "BottomCenter");
+    LoadConnect(instance, "Pump1911", RM, "Window20", TC);
+    //溶液储存桶到泵到置换反应釜
+    LoadConnect(instance, "Window20", BC, "Pump2011", LM);
+    LoadConnect(instance, "Pump2011", BC, "Window17", BL);
 
+    //净化液到泵到阀门到置换反应釜
+    LoadConnect(instance, "Window16", "RightMiddle", "Pump1611", "TopCenter");
+    LoadConnect(instance, "Pump1611", "BottomCenter", "V1715", "TopCenter");
+    LoadConnect(instance, "V1715", "BottomCenter", "Window17", "TopRight");
+    //搅拌电机到置换反应釜
+    LoadConnect(instance, "MOT1710", "BottomCenter", "Window17", "TopCenter");
+    //置换反应釜到阀门到泵到22斜板沉淀池
+    LoadConnect(instance, "Window17", "TopLeft", "V1716", "TopCenter");
+    LoadConnect(instance, "V1716", "BottomCenter", "Pump1711", "TopCenter");
+    LoadConnect(instance, "Pump1711", "BottomCenter", "Window22", "RightMiddle");
+    //22斜板沉淀池到阀门到泵到33斜板沉淀池
+    LoadConnect(instance, "Window22", "LeftMiddle", "V2217", "LeftMiddle");
+    LoadConnect(instance, "V2217", "RightMiddle", "Pump2212", "BottomCenter");
+    LoadConnect(instance, "Pump2212", "RightMiddle", "Window33", "RightMiddle");
+    //纯水桶到泵到阀门到33斜板沉淀池
+    LoadConnect(instance, "Pump0912", RM, "V0914", LM);
+    LoadConnect(instance, "V0914", RM, "Window33", LM);
+    //33斜板沉淀池到阀门到泵到焙烧炉
+    LoadConnect(instance, "Window33", BC, "V3317", RM);
+    LoadConnect(instance, "V3317", BC, "Pump3312", RM);
+    LoadConnect(instance, "Pump3312", BC, "Window100", TC);
 }
 
 /**
@@ -291,7 +357,7 @@ function CreateOneDevice(_addEndpoints) {
     //泵和阀门设置
     _addEndpoints("SC0111", ["TopCenter"], ["RightMiddle"]);
     _addEndpoints("Pump0911", ["BottomCenter"], ["RightMiddle"]);
-    _addEndpoints("Pump0912", ["TopCenter"], ["RightMiddle"]);
+    _addEndpoints("Pump0912", ["TopCenter"], [TR, RM, BC]);
     _addEndpoints("V0916", ["LeftMiddle"], ["RightMiddle"]);
     _addEndpoints("V0717", ["TopCenter"], ["RightMiddle"]);
     _addEndpoints("Pump0711", ["LeftMiddle"], ["TopCenter"]);
@@ -323,7 +389,7 @@ function CreateTwoDevice(_addEndpoints) {
     //斜板沉淀池
     _addEndpoints("Window15", ["LeftMiddle", "TopCenter"], ["RightMiddle", "BottomCenter"]);
     //净化液储存桶
-    _addEndpoints("Window16", ["TopCenter","LeftMiddle"], ["RightMiddle"]);
+    _addEndpoints("Window16", ["TopRight", "LeftMiddle"], ["RightMiddle"]);
 
     //泵和阀门
     _addEndpoints("Pump0411", ["LeftMiddle"], ["BottomCenter"]);
@@ -332,9 +398,9 @@ function CreateTwoDevice(_addEndpoints) {
     _addEndpoints("SC3211", ["LeftMiddle"], ["RightMiddle"]);
     _addEndpoints("MOT1010", ["TopCenter"], ["BottomCenter"]);
     _addEndpoints("V1015", ["TopCenter"], ["BottomCenter"]);
-    _addEndpoints("Pump1111", ["TopCenter"], ["BottomCenter"]);
+    _addEndpoints("Pump1111", ["TopCenter"], ["LeftMiddle"]);
     _addEndpoints("V1014", ["TopCenter"], ["BottomCenter"]);
-    _addEndpoints("Pump1011", ["LeftMiddle"], ["TopCenter"]);
+    _addEndpoints("Pump1011", ["BottomCenter"], ["TopCenter"]);
     _addEndpoints("V1016", ["TopCenter"], ["RightMiddle"]);
     _addEndpoints("MOT1511", ["TopCenter"], ["BottomCenter"]);
 }
@@ -343,6 +409,48 @@ function CreateTwoDevice(_addEndpoints) {
  * @param {object} _addEndpoints 设备构建器
  */
 function CreateThreeDevice(_addEndpoints) {
+    //配料反应釜
+    _addEndpoints("Window19", ["LeftMiddle", "TopLeft", "TopCenter"], ["BottomCenter"]);
+    //18#-1粉料
+    _addEndpoints("Window18-1", ["BottomCenter"], ["TopCenter"]);
+    //18#-2粉料
+    _addEndpoints("Window18-2", ["BottomCenter"], ["TopCenter"]);
+    //18#-3粉料
+    _addEndpoints("Window18-3", ["BottomCenter"], ["TopCenter"]);
+    //溶液储存桶
+    _addEndpoints("Window20", ["TopCenter"], ["BottomCenter"]);
+    //置换反应釜
+    _addEndpoints("Window17", [TR, TC,BL], [BC, TL]);
+    //22斜板沉淀池
+    _addEndpoints("Window22", ["RightMiddle"], ["LeftMiddle"]);
+    //33斜板沉淀池
+    _addEndpoints("Window33", ["RightMiddle", "LeftMiddle"], ["BottomCenter"]);
+    //焙烧炉
+    _addEndpoints("Window100", [TC], [BC]);
+
+    //泵和阀门
+    _addEndpoints("V0917", ["TopCenter"], ["RightMiddle"]);
+    _addEndpoints("V1917", ["BottomCenter"], ["TopCenter"]);
+    _addEndpoints("Pump1911", ["BottomCenter"], [RM]);
+    _addEndpoints("Pump2011", [LM], [BC]);
+    _addEndpoints("MOT1910", ["TopCenter"], ["BottomCenter"]);
+    _addEndpoints("Pump1611", ["TopCenter"], ["BottomCenter"]);
+    _addEndpoints("V1715", ["TopCenter"], ["BottomCenter"]);
+    _addEndpoints("MOT1710", ["TopCenter"], ["BottomCenter"]);
+    _addEndpoints("V1716", ["TopCenter"], ["BottomCenter"]);
+    _addEndpoints("Pump1711", ["TopCenter"], ["BottomCenter"]);
+    _addEndpoints("V2217", ["LeftMiddle"], ["RightMiddle"]);
+    _addEndpoints("Pump2212", ["BottomCenter"], ["RightMiddle"]);
+    _addEndpoints("V0914", [LM], [RM]);
+    _addEndpoints("V3317", [RM], [BC]);
+    _addEndpoints("Pump3312", [RM], [BC]);
+    //_addEndpoints("V1015", ["TopCenter"], ["BottomCenter"]);
+    
+    //_addEndpoints("V1014", ["TopCenter"], ["BottomCenter"]);
+    //_addEndpoints("Pump1011", ["LeftMiddle"], ["TopCenter"]);
+    //_addEndpoints("V1016", ["TopCenter"], ["RightMiddle"]);
+    //_addEndpoints("MOT1511", ["TopCenter"], ["BottomCenter"]);
+
 
 }
 
@@ -363,12 +471,15 @@ function SelDeviceConnect(deviceId) {
     // 获取JsPlumb对象内所有线数据
     var connections = instance.getAllConnections();
     for (var i in connections) {
+        var connection = connections[i];
         // connections 是线数据数组
-        var sourceId = connections[i].sourceId;    // 线的起始html元素的ID
-        var targetId = connections[i].targetId;    // 线的目标html元素的ID
+        var sourceId = connection.sourceId;    // 线的起始html元素的ID
+        var targetId = connection.targetId;    // 线的目标html元素的ID
         if (sourceId == deviceId || targetId == deviceId) {
             //connections[i].connectorStyle = derviceSelectConnectorStyle;
-            connections[i].toggleType("derviceSelect");
+            if (connection._jsPlumb.paintStyle.stroke != "green") {
+                connection.toggleType("derviceSelect");
+            }
         }
 
         //connections[i].endpoints;    // 线的端点 有起始端点和目标端点 endpoints是一个数组
@@ -382,12 +493,15 @@ function UnSelDeviceConnect(deviceId) {
     // 获取JsPlumb对象内所有线数据
     var connections = instance.getAllConnections();
     for (var i in connections) {
+        var connection = connections[i];
         // connections 是线数据数组
-        var sourceId = connections[i].sourceId;    // 线的起始html元素的ID
-        var targetId = connections[i].targetId;    // 线的目标html元素的ID
+        var sourceId = connection.sourceId;    // 线的起始html元素的ID
+        var targetId = connection.targetId;    // 线的目标html元素的ID
         if (sourceId == deviceId || targetId == deviceId) {
             //connections[i].connectorStyle = derviceSelectConnectorStyle;
-            connections[i].toggleType("basic");
+            if (connection._jsPlumb.paintStyle.stroke == "green") {
+                connection.toggleType("basic");
+            }
         }
 
         //connections[i].endpoints;    // 线的端点 有起始端点和目标端点 endpoints是一个数组

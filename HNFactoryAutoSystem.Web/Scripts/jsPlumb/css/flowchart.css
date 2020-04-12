@@ -7,8 +7,8 @@
 	border: 0px solid #346789;
 	border-radius: 0.5em;
 	opacity: 0.8;
-	width: 150px;
-	height: 180px;
+	width: 12em;
+	height: 14em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -17,6 +17,7 @@
 	z-index: 20;
 	position: absolute;
 	color: black;
+	font-weight:bold
 	font-family: helvetica, sans-serif;
 	padding: 0.5em;
 	font-size: 0.9em;
@@ -28,15 +29,10 @@
 /*泵*/
 .flowchart-assline .pump {
 	border: 0px solid #346789;
-	box-shadow: 2px 2px 19px #aaa;
-	-o-box-shadow: 2px 2px 19px #aaa;
-	-webkit-box-shadow: 2px 2px 19px #aaa;
-	-moz-box-shadow: 2px 2px 19px #aaa;
-	-moz-border-radius: 0.5em;
 	border-radius: 0.5em;
 	opacity: 0.8;
-	width: 60px;
-	height: 65px;
+	width: 5em;
+	height: 5.1em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -44,10 +40,9 @@
 	text-align: center;
 	z-index: 20;
 	position: absolute;
-	background-color: #eeeeef;
-	color:aqua;
+	color: black;
 	font-family: helvetica, sans-serif;
-	padding: 0.5em;
+	padding: 0.1em;
 	font-size: 0.9em;
 	-webkit-transition: -webkit-box-shadow 0.15s ease-in;
 	-moz-transition: -moz-box-shadow 0.15s ease-in;
@@ -55,17 +50,12 @@
 	transition: box-shadow 0.15s ease-in;
 }
 /*螺旋输送机*/
-.flowchart-assline .sc{
+.flowchart-assline .sc {
 	border: 0px solid #346789;
-	box-shadow: 2px 2px 19px #aaa;
-	-o-box-shadow: 2px 2px 19px #aaa;
-	-webkit-box-shadow: 2px 2px 19px #aaa;
-	-moz-box-shadow: 2px 2px 19px #aaa;
-	-moz-border-radius: 0.5em;
 	border-radius: 0.5em;
 	opacity: 0.8;
-	width: 60px;
-	height: 65px;
+	width: 5em;
+	height: 5.1em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -73,10 +63,9 @@
 	text-align: center;
 	z-index: 20;
 	position: absolute;
-	background-color: #eeeeef;
-	color:chartreuse;
+	color: black;
 	font-family: helvetica, sans-serif;
-	padding: 0.5em;
+	padding: 0.1em;
 	font-size: 0.9em;
 	-webkit-transition: -webkit-box-shadow 0.15s ease-in;
 	-moz-transition: -moz-box-shadow 0.15s ease-in;
@@ -86,15 +75,10 @@
 /*阀门*/
 .flowchart-assline .valve {
 	border: 0px solid #346789;
-	box-shadow: 2px 2px 19px #aaa;
-	-o-box-shadow: 2px 2px 19px #aaa;
-	-webkit-box-shadow: 2px 2px 19px #aaa;
-	-moz-box-shadow: 2px 2px 19px #aaa;
-	-moz-border-radius: 0.5em;
 	border-radius: 0.5em;
 	opacity: 0.8;
-	width: 60px;
-	height: 65px;
+	width: 5em;
+	height: 5.1em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -102,10 +86,9 @@
 	text-align: center;
 	z-index: 20;
 	position: absolute;
-	background-color: #eeeeef;
-	color: blue;
+	color: black;
 	font-family: helvetica, sans-serif;
-	padding: 0.5em;
+	padding: 0.1em;
 	font-size: 0.9em;
 	-webkit-transition: -webkit-box-shadow 0.15s ease-in;
 	-moz-transition: -moz-box-shadow 0.15s ease-in;
@@ -115,15 +98,10 @@
 /*搅拌电机*/
 .flowchart-assline .mot {
 	border: 0px solid #346789;
-	box-shadow: 2px 2px 19px #aaa;
-	-o-box-shadow: 2px 2px 19px #aaa;
-	-webkit-box-shadow: 2px 2px 19px #aaa;
-	-moz-box-shadow: 2px 2px 19px #aaa;
-	-moz-border-radius: 0.5em;
 	border-radius: 0.5em;
 	opacity: 0.8;
-	width: 60px;
-	height: 95px;
+	width: 6.1em;
+	height: 7em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -131,10 +109,9 @@
 	text-align: center;
 	z-index: 20;
 	position: absolute;
-	background-color: #eeeeef;
-	color:  darkgoldenrod;
+	color: black;
 	font-family: helvetica, sans-serif;
-	padding: 0.5em;
+	padding: 0.1em;
 	font-size: 0.9em;
 	-webkit-transition: -webkit-box-shadow 0.15s ease-in;
 	-moz-transition: -moz-box-shadow 0.15s ease-in;
@@ -145,47 +122,43 @@
 /*阀门关闭*/
 .valvedivclose {
 	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/valve.png);
+	height: 3.5em;
+	background-image: url(../../../img/valveclose.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
-	-moz-background-size: 100% 100%;
 }
 /*阀门打开*/
 .valvedivopen {
 	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/valve.png);
+	height: 3.5em;
+	background-image: url(../../../img/valveopen.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-color: greenyellow;
 }
 /*阀门故障*/
 .valvedivbug {
 	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/valve.png);
+	height: 3.5em;
+	background-image: url(../../../img/valvebug.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-color:red;
 }
 /*阀门无数据*/
 .valvedivnone {
 	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/valve.png);
+	height: 3.5em;
+	background-image: url(../../../img/valvenone.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-color:dimgray;
 }
 /*泵关闭*/
 .pumpdivstop {
 	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/pump.png);
+	height: 3.5em;
+	background-image: url(../../../img/pumpstop.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
@@ -193,77 +166,79 @@
 /*泵运行*/
 .pumpdivrun {
 	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/pump.png);
+	height: 3.5em;
+	background-image: url(../../../img/pumprun.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-color: greenyellow;
 }
 /*泵故障*/
 .pumpdivbug {
 	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/pump.png);
+	height: 3.5em;
+	background-image: url(../../../img/pumpbug.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-color: red;
 }
 /*泵无数据*/
 .pumpdivnone {
 	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/pump.png);
+	height: 3.5em;
+	background-image: url(../../../img/pumpnone.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-color: dimgray;
 }
 /*搅拌电机关闭*/
 .motdivstop {
-	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/mot.png);
+	width: 3.5em;
+	height: 3.5em;
+	background-image: url(../../../img/motstop.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
+	transform: rotate(-270deg);
+	margin-left:1em;
 }
 /*搅拌电机启动*/
 .motdivrun {
-	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/mot.png);
+	width: 3.5em;
+	height: 3.5em;
+	background-image: url(../../../img/motrun.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-color: greenyellow;
+	transform: rotate(-270deg);
+	margin-left: 1em;
 }
 /*搅拌电机故障*/
 .motdivbug {
-	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/mot.png);
+	width: 3.5em;
+	height: 3.5em;
+	background-image: url(../../../img/motbug.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-color: red;
+	transform: rotate(-270deg);
+	margin-left: 1em;
 }
 /*搅拌电机无数据*/
 .motdivnone {
-	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/mot.png);
+	width: 3.5em;
+	height: 3.5em;
+	background-image: url(../../../img/motnone.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-color: dimgray;
+	transform: rotate(-270deg);
+	margin-left: 1em;
 }
 /*螺旋输送机关闭*/
 .scdivstop {
 	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/sc.png);
+	height: 3.5em;
+	background-image: url(../../../img/scstop.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
@@ -271,32 +246,29 @@
 /*螺旋输送机运行*/
 .scdivrun {
 	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/sc.png);
+	height: 3.5em;
+	background-image: url(../../../img/scrun.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-color: greenyellow;
 }
 /*螺旋输送机故障*/
 .scdivbug {
 	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/sc.png);
+	height: 3.5em;
+	background-image: url(../../../img/scbug.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-color: red;
 }
 /*螺旋输送机无数据*/
 .scdivnone {
 	width: 100%;
-	height: 35px;
-	background-image: url(../../../img/sc.png);
+	height: 3.5em;
+	background-image: url(../../../img/scnone.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-color: dimgray;
 }
 
 .flowchart-assline .window:hover {

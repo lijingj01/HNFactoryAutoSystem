@@ -37,12 +37,14 @@ body {
 
 .jtk-assline-main {
     position: relative;
-    margin-top: 20px;
+    margin-top: 10px;
+    overflow-x: visible;
+    overflow-y:visible;
 }
 
     .jtk-assline-main .description {
         font-size: 13px;
-        margin-top: 25px;
+        margin-top: 40px;
         padding: 13px;
         margin-bottom: 22px;
         background-color: #f4f5ef;
@@ -53,7 +55,7 @@ body {
         }
 
 .jtk-assline-canvas {
-    height: 1100px;
+    height: 1060px;
     max-height: 1200px;
     border: 1px solid #CCC;
     background-color: white;

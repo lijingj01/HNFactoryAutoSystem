@@ -52,6 +52,16 @@ namespace HNFactoryAutoSystem.Business
                         SysHelper.Enums.ValveStatusEnum valveStatus = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.ValveStatusEnum>(iSensorStatusValue);
                         strSensorStatus = Enum.GetName(valveStatus.GetType(), valveStatus);
                         break;
+                    case "MotorStatus":
+                        //搅拌电机状态
+                        SysHelper.Enums.MotorStatusEnum motorStatus = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.MotorStatusEnum>(iSensorStatusValue);
+                        strSensorStatus = Enum.GetName(motorStatus.GetType(), motorStatus);
+                        break;
+                    case "ScrewStatus":
+                        //螺旋输送机状态
+                        SysHelper.Enums.ScrewStatusEnum screwStatus = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.ScrewStatusEnum>(iSensorStatusValue);
+                        strSensorStatus = Enum.GetName(screwStatus.GetType(), screwStatus);
+                        break;
                     default: break;
                 }
                 SysHelper.Enums.SenserStatusType statusType = SysHelper.Enums.EnumHelper.Parse<SysHelper.Enums.SenserStatusType>(strSensorStatus);

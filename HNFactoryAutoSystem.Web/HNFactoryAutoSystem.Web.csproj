@@ -145,9 +145,25 @@
     <Content Include="img\jiaobanfull.png" />
     <Content Include="img\liquidbox.png" />
     <Content Include="img\mot.png" />
+    <Content Include="img\motbug.png" />
+    <Content Include="img\motnone.png" />
+    <Content Include="img\motrun.png" />
+    <Content Include="img\motstop.png" />
     <Content Include="img\pump.png" />
+    <Content Include="img\pumpbug.png" />
+    <Content Include="img\pumpnone.png" />
+    <Content Include="img\pumprun.png" />
+    <Content Include="img\pumpstop.png" />
     <Content Include="img\sc.png" />
+    <Content Include="img\scbug.png" />
+    <Content Include="img\scnone.png" />
+    <Content Include="img\scrun.png" />
+    <Content Include="img\scstop.png" />
     <Content Include="img\valve.png" />
+    <Content Include="img\valvebug.png" />
+    <Content Include="img\valveclose.png" />
+    <Content Include="img\valvenone.png" />
+    <Content Include="img\valveopen.png" />
     <Content Include="img\waterbox.png" />
     <Content Include="LineView.aspx" />
     <Content Include="ProcessManage.aspx" />
@@ -870,6 +886,10 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Ashx\FactoryHandler.ashx" />
     <Content Include="Ashx\FactoryProduceHandler.ashx" />
+    <Content Include="Scripts\datewidget\index.html" />
+    <Content Include="Scripts\datewidget\timescript.js" />
+    <Content Include="Scripts\datewidget\timestyle.css" />
+    <Content Include="WebForm1.aspx" />
     <None Include="Properties\PublishProfiles\LocalSiteProfile.pubxml" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -1155,6 +1175,13 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
